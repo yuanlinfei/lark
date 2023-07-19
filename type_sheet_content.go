@@ -71,9 +71,10 @@ type SheetValueLink struct {
 
 // 只支持@同租户的用户;最多支持同时@50人；
 type SheetValueAtUser struct {
-	Type                string `json:"type"`                // mention
-	Text                string `json:"text"`                // 需要@的人的信息，由textType指定
-	TextType            string `json:"textType"`            // 指定text字段的传入的内容，可选email，openId，unionId；
+	Type                string `json:"type"`     // mention
+	Text                string `json:"text"`     // 需要@的人的信息，由textType指定
+	TextType            string `json:"textType"` // 指定text字段的传入的内容，可选email，openId，unionId；
+	UserID              string `json:"userID"`
 	Notify              bool   `json:"notify"`              // 是否发送飞书消息，没有阅读权限的用户不会收到飞书消息；
 	GrantReadPermission bool   `json:"grantReadPermission"` // 是否赋予该用户阅读权限（仅在独立表格中支持该字段）；
 }
@@ -86,7 +87,8 @@ type SheetValueFormula struct {
 
 // @文档
 type SheetValueAtDoc struct {
-	Type     string `json:"type"`     // mention
+	Type     string `json:"type"` // mention
+	Link     string `json:"link"`
 	TextType string `json:"textType"` // 固定为fileToken
 	Text     string `json:"text"`     // 文档token
 	ObjType  string `json:"objType"`  // 文档类型，可选sheet,doc,slide,bitable,mindnote
@@ -160,8 +162,9 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 		return fmt.Errorf("unsupport sheet value")
 	} else if bytes[0] == '{' {
 		var obj struct {
-			Type     string `json:"type"`
-			TextType string `json:"textType"`
+			Type        string `json:"type"`
+			TextType    string `json:"textType"`
+			MentionType int    `json:"mentionType"`
 		}
 		if err := json.Unmarshal(bytes, &obj); err != nil {
 			return err
@@ -182,19 +185,19 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 			r.Link = resp
 			return nil
 		case "mention":
-			switch obj.TextType {
-			case "fileToken":
-				resp := new(SheetValueAtDoc)
-				if err := json.Unmarshal(bytes, resp); err != nil {
-					return err
-				}
-				r.AtDoc = resp
-			default:
+			switch obj.MentionType {
+			case 0:
 				resp := new(SheetValueAtUser)
 				if err := json.Unmarshal(bytes, resp); err != nil {
 					return err
 				}
 				r.AtUser = resp
+			default:
+				resp := new(SheetValueAtDoc)
+				if err := json.Unmarshal(bytes, resp); err != nil {
+					return err
+				}
+				r.AtDoc = resp
 			}
 			return nil
 		case "formula":
