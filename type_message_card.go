@@ -698,6 +698,7 @@ type MessageContentCardModuleColumnSet struct {
 	BackgroundStyle   *string                           `json:"background_style,omitempty"`   // 列集的背景色样式。 default：默认的白底样式，dark mode下为黑底。grey：灰底样式
 	HorizontalSpacing *string                           `json:"horizontal_spacing,omitempty"` // 列集内，每列与上一列的左右间距，默认为default。 列集内的所有水平边距保持统一间距。default：默认间距。small：窄间距
 	Action            *MessageContentCardElement        `json:"action,omitempty"`
+	VarLoop           *string                           `json:"_varloop,omitempty"`
 }
 
 // IsMessageContentCardModule ...
@@ -725,6 +726,11 @@ func (r *MessageContentCardModuleColumnSet) SetHorizontalSpacing(val string) *Me
 
 func (r *MessageContentCardModuleColumnSet) SetAction(val MessageContentCardElement) *MessageContentCardModuleColumnSet {
 	r.Action = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumnSet) SetVarLoop(val string) *MessageContentCardModuleColumnSet {
+	r.VarLoop = &val
 	return r
 }
 
