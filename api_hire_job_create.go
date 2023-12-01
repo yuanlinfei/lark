@@ -77,18 +77,19 @@ type CreateHireJobReq struct {
 	IsNeverExpired                bool                              `json:"is_never_expired,omitempty"`                 // 是否长期有效, 示例值: false
 	MaxSalary                     *int64                            `json:"max_salary,omitempty"`                       // 最高薪资, 单位: k, 示例值: 2000
 	Requirement                   *string                           `json:"requirement,omitempty"`                      // 职位要求, 示例值: "熟悉后端研发"
-	AddressID                     *string                           `json:"address_id,omitempty"`                       // 工作地点, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 示例值: "6960663240925956553"
 	Description                   *string                           `json:"description,omitempty"`                      // 职位描述, 示例值: "后端研发岗位描述"
 	HighlightList                 []string                          `json:"highlight_list,omitempty"`                   // 职位亮点, 示例值: ["免费三餐"]
-	JobTypeID                     string                            `json:"job_type_id,omitempty"`                      // 职位类别, 示例值: "6960663240925956551"
+	JobTypeID                     string                            `json:"job_type_id,omitempty"`                      // 职位类别, 枚举可通过[「获取职位类别列表」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_type/list)获取, 示例值: "6960663240925956551"
 	MaxLevelID                    *string                           `json:"max_level_id,omitempty"`                     // 最高职级, 枚举通过接口「获取职级列表」获取, 示例值: "6960663240925956548"
 	RecruitmentTypeID             string                            `json:"recruitment_type_id,omitempty"`              // 雇佣类型, 社招: 101-全职  102-外包 103-劳务 105-顾问 301-实习, 校招: 201-正式 202-实习, 示例值: "102"
 	RequiredDegree                *int64                            `json:"required_degree,omitempty"`                  // 学历要求, 示例值: 20, 可选值有: 1: 小学及以上, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
 	JobCategoryID                 *string                           `json:"job_category_id,omitempty"`                  // 序列ID, 示例值: "6960663240925956550"
-	AddressIDList                 []string                          `json:"address_id_list,omitempty"`                  // 工作地点, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 示例值: ["1234"]
-	JobAttribute                  *int64                            `json:"job_attribute,omitempty"`                    // 职位属性, 1是实体职位, 2是虚拟职位, 示例值: 职位类别, 可选值有: 1: 实体职位, 2: 虚拟职位
-	ExpiryTimestamp               *string                           `json:"expiry_timestamp,omitempty"`                 // 到期日期的毫秒时间戳, 示例值: "1622484739955"
-	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 当在飞书招聘「设置 - 面试登记表使用设置 - 面试登记表使用方式」中选择「全部职位应用同一登记表」时, 「职位设置」下的面试登记表不生效；选择「HR 按职位选择登记表」时, 该字段为必填, 示例值: "6930815272790114324"
+	AddressIDList                 []string                          `json:"address_id_list,omitempty"`                  // 工作地点列表, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 与「address_id」必填其一, 同时使用则以当前字段为准, 推荐使用当前字段, 示例值: ["7243965681799839748"]
+	JobAttribute                  *int64                            `json:"job_attribute,omitempty"`                    // 职位属性, 1是实体职位, 2是虚拟职位, 示例值: 1, 可选值有: 1: 实体职位, 2: 虚拟职位
+	ExpiryTimestamp               *string                           `json:"expiry_timestamp,omitempty"`                 // 到期日期的毫秒时间戳, 如果「是否长期有效」字段选择true, 则不会实际使用该字段的值, 职位为长期有效, 示例值: "1622484739955"
+	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 当在飞书招聘「设置 - 信息登记表使用设置 - 面试登记表使用方式」中选择「HR 按职位选择登记表」时, 该字段为必填；否则该字段不生效, 示例值: "6930815272790114324"
+	OnboardRegistrationSchemaID   *string                           `json:"onboard_registration_schema_id,omitempty"`   // 入职登记表ID, 当在飞书招聘「设置 - 信息登记表使用设置 - 入职登记表使用方式」中选择「HR 按职位选择登记表」时, 该字段为必填；否则该字段不生效, 示例值: "6930815272790114325"
+	TargetMajorIDList             []string                          `json:"target_major_id_list,omitempty"`             // 目标专业ID, 枚举通过[「分页批量查询专业」](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/major/list)接口获取, 对应返回值中的 mdm_code, 「0」 为不限专业, 示例值: ["6784008015948283905"]
 }
 
 // CreateHireJobReqCustomizedData ...
@@ -111,6 +112,8 @@ type CreateHireJobResp struct {
 	Job                             *CreateHireJobRespJob                             `json:"job,omitempty"`                                // 职位
 	JobManager                      *CreateHireJobRespJobManager                      `json:"job_manager,omitempty"`                        // 职位负责人
 	InterviewRegistrationSchemaInfo *CreateHireJobRespInterviewRegistrationSchemaInfo `json:"interview_registration_schema_info,omitempty"` // 面试登记表信息
+	OnboardRegistrationSchemaInfo   *CreateHireJobRespOnboardRegistrationSchemaInfo   `json:"onboard_registration_schema_info,omitempty"`   // 入职登记表信息
+	TargetMajorList                 []*CreateHireJobRespTargetMajor                   `json:"target_major_list,omitempty"`                  // 目标专业
 }
 
 // CreateHireJobRespDefaultJobPost ...
@@ -120,7 +123,7 @@ type CreateHireJobRespDefaultJobPost struct {
 
 // CreateHireJobRespInterviewRegistrationSchemaInfo ...
 type CreateHireJobRespInterviewRegistrationSchemaInfo struct {
-	SchemaID string `json:"schema_id,omitempty"` // 面试登记表ID
+	SchemaID string `json:"schema_id,omitempty"` // 入职登记表ID
 	Name     string `json:"name,omitempty"`      // 面试登记表名称
 }
 
@@ -161,6 +164,7 @@ type CreateHireJobRespJob struct {
 	CreateTimestamp    string                                `json:"create_timestamp,omitempty"`     // 创建时间戳
 	UpdateTimestamp    string                                `json:"update_timestamp,omitempty"`     // 更新时间戳
 	ExpiryTimestamp    string                                `json:"expiry_timestamp,omitempty"`     // 到期时间戳
+	TargetMajorList    []*CreateHireJobRespJobTargetMajor    `json:"target_major_list,omitempty"`    // 目标专业
 }
 
 // CreateHireJobRespJobCity ...
@@ -301,6 +305,26 @@ type CreateHireJobRespJobSubject struct {
 type CreateHireJobRespJobSubjectName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// CreateHireJobRespJobTargetMajor ...
+type CreateHireJobRespJobTargetMajor struct {
+	ID     string `json:"id,omitempty"`      // 目标专业ID
+	ZhName string `json:"zh_name,omitempty"` // 目标专业中文名称
+	EnName string `json:"en_name,omitempty"` // 目标专业英文名称
+}
+
+// CreateHireJobRespOnboardRegistrationSchemaInfo ...
+type CreateHireJobRespOnboardRegistrationSchemaInfo struct {
+	SchemaID string `json:"schema_id,omitempty"` // 入职登记表ID
+	Name     string `json:"name,omitempty"`      // 入职登记表名称
+}
+
+// CreateHireJobRespTargetMajor ...
+type CreateHireJobRespTargetMajor struct {
+	ID     string `json:"id,omitempty"`      // 目标专业ID, 「0」 为不限专业, 其他情况可通过[「根据主数据编码批量获取专业」](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/batch_major/get)获取专业详情
+	ZhName string `json:"zh_name,omitempty"` // 目标专业中文名称
+	EnName string `json:"en_name,omitempty"` // 目标专业英文名称
 }
 
 // createHireJobResp ...

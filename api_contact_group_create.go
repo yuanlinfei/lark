@@ -58,10 +58,12 @@ func (r *Mock) UnMockContactCreateContactGroup() {
 
 // CreateContactGroupReq ...
 type CreateContactGroupReq struct {
-	GroupID     *string `json:"group_id,omitempty"`    // 自定义用户组ID, 可在创建时自定义, 不自定义则由系统自动生成, 已创建用户组不允许修改 group_id, 自定义group_id 最大长度: 64 字符, 校验规则: 数字、大小写字母的组合, 不能包含空格, 示例值: "g122817"
-	Name        string  `json:"name,omitempty"`        // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "IT 外包组"
-	Description *string `json:"description,omitempty"` // 用户组描述, 示例值: "IT服务人员的集合"
-	Type        *int64  `json:"type,omitempty"`        // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: 1: 普通用户组, 默认值: `1`
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: open_department_id: 以open_department_id来标识部门, department_id: 以自定义department_id来标识部门
+	Name             string            `json:"name,omitempty"`               // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "IT 外包组"
+	Description      *string           `json:"description,omitempty"`        // 用户组描述, 示例值: "IT服务人员的集合"
+	Type             *int64            `json:"type,omitempty"`               // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组
+	GroupID          *string           `json:"group_id,omitempty"`           // 自定义用户组ID, 可在创建时自定义, 不自定义则由系统自动生成, 已创建用户组不允许修改 group_id, 自定义group_id 最大长度: 64 字符, 校验规则: 数字、大小写字母的组合, 不能包含空格, 示例值: "g122817"
 }
 
 // CreateContactGroupResp ...

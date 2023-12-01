@@ -62,18 +62,18 @@ func (r *Mock) UnMockAttendanceCreateAttendanceUserApproval() {
 
 // CreateAttendanceUserApprovalReq ...
 type CreateAttendanceUserApprovalReq struct {
-	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	UserApproval *CreateAttendanceUserApprovalReqUserApproval `json:"user_approval,omitempty"` // 审批信息
 }
 
 // CreateAttendanceUserApprovalReqUserApproval ...
 type CreateAttendanceUserApprovalReqUserApproval struct {
-	UserID        string                                                     `json:"user_id,omitempty"`        // 审批用户 ID, 示例值: "abd754f7"
+	UserID        string                                                     `json:"user_id,omitempty"`        // 审批提交人 ID, 示例值: "abd754f7"
 	Date          string                                                     `json:"date,omitempty"`           // 审批作用日期, 示例值: "20210104"
 	Outs          []*CreateAttendanceUserApprovalReqUserApprovalOut          `json:"outs,omitempty"`           // 外出信息
 	Leaves        []*CreateAttendanceUserApprovalReqUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*CreateAttendanceUserApprovalReqUserApprovalOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
-	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
+	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息, 目前仅支持全天出差（未满全天则按全天计入）。如果你需要支持半天出差, 请咨询飞书技术支持。
 	TimeZone      *string                                                    `json:"time_zone,omitempty"`      // 计算时间所用的时区信息, 为空是0时区, 示例值: "0"
 }
 
@@ -127,7 +127,7 @@ type CreateAttendanceUserApprovalResp struct {
 
 // CreateAttendanceUserApprovalRespUserApproval ...
 type CreateAttendanceUserApprovalRespUserApproval struct {
-	UserID        string                                                      `json:"user_id,omitempty"`        // 审批用户 ID
+	UserID        string                                                      `json:"user_id,omitempty"`        // 审批提交人 ID
 	Date          string                                                      `json:"date,omitempty"`           // 审批作用日期
 	Outs          []*CreateAttendanceUserApprovalRespUserApprovalOut          `json:"outs,omitempty"`           // 外出信息
 	Leaves        []*CreateAttendanceUserApprovalRespUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息

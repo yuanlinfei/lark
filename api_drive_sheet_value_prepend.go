@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// PrependSheetValue 该接口用于根据 spreadsheetToken 和 range 向范围之前增加相应数据的行和相应的数据, 相当于数组的插入操作；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
+// PrependSheetValue 根据 [SpreadsheetToken](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview#6d80ef81) 在其特定工作表的指定范围的开始位置上方增加若干行, 并填充相应的数据。这里的工作表和范围是通过接口请求体中的`range`属性来确定的, 例如:
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/prepend-data
@@ -65,7 +65,7 @@ type PrependSheetValueReq struct {
 
 // PrependSheetValueReqValueRange ...
 type PrependSheetValueReqValueRange struct {
-	Range  string           `json:"range,omitempty"`  // ⁣插入范围, 包含 sheetId 与单元格范围两部分, 目前支持三种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), range所表示的范围需要大于等于values占用的范围。
+	Range  string           `json:"range,omitempty"`  // ⁣插入范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), range所表示的范围需要大于等于values占用的范围。
 	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值, 如要写入公式、超链接、email、@人等, 可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 

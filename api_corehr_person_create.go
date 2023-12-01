@@ -23,6 +23,9 @@ import (
 
 // CreateCoreHRPerson 创建个人信息
 //
+// 接口已升级, 推荐使用, 性能更优。
+// 如需继续使用旧版本接口, 可点击[创建个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create)
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create-2
 func (r *CoreHRService) CreateCoreHRPerson(ctx context.Context, request *CreateCoreHRPersonReq, options ...MethodOptionFunc) (*CreateCoreHRPersonResp, *Response, error) {
@@ -60,11 +63,11 @@ func (r *Mock) UnMockCoreHRCreateCoreHRPerson() {
 type CreateCoreHRPersonReq struct {
 	ClientToken          *string                                  `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	NameList             []*CreateCoreHRPersonReqName             `json:"name_list,omitempty"`              // 姓名列表, 当不为离职重聘员工时, 该字段必填, <b>字段权限要求: </b>, 读写法定姓名信息(corehr:person.legal_name:write)
-	Gender               *CreateCoreHRPersonReqGender             `json:"gender,omitempty"`                 // 性别, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "gendar", <b>字段权限要求: </b>, 读写性别信息(corehr:person.gender:write)
+	Gender               *CreateCoreHRPersonReqGender             `json:"gender,omitempty"`                 // 性别, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "gender", <b>字段权限要求: </b>, 读写性别信息(corehr:person.gender:write)
 	DateOfBirth          *string                                  `json:"date_of_birth,omitempty"`          // 出生日期, <b>字段权限要求: </b>, 读写生日信息(corehr:person.date_of_birth:write), 示例值: "2020-01-01"
 	Race                 *CreateCoreHRPersonReqRace               `json:"race,omitempty"`                   // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race"
 	MaritalStatus        *CreateCoreHRPersonReqMaritalStatus      `json:"marital_status,omitempty"`         // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write)
-	PhoneList            []*CreateCoreHRPersonReqPhone            `json:"phone_list,omitempty"`             // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见
+	PhoneList            []*CreateCoreHRPersonReqPhone            `json:"phone_list,omitempty"`             // 电话列表
 	AddressList          []*CreateCoreHRPersonReqAddress          `json:"address_list,omitempty"`           // 地址列表, <b>字段权限要求: </b>, 读取个人地址信息(corehr:person.address:write)
 	EmailList            []*CreateCoreHRPersonReqEmail            `json:"email_list,omitempty"`             // 邮箱列表, <b>字段权限要求: </b>, 读写个人邮箱信息(corehr:person.email:write)
 	WorkExperienceList   []*CreateCoreHRPersonReqWorkExperience   `json:"work_experience_list,omitempty"`   // 工作经历列表, <b>字段权限要求: </b>, 读写工作履历信息(corehr:person.work_experience:write)
@@ -113,7 +116,7 @@ type CreateCoreHRPersonReqAddressAddressType struct {
 // CreateCoreHRPersonReqAddressCustomField ...
 type CreateCoreHRPersonReqAddressCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqBankAccount ...
@@ -125,7 +128,7 @@ type CreateCoreHRPersonReqBankAccount struct {
 	CountryRegionID   *string                                             `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得, 示例值: "12"
 	BankAccountUsage  []*CreateCoreHRPersonReqBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *CreateCoreHRPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币id, 示例值: "12QueryCountryRegionSubdivisionDataReq"
+	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币 ID, 示例值: "12"
 	CustomFields      []*CreateCoreHRPersonReqBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -142,13 +145,13 @@ type CreateCoreHRPersonReqBankAccountBankAccountUsage struct {
 // CreateCoreHRPersonReqBankAccountCustomField ...
 type CreateCoreHRPersonReqBankAccountCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqCustomField ...
 type CreateCoreHRPersonReqCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqDependent ...
@@ -190,7 +193,7 @@ type CreateCoreHRPersonReqDependentAddress struct {
 // CreateCoreHRPersonReqDependentAddressCustomField ...
 type CreateCoreHRPersonReqDependentAddressCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqDependentBirthCertificateOfChild ...
@@ -201,7 +204,7 @@ type CreateCoreHRPersonReqDependentBirthCertificateOfChild struct {
 // CreateCoreHRPersonReqDependentCustomField ...
 type CreateCoreHRPersonReqDependentCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqDependentGender ...
@@ -223,7 +226,7 @@ type CreateCoreHRPersonReqDependentNationalID struct {
 // CreateCoreHRPersonReqDependentNationalIDCustomField ...
 type CreateCoreHRPersonReqDependentNationalIDCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqDependentPhone ...
@@ -265,7 +268,7 @@ type CreateCoreHRPersonReqEducation struct {
 // CreateCoreHRPersonReqEducationCustomField ...
 type CreateCoreHRPersonReqEducationCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqEducationDegree ...
@@ -302,7 +305,7 @@ type CreateCoreHRPersonReqEducationSchoolName struct {
 
 // CreateCoreHRPersonReqEmail ...
 type CreateCoreHRPersonReqEmail struct {
-	Email      string                                `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
+	Email      string                                `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@example.feishu.cn"
 	IsPrimary  *bool                                 `json:"is_primary,omitempty"`  // 是否为主要邮箱, 示例值: true
 	IsPublic   *bool                                 `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
 	EmailUsage *CreateCoreHRPersonReqEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "email", custom_api_name = "email_usage"
@@ -454,7 +457,7 @@ type CreateCoreHRPersonReqNationalID struct {
 // CreateCoreHRPersonReqNationalIDCustomField ...
 type CreateCoreHRPersonReqNationalIDCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqPersonalProfile ...
@@ -510,7 +513,7 @@ type CreateCoreHRPersonReqWorkExperienceCompanyOrganization struct {
 // CreateCoreHRPersonReqWorkExperienceCustomField ...
 type CreateCoreHRPersonReqWorkExperienceCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7), 示例值: "\"231\""
 }
 
 // CreateCoreHRPersonReqWorkExperienceDepartment ...
@@ -542,12 +545,14 @@ type CreateCoreHRPersonRespPerson struct {
 	PhoneNumber              string                                                `json:"phone_number,omitempty"`                // 个人电话, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
 	LegalName                string                                                `json:"legal_name,omitempty"`                  // 法定姓名, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
 	PreferredName            string                                                `json:"preferred_name,omitempty"`              // 常用名
+	PreferredLocalFullName   string                                                `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
+	PreferredEnglishFullName string                                                `json:"preferred_english_full_name,omitempty"` // 常用英文全名
 	NameList                 []*CreateCoreHRPersonRespPersonName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
 	Gender                   *CreateCoreHRPersonRespPersonGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
 	Race                     *CreateCoreHRPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race", 字段权限要求: 获取民族/种族信息
 	MaritalStatus            *CreateCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write), 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
-	PhoneList                []*CreateCoreHRPersonRespPersonPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见: 电话号码不为空, is_primary = "true", phone_usage = "home", <b>字段权限要求: </b>, 读写个人手机号信息(corehr:person.phone:write), 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
+	PhoneList                []*CreateCoreHRPersonRespPersonPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
 	AddressList              []*CreateCoreHRPersonRespPersonAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
 	EmailList                []*CreateCoreHRPersonRespPersonEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
 	WorkExperienceList       []*CreateCoreHRPersonRespPersonWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
@@ -569,6 +574,8 @@ type CreateCoreHRPersonRespPerson struct {
 	HukouLocation            string                                                `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	TalentID                 string                                                `json:"talent_id,omitempty"`                   // 人才ID
 	CustomFields             []*CreateCoreHRPersonRespPersonCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
+	NationalIDNumber         string                                                `json:"national_id_number,omitempty"`          // 居民身份证件号码, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
+	FamilyAddress            string                                                `json:"family_address,omitempty"`              // 家庭地址, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
 }
 
 // CreateCoreHRPersonRespPersonAddress ...
@@ -611,7 +618,7 @@ type CreateCoreHRPersonRespPersonAddressCustomField struct {
 	CustomApiName string                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                               `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonAddressCustomFieldName ...
@@ -629,7 +636,7 @@ type CreateCoreHRPersonRespPersonBankAccount struct {
 	CountryRegionID   string                                                     `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage  []*CreateCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *CreateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币id
+	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币 ID
 	CustomFields      []*CreateCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -662,7 +669,7 @@ type CreateCoreHRPersonRespPersonBankAccountCustomField struct {
 	CustomApiName string                                                  `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonBankAccountCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                   `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                  `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                  `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonBankAccountCustomFieldName ...
@@ -676,7 +683,7 @@ type CreateCoreHRPersonRespPersonCustomField struct {
 	CustomApiName string                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                        `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonCustomFieldName ...
@@ -744,7 +751,7 @@ type CreateCoreHRPersonRespPersonDependentAddressCustomField struct {
 	CustomApiName string                                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonDependentAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                        `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonDependentAddressCustomFieldName ...
@@ -763,7 +770,7 @@ type CreateCoreHRPersonRespPersonDependentCustomField struct {
 	CustomApiName string                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonDependentCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                 `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonDependentCustomFieldName ...
@@ -875,7 +882,7 @@ type CreateCoreHRPersonRespPersonDependentNationalIDCustomField struct {
 	CustomApiName string                                                          `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonDependentNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                           `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonDependentNationalIDCustomFieldName ...
@@ -975,7 +982,7 @@ type CreateCoreHRPersonRespPersonEducationCustomField struct {
 	CustomApiName string                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                 `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonEducationCustomFieldName ...
@@ -1078,7 +1085,7 @@ type CreateCoreHRPersonRespPersonEmergencyContactCustomField struct {
 	CustomApiName string                                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonEmergencyContactCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                        `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonEmergencyContactCustomFieldName ...
@@ -1253,7 +1260,7 @@ type CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomField struct {
 	CustomApiName string                                                               `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                               `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                               `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomFieldName ...
@@ -1342,7 +1349,7 @@ type CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomField struct {
 	CustomApiName string                                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                               `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomFieldName ...
@@ -1526,7 +1533,7 @@ type CreateCoreHRPersonRespPersonNationalIDCustomField struct {
 	CustomApiName string                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                  `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonNationalIDCustomFieldName ...
@@ -1640,7 +1647,7 @@ type CreateCoreHRPersonRespPersonWorkExperienceCustomField struct {
 	CustomApiName string                                                     `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *CreateCoreHRPersonRespPersonWorkExperienceCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                      `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                                     `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Value         string                                                     `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 }
 
 // CreateCoreHRPersonRespPersonWorkExperienceCustomFieldName ...

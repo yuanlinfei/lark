@@ -61,7 +61,7 @@ type CreateHireOfferReq struct {
 	UserIDType         *IDType                             `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType   *DepartmentIDType                   `query:"department_id_type" json:"-"`   // 此次调用中使用的部门 ID 的类型, 示例值: department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
 	ApplicationID      string                              `json:"application_id,omitempty"`       // 投递 ID, 示例值: "7013552389293279532"
-	SchemaID           string                              `json:"schema_id,omitempty"`            // Offer 申请表模板 ID, 用于描述申请表单结构的元数据定义, 即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息, 都会生成新的 schema_id, 创建 Offer 时应传入最新的 schema_id, 可从「获取Offer申请表模板信息」接口中获取, 示例值: "7013318077945596204"
+	SchemaID           string                              `json:"schema_id,omitempty"`            // Offer 申请表模板 ID, 用于描述申请表单结构的元数据定义, 即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息, 都会生成新的 schema_id, 创建 Offer 时应传入最新的 schema_id, 可先从职位设置中拿到offer申请表ID, 再从「获取Offer申请表模板信息」接口中获取最新的模板ID, 示例值: "7013318077945596204"
 	OfferType          *int64                              `json:"offer_type,omitempty"`           // Offer 类型, 示例值: 1, 可选值有: 1: 正式 Offer, 2: 实习 Offer
 	BasicInfo          *CreateHireOfferReqBasicInfo        `json:"basic_info,omitempty"`           // Offer 基本信息
 	SalaryInfo         *CreateHireOfferReqSalaryInfo       `json:"salary_info,omitempty"`          // Offer 薪资信息
@@ -70,24 +70,31 @@ type CreateHireOfferReq struct {
 
 // CreateHireOfferReqBasicInfo ...
 type CreateHireOfferReqBasicInfo struct {
-	DepartmentID          string   `json:"department_id,omitempty"`          // 部门 ID, 示例值: "od-6b394871807047c7023ebfc1ff37cd3a"
-	LeaderUserID          string   `json:"leader_user_id,omitempty"`         // 直属上级 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
-	EmploymentJobID       *string  `json:"employment_job_id,omitempty"`      // 职务 ID, 示例值: "123"
-	EmployeeTypeID        *string  `json:"employee_type_id,omitempty"`       // 人员类型 ID, 示例值: "2"
-	JobFamilyID           *string  `json:"job_family_id,omitempty"`          // 职位序列 ID, 示例值: "6807407987381831949"
-	JobLevelID            *string  `json:"job_level_id,omitempty"`           // 职位级别 ID, 示例值: "6807407987381881101"
-	ProbationMonth        *int64   `json:"probation_month,omitempty"`        // 试用期, 示例值: 3
-	ContractYear          *int64   `json:"contract_year,omitempty"`          // 合同期, 示例值: 3
-	ExpectedOnboardDate   *string  `json:"expected_onboard_date,omitempty"`  // 预计入职日期, 示例值: "{\"date\":\"2022-04-07\"}"
-	OnboardAddressID      *string  `json:"onboard_address_id,omitempty"`     // 入职地点 ID, 示例值: "6897079709306259719"
-	WorkAddressID         *string  `json:"work_address_id,omitempty"`        // 办公地点 ID, 示例值: "6897079709306259719"
-	OwnerUserID           string   `json:"owner_user_id,omitempty"`          // Offer负责人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
-	RecommendedWords      *string  `json:"recommended_words,omitempty"`      // Offer 推荐语, 示例值: "十分优秀, 推荐入职"
-	JobRequirementID      *string  `json:"job_requirement_id,omitempty"`     // 招聘需求 ID, 示例值: "2342352224"
-	JobProcessTypeID      *int64   `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID, 示例值: 2
-	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`     // 附件ID列表, 示例值: ["7081582717280831752"]
-	AttachmentDescription *string  `json:"attachment_description,omitempty"` // 附件描述, 示例值: "张三的简历"
-	OperatorUserID        string   `json:"operator_user_id,omitempty"`       // Offer操作人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	DepartmentID          string                                     `json:"department_id,omitempty"`          // 部门 ID, 示例值: "od-6b394871807047c7023ebfc1ff37cd3a"
+	LeaderUserID          string                                     `json:"leader_user_id,omitempty"`         // 直属上级 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	EmploymentJobID       *string                                    `json:"employment_job_id,omitempty"`      // 职务 ID, 示例值: "123"
+	EmployeeTypeID        *string                                    `json:"employee_type_id,omitempty"`       // 人员类型 ID, 示例值: "2"
+	JobFamilyID           *string                                    `json:"job_family_id,omitempty"`          // 职位序列 ID, 示例值: "6807407987381831949"
+	JobLevelID            *string                                    `json:"job_level_id,omitempty"`           // 职位级别 ID, 示例值: "6807407987381881101"
+	ProbationMonth        *int64                                     `json:"probation_month,omitempty"`        // 试用期, 示例值: 3
+	ContractYear          *int64                                     `json:"contract_year,omitempty"`          // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段, 示例值: 3
+	ContractPeriod        *CreateHireOfferReqBasicInfoContractPeriod `json:"contract_period,omitempty"`        // 合同期（年/月）
+	ExpectedOnboardDate   *string                                    `json:"expected_onboard_date,omitempty"`  // 预计入职日期, 示例值: "{\"date\":\"2022-04-07\"}"
+	OnboardAddressID      *string                                    `json:"onboard_address_id,omitempty"`     // 入职地点 ID, 示例值: "6897079709306259719"
+	WorkAddressID         *string                                    `json:"work_address_id,omitempty"`        // 办公地点 ID, 示例值: "6897079709306259719"
+	OwnerUserID           string                                     `json:"owner_user_id,omitempty"`          // Offer负责人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	RecommendedWords      *string                                    `json:"recommended_words,omitempty"`      // Offer 推荐语, 示例值: "十分优秀, 推荐入职"
+	JobRequirementID      *string                                    `json:"job_requirement_id,omitempty"`     // 招聘需求 ID, 示例值: "2342352224"
+	JobProcessTypeID      *int64                                     `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID, 示例值: 2
+	AttachmentIDList      []string                                   `json:"attachment_id_list,omitempty"`     // 附件ID列表, 示例值: ["6792436415209817600"]
+	AttachmentDescription *string                                    `json:"attachment_description,omitempty"` // 附件描述, 示例值: "张三的简历"
+	OperatorUserID        string                                     `json:"operator_user_id,omitempty"`       // Offer操作人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+}
+
+// CreateHireOfferReqBasicInfoContractPeriod ...
+type CreateHireOfferReqBasicInfoContractPeriod struct {
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 示例值: 1, 可选值有: 1: 月, 2: 年
+	Period     int64 `json:"period,omitempty"`      // 合同时长, 示例值: 3, 取值范围: `1` ～ `100`
 }
 
 // CreateHireOfferReqCustomizedInfo ...
@@ -98,7 +105,7 @@ type CreateHireOfferReqCustomizedInfo struct {
 
 // CreateHireOfferReqSalaryInfo ...
 type CreateHireOfferReqSalaryInfo struct {
-	Currency                  *string `json:"currency,omitempty"`                    // 币种, 示例值: "CNY"
+	Currency                  string  `json:"currency,omitempty"`                    // 币种, 示例值: "CNY"
 	BasicSalary               *string `json:"basic_salary,omitempty"`                // 基本工资, 当启用 Offer 申请表中的「薪资信息」模块时, 「基本工资」字段为必传项, 示例值: "1000000"
 	ProbationSalaryPercentage *string `json:"probation_salary_percentage,omitempty"` // 试用期百分比, 示例值: "0.8"
 	AwardSalaryMultiple       *string `json:"award_salary_multiple,omitempty"`       // 年终奖月数, 示例值: "3"
@@ -120,24 +127,31 @@ type CreateHireOfferResp struct {
 
 // CreateHireOfferRespBasicInfo ...
 type CreateHireOfferRespBasicInfo struct {
-	DepartmentID          string   `json:"department_id,omitempty"`          // 部门 ID
-	LeaderUserID          string   `json:"leader_user_id,omitempty"`         // 直属上级 ID
-	EmploymentJobID       string   `json:"employment_job_id,omitempty"`      // 职务 ID
-	EmployeeTypeID        string   `json:"employee_type_id,omitempty"`       // 人员类型 ID
-	JobFamilyID           string   `json:"job_family_id,omitempty"`          // 职位序列 ID
-	JobLevelID            string   `json:"job_level_id,omitempty"`           // 职位级别 ID
-	ProbationMonth        int64    `json:"probation_month,omitempty"`        // 试用期
-	ContractYear          int64    `json:"contract_year,omitempty"`          // 合同期
-	ExpectedOnboardDate   string   `json:"expected_onboard_date,omitempty"`  // 预计入职日期
-	OnboardAddressID      string   `json:"onboard_address_id,omitempty"`     // 入职地点 ID
-	WorkAddressID         string   `json:"work_address_id,omitempty"`        // 办公地点 ID
-	OwnerUserID           string   `json:"owner_user_id,omitempty"`          // Offer负责人 ID
-	RecommendedWords      string   `json:"recommended_words,omitempty"`      // Offer 推荐语
-	JobRequirementID      string   `json:"job_requirement_id,omitempty"`     // 招聘需求 ID
-	JobProcessTypeID      int64    `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID
-	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`     // 附件ID列表
-	AttachmentDescription string   `json:"attachment_description,omitempty"` // 附件描述
-	OperatorUserID        string   `json:"operator_user_id,omitempty"`       // Offer操作人 ID
+	DepartmentID          string                                      `json:"department_id,omitempty"`          // 部门 ID
+	LeaderUserID          string                                      `json:"leader_user_id,omitempty"`         // 直属上级 ID
+	EmploymentJobID       string                                      `json:"employment_job_id,omitempty"`      // 职务 ID
+	EmployeeTypeID        string                                      `json:"employee_type_id,omitempty"`       // 人员类型 ID
+	JobFamilyID           string                                      `json:"job_family_id,omitempty"`          // 职位序列 ID
+	JobLevelID            string                                      `json:"job_level_id,omitempty"`           // 职位级别 ID
+	ProbationMonth        int64                                       `json:"probation_month,omitempty"`        // 试用期
+	ContractYear          int64                                       `json:"contract_year,omitempty"`          // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段
+	ContractPeriod        *CreateHireOfferRespBasicInfoContractPeriod `json:"contract_period,omitempty"`        // 合同期（年/月）
+	ExpectedOnboardDate   string                                      `json:"expected_onboard_date,omitempty"`  // 预计入职日期
+	OnboardAddressID      string                                      `json:"onboard_address_id,omitempty"`     // 入职地点 ID
+	WorkAddressID         string                                      `json:"work_address_id,omitempty"`        // 办公地点 ID
+	OwnerUserID           string                                      `json:"owner_user_id,omitempty"`          // Offer负责人 ID
+	RecommendedWords      string                                      `json:"recommended_words,omitempty"`      // Offer 推荐语
+	JobRequirementID      string                                      `json:"job_requirement_id,omitempty"`     // 招聘需求 ID
+	JobProcessTypeID      int64                                       `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID
+	AttachmentIDList      []string                                    `json:"attachment_id_list,omitempty"`     // 附件ID列表
+	AttachmentDescription string                                      `json:"attachment_description,omitempty"` // 附件描述
+	OperatorUserID        string                                      `json:"operator_user_id,omitempty"`       // Offer操作人 ID
+}
+
+// CreateHireOfferRespBasicInfoContractPeriod ...
+type CreateHireOfferRespBasicInfoContractPeriod struct {
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 可选值有: 1: 月, 2: 年
+	Period     int64 `json:"period,omitempty"`      // 合同时长
 }
 
 // CreateHireOfferRespCustomizedInfo ...

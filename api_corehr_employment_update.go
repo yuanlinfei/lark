@@ -60,16 +60,13 @@ func (r *Mock) UnMockCoreHRUpdateCoreHREmployment() {
 type UpdateCoreHREmploymentReq struct {
 	EmploymentID         string                                         `path:"employment_id" json:"-"`           // 雇员ID, 示例值: "1616161616"
 	ClientToken          *string                                        `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	UserIDType           *IDType                                        `query:"user_id_type" json:"-"`           // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType           *IDType                                        `query:"user_id_type" json:"-"`           // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType     *DepartmentIDType                              `query:"department_id_type" json:"-"`     // 此次调用中使用的部门 ID 类型, 示例值: department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
 	SeniorityDate        *string                                        `json:"seniority_date,omitempty"`         // 资历起算日期, 示例值: "2020-01-01"
 	EmployeeNumber       *string                                        `json:"employee_number,omitempty"`        // 员工编号, 示例值: "1000000"
-	EffectiveTime        *string                                        `json:"effective_time,omitempty"`         // 入职日期, 示例值: "2020-01-01 00:00:00"
-	ExpirationTime       *string                                        `json:"expiration_time,omitempty"`        // 离职日期, 即员工的最后一个工作日, 最后一个工作日时员工的雇佣状态仍为“在职”, 次日凌晨将更改为“离职”, 示例值: "2021-01-01 00:00:00"
 	EmploymentType       *UpdateCoreHREmploymentReqEmploymentType       `json:"employment_type,omitempty"`        // 雇佣类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇佣类型（employment_type）枚举定义获得
 	PersonID             *string                                        `json:"person_id,omitempty"`              // 个人信息 ID, 详细信息可通过【查询单个个人信息】接口获得, 示例值: "6919733936050406926"
 	PrimaryEmployment    *bool                                          `json:"primary_employment,omitempty"`     // 是否是主雇佣信息, 示例值: true
-	EmploymentStatus     *UpdateCoreHREmploymentReqEmploymentStatus     `json:"employment_status,omitempty"`      // 雇员状态, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇员状态（employment_status）枚举定义获得
 	CustomFields         []*UpdateCoreHREmploymentReqCustomField        `json:"custom_fields,omitempty"`          // 自定义字段
 	WorkEmailList        []*UpdateCoreHREmploymentReqWorkEmail          `json:"work_email_list,omitempty"`        // 工作邮箱列表, 只有当邮箱下面所有条件时, 才在个人信息页面可见: is_primary = "true", is_public = "true", email_usage = "work"
 	ReasonForOffboarding *UpdateCoreHREmploymentReqReasonForOffboarding `json:"reason_for_offboarding,omitempty"` // 离职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)离职原因（reason_for_offboarding）枚举定义部分获得
@@ -80,11 +77,6 @@ type UpdateCoreHREmploymentReq struct {
 type UpdateCoreHREmploymentReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
-}
-
-// UpdateCoreHREmploymentReqEmploymentStatus ...
-type UpdateCoreHREmploymentReqEmploymentStatus struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
 // UpdateCoreHREmploymentReqEmploymentType ...

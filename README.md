@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 876, Event Count: 124
+API Count: 959, Event Count: 133
 
 <details>
   <summary>
@@ -105,10 +105,12 @@ API Count: 876, Event Count: 124
   - GetApplicationUserAdminScope
   - GetApplicationAppVisibility
   - GetApplicationContactsRangeConfiguration
+  - UpdateApplicationContactsRangeConfiguration
   - GetApplicationUserVisibleApp
   - CheckApplicationVisibleWhiteBlackList
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
+  - UpdateApplicationAppVisibilityV6
   - GetApplicationAppAdminUserList
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
@@ -120,10 +122,12 @@ API Count: 876, Event Count: 124
   - GetApplicationVersionContactsRangeSuggest
   - UpdateApplicationVersion
   - UpdateApplication
+  - GetApplicationUsageDepartmentOverview
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
   - UpdateApplicationFeedback
   - GetApplicationFeedbackList
+  - SetApplicationAppBadge
 - Approval
   - CreateApproval
   - GetApproval
@@ -147,6 +151,7 @@ API Count: 876, Event Count: 124
   - DeleteApprovalComment
   - RemoveApprovalComment
   - CreateApprovalExternalApproval
+  - GetApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
   - GetApprovalExternalList
@@ -281,6 +286,8 @@ API Count: 876, Event Count: 124
   - SearchCalendarEvent
   - SubscribeCalendarEvent
   - UnsubscribeCalendarEvent
+  - DeleteCalendarEventMeetingChat
+  - CreateCalendarEventMeetingChat
   - CreateCalendarEventAttendee
   - GetCalendarEventAttendeeList
   - DeleteCalendarEventAttendee
@@ -325,7 +332,6 @@ API Count: 876, Event Count: 124
   - SortChatMenuTree
   - GetChatMenuTree
 - Contact
-  - SearchUserOld
   - CreateUser
   - DeleteUser
   - ResurrectUser
@@ -337,15 +343,18 @@ API Count: 876, Event Count: 124
   - UpdateUser
   - BatchGetUserByID
   - BatchGetUserByIDOld
+  - SearchUserOld
+  - UpdateUserID
   - CreateDepartment
   - GetDepartment
   - BatchGetDepartment
   - GetDepartmentList
+  - UpdateDepartmentPatch
+  - UpdateDepartment
   - GetDepartmentListOld
   - GetParentDepartment
   - SearchDepartment
-  - UpdateDepartmentPatch
-  - UpdateDepartment
+  - UpdateDepartmentID
   - DeleteDepartment
   - UnbindDepartmentChat
   - CreateContactGroup
@@ -377,6 +386,10 @@ API Count: 876, Event Count: 124
   - UpdateContactJobFamily
   - GetContactJobFamily
   - GetContactJobFamilyList
+  - GetContactJobTitle
+  - GetContactJobTitleList
+  - GetContactWorkCity
+  - GetContactWorkCityList
   - GetEmployeeTypeEnumList
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum
@@ -418,6 +431,7 @@ API Count: 876, Event Count: 124
   - GetCoreHRWorkingHoursTypeList
   - GetCoreHRCurrency
   - GetCoreHRCurrencyList
+  - BatchGetCoreHREmployee
   - SearchCoreHREmployee
   - CreateCoreHREmployment
   - DeleteCoreHREmployment
@@ -432,26 +446,32 @@ API Count: 876, Event Count: 124
   - DeleteCoreHRJobData
   - UpdateCoreHRJobData
   - GetCoreHRJobData
+  - BatchGetCoreHRJobData
   - GetCoreHRJobDataList
   - GetCoreHRDepartmentParentList
+  - SearchCoreHRDepartment
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
   - GetCoreHRDepartment
   - GetCoreHRDepartmentList
+  - BatchGetCoreHRLocation
   - CreateCoreHRLocation
   - DeleteCoreHRLocation
   - GetCoreHRLocation
   - GetCoreHRLocationList
+  - BatchGetCoreHRCompany
   - CreateCoreHRCompany
   - DeleteCoreHRCompany
   - GetCoreHRCompany
   - GetCoreHRCompanyList
+  - BatchGetCoreHRJobLevel
   - CreateCoreHRJobLevel
   - DeleteCoreHRJobLevel
   - UpdateCoreHRJobLevel
   - GetCoreHRJobLevel
   - GetCoreHRJobLevelList
+  - BatchGetCoreHRJobFamily
   - CreateCoreHRJobFamily
   - DeleteCoreHRJobFamily
   - UpdateCoreHRJobFamily
@@ -460,6 +480,8 @@ API Count: 876, Event Count: 124
   - CreateCoreHRJob
   - DeleteCoreHRJob
   - UpdateCoreHRJob
+  - GetCoreHRJobV2
+  - GetCoreHRJobListV2
   - GetCoreHRJob
   - GetCoreHRJobList
   - CreateCoreHRPreHire
@@ -467,11 +489,17 @@ API Count: 876, Event Count: 124
   - UpdateCoreHRPreHire
   - GetCoreHRPreHire
   - GetCoreHRPreHireList
+  - SearchCoreHRContract
   - CreateCoreHRContract
   - DeleteCoreHRContract
   - UpdateCoreHRContract
   - GetCoreHRContract
   - GetCoreHRContractList
+  - SearchCoreHRProbation
+  - EnableDisableCoreHRProbationAssessment
+  - CreateCoreHRProbationAssessment
+  - UpdateCoreHRProbationAssessment
+  - DeleteCoreHRProbationAssessment
   - GetCoreHRTransferReasonList
   - GetCoreHRTransferTypeList
   - CreateCoreHRJobChange
@@ -484,12 +512,16 @@ API Count: 876, Event Count: 124
   - GetCoreHRLeaveTypeList
   - GetCoreHRLeaveBalanceList
   - GetCoreHRLeaveRequestHistoryList
-  - SearchCoreHRAssignedUser
+  - BatchGetCoreHrbpByEmployee
+  - GetCoreHrbpByDepartment
+  - GetCoreHrbpList
   - GetCoreHRSecurityGroupBp
+  - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
   - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
   - GetCoreHRProcessFormVariableData
+  - MatchCoreHRCompensationStandard
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
@@ -518,6 +550,8 @@ API Count: 876, Event Count: 124
   - BatchDeleteDocxBlock
   - GetDocxBlockListOfBlock
   - SubscribeDriveFile
+  - UnsubscribeDriveFile
+  - GetSubscribeDriveFile
   - SearchDriveFile
   - DeleteDriveSheetFile
   - GetDriveFolderChildren
@@ -548,11 +582,14 @@ API Count: 876, Event Count: 124
   - DeleteDrivePermissionPublicPassword
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
+  - GetDrivePublicPermissionV2
+  - UpdateDrivePublicPermissionV2
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
+  - CreateDriveComment
   - GetDriveComment
   - BatchGetDriveComment
-  - CreateDriveComment
+  - GetDriveCommentReplyList
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
@@ -772,6 +809,15 @@ API Count: 876, Event Count: 124
   - EventV2CorehrEmploymentResignedV1
   - EventV2CorehrOrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
+  - EventV2CorehrProbationUpdatedV2
+  - EventV2CorehrPreHireUpdatedV1
+  - EventV2HireEcoAccountCreatedV1
+  - EventV2HireEcoBackgroundCheckCreatedV1
+  - EventV2HireEcoBackgroundCheckCanceledV1
+  - EventV2HireEcoExamCreatedV1
+  - EventV2HireReferralAccountAssetsUpdateV1
+  - EventV2CorehrContractDeletedV1
+  - EventV2CorehrContractUpdatedV1
 - File
   - UploadImage
   - DownloadImage
@@ -838,11 +884,6 @@ API Count: 876, Event Count: 124
   - GetHireTalent
   - GetHireAttachment
   - GetHireAttachmentPreview
-  - GetHireResumeSource
-  - CreateHireNote
-  - UpdateHireNote
-  - GetHireNote
-  - GetHireNoteList
   - GetHireReferralWebsiteJobPostList
   - GetHireReferralWebsiteJobPost
   - GetHireReferralByApplication
@@ -863,20 +904,46 @@ API Count: 876, Event Count: 124
   - GetHireEvaluationList
   - GetHireQuestionnaireList
   - GetHireInterviewList
-  - UpdateHireOfferStatus
   - CreateHireOffer
   - UpdateHireOffer
-  - UpdateHireOfferInternStatus
   - GetHireOfferByApplication
   - GetHireOffer
   - GetHireOfferList
+  - UpdateHireOfferStatus
+  - UpdateHireOfferInternStatus
   - GetHireApplicationInterviewList
   - GetHireOfferSchema
+  - UpdateHireEHRImportTask
   - MakeHireTransferOnboardByApplication
   - UpdateHireEmployee
   - GetHireEmployeeByApplication
   - GetHireEmployee
-  - UpdateHireEHRImportTask
+  - CreateHireNote
+  - UpdateHireNote
+  - GetHireNote
+  - GetHireNoteList
+  - GetHireResumeSource
+  - CreateHireEcoAccountCustomField
+  - BatchUpdateHireEcoAccountCustomField
+  - BatchDeleteHireEcoAccountCustomField
+  - CreateHireEcoBackgroundCheckCustomField
+  - BatchUpdateHireEcoBackgroundCheckCustomField
+  - BatchDeleteHireEcoBackgroundCheckCustomField
+  - CreateHireEcoBackgroundCheckPackage
+  - BatchUpdateHireEcoBackgroundCheckPackage
+  - BatchDeleteHireEcoBackgroundCheckPackage
+  - UpdateHireEcoBackgroundCheckProgress
+  - UpdateHireEcoBackgroundCheckResult
+  - CancelHireEcoBackgroundCheck
+  - CreateHireEcoExamPaper
+  - BatchUpdateHireEcoExamPaper
+  - BatchDeleteHireEcoExamPaper
+  - CreateHireEcoExamLoginInfo
+  - UpdateHiredEcoExamResult
+  - CreateHireReferralAccount
+  - DeactivateHireReferralAccount
+  - WithdrawHireReferralAccount
+  - ReconcileHireReferralAccount
 - HumanAuth
   - GetFaceVerifyAuthResult
   - UploadFaceVerifyImage
@@ -884,14 +951,33 @@ API Count: 876, Event Count: 124
   - CreateIdentity
 - Jssdk
   - GetJssdkTicket
+- Lingo
+  - CreateLingoDraft
+  - UpdateLingoDraft
+  - DeleteLingoEntity
+  - CreateLingoEntity
+  - UpdateLingoEntity
+  - GetLingoEntity
+  - GetLingoEntityList
+  - MatchLingoEntity
+  - SearchLingoEntity
+  - HighlightLingoEntity
+  - ExtractLingoEntity
+  - GetLingoClassificationList
+  - GetLingoRepoList
+  - UploadLingoFile
+  - DownloadLingoFile
 - Mail
   - GetMailUser
   - CreateMailGroup
-  - GetMailGroup
-  - GetMailGroupList
+  - DeleteMailGroup
   - UpdateMailGroupPatch
   - UpdateMailGroup
-  - DeleteMailGroup
+  - GetMailGroup
+  - GetMailGroupList
+  - BatchCreateMailGroupManager
+  - BatchDeleteMailGroupManager
+  - GetMailGroupManagerList
   - CreateMailGroupMember
   - DeleteMailGroupMember
   - GetMailGroupMember
@@ -956,6 +1042,8 @@ API Count: 876, Event Count: 124
   - CreateMessagePin
   - DeleteMessagePin
   - GetMessagePinList
+  - GetMessageSpecialFocusList
+  - GetMessageSpecialFocusUnread
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -978,6 +1066,10 @@ API Count: 876, Event Count: 124
   - GetOKRMetricSourceTableItemList
 - Passport
   - GetPassportSession
+- Performance
+  - GetPerformanceSemesterList
+  - GetPerformanceStageTaskByUser
+  - GetPerformanceStageTaskByPage
 - PersonalSettings
   - CreatePersonalSettingsSystemStatus
   - DeletePersonalSettingsSystemStatus
@@ -1068,6 +1160,8 @@ API Count: 876, Event Count: 124
   - UpdateVCReserveConfigForm
   - GetVCReserveConfigAdmin
   - UpdateVCReserveConfigAdmin
+  - GetVCReserveConfigDisableInform
+  - UpdateVCReserveConfigDisableInform
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList

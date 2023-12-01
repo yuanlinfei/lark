@@ -60,7 +60,7 @@ func (r *Mock) UnMockVCUpdateVCReserveConfig() {
 // UpdateVCReserveConfigReq ...
 type UpdateVCReserveConfigReq struct {
 	ReserveConfigID    string                                      `path:"reserve_config_id" json:"-"`     // 会议室或层级id, 示例值: "omm_3c5dd7e09bac0c1758fcf9511bd1a771"
-	UserIDType         *IDType                                     `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType         *IDType                                     `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ScopeType          string                                      `json:"scope_type,omitempty"`           // 1 代表层级, 2 代表会议室, 示例值: "2"
 	ApprovalConfig     *UpdateVCReserveConfigReqApprovalConfig     `json:"approval_config,omitempty"`      // 预定审批设置
 	TimeConfig         *UpdateVCReserveConfigReqTimeConfig         `json:"time_config,omitempty"`          // 预定时间设置
@@ -82,9 +82,10 @@ type UpdateVCReserveConfigReqApprovalConfigApprover struct {
 
 // UpdateVCReserveConfigReqReserveScopeConfig ...
 type UpdateVCReserveConfigReqReserveScopeConfig struct {
-	AllowAllUsers *int64                                                 `json:"allow_all_users,omitempty"` // 可预定成员范围: 0 代表部分成员, 1 代表全部成员, <b>说明</b>: 1.  此值必填, 2.  当设置为 0 时, 至少需要 1 个预定部门或预定人, 示例值: 0, 取值范围: `0` ～ `1`
-	AllowUsers    []*UpdateVCReserveConfigReqReserveScopeConfigAllowUser `json:"allow_users,omitempty"`     // 可预定成员列表, 示例值: [{user_id:"ou_e8bce6c3935ef1fc1b432992fd9d3db8"}]
-	AllowDepts    []*UpdateVCReserveConfigReqReserveScopeConfigAllowDept `json:"allow_depts,omitempty"`     // 可预定部门列表, 示例值: [{department_id:"od-5c07f0c117cf8795f25610a69363ce31"}]
+	IfCoverChildScope *bool                                                  `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	AllowAllUsers     *int64                                                 `json:"allow_all_users,omitempty"`      // 可预定成员范围: 0 代表部分成员, 1 代表全部成员, <b>说明</b>: 1.  此值必填, 2.  当设置为 0 时, 至少需要 1 个预定部门或预定人, 示例值: 0, 取值范围: `0` ～ `1`
+	AllowUsers        []*UpdateVCReserveConfigReqReserveScopeConfigAllowUser `json:"allow_users,omitempty"`          // 可预定成员列表, 示例值: [{user_id:"ou_e8bce6c3935ef1fc1b432992fd9d3db8"}]
+	AllowDepts        []*UpdateVCReserveConfigReqReserveScopeConfigAllowDept `json:"allow_depts,omitempty"`          // 可预定部门列表, 示例值: [{department_id:"od-5c07f0c117cf8795f25610a69363ce31"}]
 }
 
 // UpdateVCReserveConfigReqReserveScopeConfigAllowDept ...
@@ -99,12 +100,13 @@ type UpdateVCReserveConfigReqReserveScopeConfigAllowUser struct {
 
 // UpdateVCReserveConfigReqTimeConfig ...
 type UpdateVCReserveConfigReqTimeConfig struct {
-	TimeSwitch    int64   `json:"time_switch,omitempty"`     // 预定时间开关: 0 代表关闭, 1 代表开启, 示例值: 1, 取值范围: `0` ～ `1`
-	DaysInAdvance *int64  `json:"days_in_advance,omitempty"` // 最早可提前, days_in_advance 预定会议室（单位: 天, 取值范围[1-730]）, <b>说明</b>: 不填写时, 默认更新为 365, 示例值: 30
-	OpeningHour   *string `json:"opening_hour,omitempty"`    // 开放当天可于, opening_hour 开始预定（单位: 秒, 取值范围[0, 86400]）, <b>说明</b>: 1.  不填写时默认更新为, 28800, 2.  如果填写的值不是 60, 的倍数, 则自动会更新为离其最近的 60 整数倍的值, 示例值: "27900"
-	StartTime     *string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位: 秒, 取值范围[0, 86400]）, <b>说明</b>: 1.  不填写时, 默认更新为 0, 此时填写的  end_time 不得小于 30, 2.  当 start_time 与, end_time 均填写时, end_time 至少超过, start_time 30, 3.  如果填写的值不是 60 的倍数, 则自动会更新为离其最近的 60 整数倍的值, 示例值: "0"
-	EndTime       *string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位: 秒, 取值范围[0, 86400]）, <b>说明</b>: 1.  不填写时, 默认更新为 86400, 此时填写的, start_time 不得大于等于 86370, 2.  当 start_time 与, end_time 均填写时, end_time 至少要超过, start_time 30, 3.  如果填写的值不是  60 的倍数, 则自动会更新为离其最近的 60 整数倍的值, 示例值: "86400"
-	MaxDuration   *int64  `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位: 小时, 取值范围[1, 99]）, <b>说明</b>: 不填写时默认更新为 2, 示例值: 24
+	IfCoverChildScope *bool   `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	TimeSwitch        int64   `json:"time_switch,omitempty"`          // 预定时间开关: 0 代表关闭, 1 代表开启, 示例值: 1, 取值范围: `0` ～ `1`
+	DaysInAdvance     *int64  `json:"days_in_advance,omitempty"`      // 最早可提前, days_in_advance 预定会议室（单位: 天, 取值范围[1-730]）, <b>说明</b>: 不填写时, 默认更新为 365, 示例值: 30
+	OpeningHour       *string `json:"opening_hour,omitempty"`         // 开放当天可于, opening_hour 开始预定（单位: 秒, 取值范围[0, 86400]）, <b>说明</b>: 1.  不填写时默认更新为, 28800, 2.  如果填写的值不是 60, 的倍数, 则自动会更新为离其最近的 60 整数倍的值, 示例值: "27900"
+	StartTime         *string `json:"start_time,omitempty"`           // 每日可预定时间范围的开始时间（单位: 秒, 取值范围[0, 86400]）, <b>说明</b>: 1.  不填写时, 默认更新为 0, 此时填写的  end_time 不得小于 30, 2.  当 start_time 与, end_time 均填写时, end_time 至少超过, start_time 30, 3.  如果填写的值不是 60 的倍数, 则自动会更新为离其最近的 60 整数倍的值, 示例值: "0"
+	EndTime           *string `json:"end_time,omitempty"`             // 每日可预定时间范围结束时间（单位: 秒, 取值范围[0, 86400]）, <b>说明</b>: 1.  不填写时, 默认更新为 86400, 此时填写的, start_time 不得大于等于 86370, 2.  当 start_time 与, end_time 均填写时, end_time 至少要超过, start_time 30, 3.  如果填写的值不是  60 的倍数, 则自动会更新为离其最近的 60 整数倍的值, 示例值: "86400"
+	MaxDuration       *int64  `json:"max_duration,omitempty"`         // 单次会议室可预定时长上限（单位: 小时, 取值范围[1, 99]）, <b>说明</b>: 不填写时默认更新为 2, 示例值: 24
 }
 
 // UpdateVCReserveConfigResp ...

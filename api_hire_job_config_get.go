@@ -59,7 +59,7 @@ func (r *Mock) UnMockHireGetHireJobConfig() {
 // GetHireJobConfigReq ...
 type GetHireJobConfigReq struct {
 	JobID      string  `path:"job_id" json:"-"`        // 职位 ID, 示例值: "6960663240925956660"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireJobConfigResp ...
@@ -69,17 +69,19 @@ type GetHireJobConfigResp struct {
 
 // GetHireJobConfigRespJobConfig ...
 type GetHireJobConfigRespJobConfig struct {
-	OfferApplySchema            *GetHireJobConfigRespJobConfigOfferApplySchema            `json:"offer_apply_schema,omitempty"`            // Offer 申请表
-	OfferProcessConf            *GetHireJobConfigRespJobConfigOfferProcessConf            `json:"offer_process_conf,omitempty"`            // Offer 审批流
-	RecommendedEvaluatorList    []*GetHireJobConfigRespJobConfigRecommendedEvaluator      `json:"recommended_evaluator_list,omitempty"`    // 建议评估人列表
-	AssessmentTemplate          *GetHireJobConfigRespJobConfigAssessmentTemplate          `json:"assessment_template,omitempty"`           // 面试评价表
-	ID                          string                                                    `json:"id,omitempty"`                            // 职位 ID
-	InterviewRoundList          []*GetHireJobConfigRespJobConfigInterviewRound            `json:"interview_round_list,omitempty"`          // 建议面试官列表
-	JobRequirementList          []*GetHireJobConfigRespJobConfigJobRequirement            `json:"job_requirement_list,omitempty"`          // 招聘需求
-	InterviewRegistrationSchema *GetHireJobConfigRespJobConfigInterviewRegistrationSchema `json:"interview_registration_schema,omitempty"` // 面试登记表
-	InterviewRoundTypeList      []*GetHireJobConfigRespJobConfigInterviewRoundType        `json:"interview_round_type_list,omitempty"`     // 面试轮次类型列表
-	RelatedJobList              []*GetHireJobConfigRespJobConfigRelatedJob                `json:"related_job_list,omitempty"`              // 关联职位列表
-	JobAttribute                int64                                                     `json:"job_attribute,omitempty"`                 // 职位属性, 1是实体职位, 2是虚拟职位
+	OfferApplySchema           *GetHireJobConfigRespJobConfigOfferApplySchema           `json:"offer_apply_schema,omitempty"`           // Offer 申请表
+	OfferProcessConf           *GetHireJobConfigRespJobConfigOfferProcessConf           `json:"offer_process_conf,omitempty"`           // Offer 审批流
+	RecommendedEvaluatorList   []*GetHireJobConfigRespJobConfigRecommendedEvaluator     `json:"recommended_evaluator_list,omitempty"`   // 建议评估人列表
+	AssessmentTemplate         *GetHireJobConfigRespJobConfigAssessmentTemplate         `json:"assessment_template,omitempty"`          // 面试评价表
+	ID                         string                                                   `json:"id,omitempty"`                           // 职位 ID
+	InterviewRoundList         []*GetHireJobConfigRespJobConfigInterviewRound           `json:"interview_round_list,omitempty"`         // 建议面试官列表
+	JobRequirementList         []*GetHireJobConfigRespJobConfigJobRequirement           `json:"job_requirement_list,omitempty"`         // 招聘需求
+	InterviewRegistration      *GetHireJobConfigRespJobConfigInterviewRegistration      `json:"interview_registration,omitempty"`       // 面试登记表
+	OnboardRegistration        *GetHireJobConfigRespJobConfigOnboardRegistration        `json:"onboard_registration,omitempty"`         // 入职登记表
+	InterviewRoundTypeList     []*GetHireJobConfigRespJobConfigInterviewRoundType       `json:"interview_round_type_list,omitempty"`    // 面试轮次类型列表
+	RelatedJobList             []*GetHireJobConfigRespJobConfigRelatedJob               `json:"related_job_list,omitempty"`             // 关联职位列表
+	JobAttribute               int64                                                    `json:"job_attribute,omitempty"`                // 职位属性, 1是实体职位, 2是虚拟职位
+	InterviewAppointmentConfig *GetHireJobConfigRespJobConfigInterviewAppointmentConfig `json:"interview_appointment_config,omitempty"` // 面试官安排面试配置
 }
 
 // GetHireJobConfigRespJobConfigAssessmentTemplate ...
@@ -94,10 +96,32 @@ type GetHireJobConfigRespJobConfigAssessmentTemplateName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// GetHireJobConfigRespJobConfigInterviewRegistrationSchema ...
-type GetHireJobConfigRespJobConfigInterviewRegistrationSchema struct {
-	ID   string `json:"id,omitempty"`   // 面试登记表ID
-	Name string `json:"name,omitempty"` // 面试登记表名称
+// GetHireJobConfigRespJobConfigInterviewAppointmentConfig ...
+type GetHireJobConfigRespJobConfigInterviewAppointmentConfig struct {
+	EnableInterviewAppointmentByInterviewer bool                                                           `json:"enable_interview_appointment_by_interviewer,omitempty"` // 是否开启面试官安排面试
+	Config                                  *GetHireJobConfigRespJobConfigInterviewAppointmentConfigConfig `json:"config,omitempty"`                                      // 配置详情
+}
+
+// GetHireJobConfigRespJobConfigInterviewAppointmentConfigConfig ...
+type GetHireJobConfigRespJobConfigInterviewAppointmentConfigConfig struct {
+	InterviewType                         int64    `json:"interview_type,omitempty"`                            // 面试类型, 可选值有: 1: 现场面试, 2: 电话面试, 3: 视频面试
+	TalentTimezoneCode                    string   `json:"talent_timezone_code,omitempty"`                      // 时区
+	ContactUserID                         string   `json:"contact_user_id,omitempty"`                           // 联系人id
+	ContactMobile                         string   `json:"contact_mobile,omitempty"`                            // 联系人电话
+	ContactEmail                          string   `json:"contact_email,omitempty"`                             // 联系人邮箱
+	AddressID                             string   `json:"address_id,omitempty"`                                // 地址id
+	VideoType                             int64    `json:"video_type,omitempty"`                                // 视频面试类型, 可选值有: 1: zoom, 2: 牛客技术类型, 3: 牛客非技术类型, 4: 赛码, 5: 飞书, 8: Hackerrank, 9: 飞书(含代码考核), 100: 不使用系统工具
+	Cc                                    []string `json:"cc,omitempty"`                                        // 抄送人id list
+	Remark                                string   `json:"remark,omitempty"`                                    // 备注
+	InterviewNotificationTemplateID       string   `json:"interview_notification_template_id,omitempty"`        // 面试通知模板
+	AppointmentNotificationTemplateID     string   `json:"appointment_notification_template_id,omitempty"`      // 预约通知模板
+	CancelInterviewNotificationTemplateID string   `json:"cancel_interview_notification_template_id,omitempty"` // 取消面试通知
+}
+
+// GetHireJobConfigRespJobConfigInterviewRegistration ...
+type GetHireJobConfigRespJobConfigInterviewRegistration struct {
+	SchemaID string `json:"schema_id,omitempty"` // 面试登记表ID
+	Name     string `json:"name,omitempty"`      // 面试登记表名称
 }
 
 // GetHireJobConfigRespJobConfigInterviewRound ...
@@ -182,6 +206,12 @@ type GetHireJobConfigRespJobConfigOfferProcessConf struct {
 type GetHireJobConfigRespJobConfigOfferProcessConfName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireJobConfigRespJobConfigOnboardRegistration ...
+type GetHireJobConfigRespJobConfigOnboardRegistration struct {
+	SchemaID string `json:"schema_id,omitempty"` // 入职登记表ID
+	Name     string `json:"name,omitempty"`      // 入职登记表名称
 }
 
 // GetHireJobConfigRespJobConfigRecommendedEvaluator ...

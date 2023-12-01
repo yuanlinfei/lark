@@ -59,7 +59,7 @@ func (r *Mock) UnMockVCSetVCScopeConfig() {
 
 // SetVCScopeConfigReq ...
 type SetVCScopeConfigReq struct {
-	UserIDType  *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType  *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 长度范围: `0` ～ `10` 字符, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ScopeType   int64                           `json:"scope_type,omitempty"`   // 查询节点范围, 示例值: 1, 可选值有: 1: 会议室层级, 2: 会议室
 	ScopeID     string                          `json:"scope_id,omitempty"`     // 查询节点ID: 如果scope_type为1, 则为层级ID, 如果scope_type为2, 则为会议室ID, 示例值: "omm_608d34d82d531b27fa993902d350a307"
 	ScopeConfig *SetVCScopeConfigReqScopeConfig `json:"scope_config,omitempty"` // 节点配置
@@ -76,11 +76,12 @@ type SetVCScopeConfigReqScopeConfig struct {
 
 // SetVCScopeConfigReqScopeConfigDigitalSignage ...
 type SetVCScopeConfigReqScopeConfigDigitalSignage struct {
-	Enable       *bool                                                   `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
-	Mute         *bool                                                   `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
-	StartDisplay *int64                                                  `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	StopDisplay  *int64                                                  `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	Materials    []*SetVCScopeConfigReqScopeConfigDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+	IfCoverChildScope *bool                                                   `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	Enable            *bool                                                   `json:"enable,omitempty"`               // 是否开启数字标牌功能, 示例值: true
+	Mute              *bool                                                   `json:"mute,omitempty"`                 // 是否静音播放, 示例值: true
+	StartDisplay      *int64                                                  `json:"start_display,omitempty"`        // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	StopDisplay       *int64                                                  `json:"stop_display,omitempty"`         // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	Materials         []*SetVCScopeConfigReqScopeConfigDigitalSignageMaterial `json:"materials,omitempty"`            // 素材列表
 }
 
 // SetVCScopeConfigReqScopeConfigDigitalSignageMaterial ...
@@ -98,11 +99,12 @@ type SetVCScopeConfigReqScopeConfigDigitalSignageMaterial struct {
 
 // SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignage ...
 type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignage struct {
-	Enable       *bool                                                          `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
-	Mute         *bool                                                          `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
-	StartDisplay *int64                                                         `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	StopDisplay  *int64                                                         `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	Materials    []*SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+	IfCoverChildScope *bool                                                          `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	Enable            *bool                                                          `json:"enable,omitempty"`               // 是否开启数字标牌功能, 示例值: true
+	Mute              *bool                                                          `json:"mute,omitempty"`                 // 是否静音播放, 示例值: true
+	StartDisplay      *int64                                                         `json:"start_display,omitempty"`        // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	StopDisplay       *int64                                                         `json:"stop_display,omitempty"`         // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	Materials         []*SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`            // 素材列表
 }
 
 // SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial ...
@@ -114,7 +116,7 @@ type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial struct {
 	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200, 示例值: 15
 	Cover        *string `json:"cover,omitempty"`         // 素材封面url, 示例值: "url"
 	Md5          *string `json:"md5,omitempty"`           // 素材文件md5, 示例值: "md5"
-	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "vid"
+	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "v039b2g10000ca89uj3c77u5pfdkfvpg"
 	Size         *string `json:"size,omitempty"`          // 素材文件大小（单位byte）, 示例值: "100"
 }
 

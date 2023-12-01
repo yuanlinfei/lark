@@ -75,12 +75,14 @@ type Lark struct {
 	Hire             *HireService
 	HumanAuth        *HumanAuthService
 	Jssdk            *JssdkService
+	Lingo            *LingoService
 	Mail             *MailService
 	Message          *MessageService
 	Mina             *MinaService
 	Minutes          *MinutesService
 	OKR              *OKRService
 	Passport         *PassportService
+	Performance      *PerformanceService
 	PersonalSettings *PersonalSettingsService
 	Search           *SearchService
 	Task             *TaskService
@@ -116,12 +118,14 @@ func (r *Lark) init() {
 	r.Hire = &HireService{cli: r}
 	r.HumanAuth = &HumanAuthService{cli: r}
 	r.Jssdk = &JssdkService{cli: r}
+	r.Lingo = &LingoService{cli: r}
 	r.Mail = &MailService{cli: r}
 	r.Message = &MessageService{cli: r}
 	r.Mina = &MinaService{cli: r}
 	r.Minutes = &MinutesService{cli: r}
 	r.OKR = &OKRService{cli: r}
 	r.Passport = &PassportService{cli: r}
+	r.Performance = &PerformanceService{cli: r}
 	r.PersonalSettings = &PersonalSettingsService{cli: r}
 	r.Search = &SearchService{cli: r}
 	r.Task = &TaskService{cli: r}
@@ -186,12 +190,14 @@ type HelpdeskService struct{ cli *Lark }
 type HireService struct{ cli *Lark }
 type HumanAuthService struct{ cli *Lark }
 type JssdkService struct{ cli *Lark }
+type LingoService struct{ cli *Lark }
 type MailService struct{ cli *Lark }
 type MessageService struct{ cli *Lark }
 type MinaService struct{ cli *Lark }
 type MinutesService struct{ cli *Lark }
 type OKRService struct{ cli *Lark }
 type PassportService struct{ cli *Lark }
+type PerformanceService struct{ cli *Lark }
 type PersonalSettingsService struct{ cli *Lark }
 type SearchService struct{ cli *Lark }
 type TaskService struct{ cli *Lark }

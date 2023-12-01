@@ -58,7 +58,8 @@ func (r *Mock) UnMockHireGetHireApplication() {
 
 // GetHireApplicationReq ...
 type GetHireApplicationReq struct {
-	ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 示例值: "6949805467799537964"
+	ApplicationID string   `path:"application_id" json:"-"` // 投递 ID, 示例值: "6949805467799537964"
+	Options       []string `query:"options" json:"-"`       // 请求控制参数, 用于控制接口响应逻辑。如需一次查询多个用户ID, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如: https://{url}?options={option1}&options={option2}, 示例值: get_latest_application_on_chain, 可选值有: get_latest_application_on_chain: 仅对当前投递是虚拟职位投递时生效, 若投递未分配, 虚拟职位投递即为最新投递, 返回请求中指定的虚拟职位投递的信息, 若投递已分配, 会返回分配链上最新一个实体职位投递的信息, 而非请求中指定的投递。
 }
 
 // GetHireApplicationResp ...
@@ -73,7 +74,7 @@ type GetHireApplicationRespApplication struct {
 	TalentID                     string                                                       `json:"talent_id,omitempty"`                       // 候选人 ID
 	ResumeSourceID               string                                                       `json:"resume_source_id,omitempty"`                // 简历来源 ID
 	Stage                        *GetHireApplicationRespApplicationStage                      `json:"stage,omitempty"`                           // 投递处于的阶段
-	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: 1: 活跃, 2: 非活跃, 即为「已终止」, 3: 全部
+	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: 1: 活跃, 2: 非活跃, 即为「已终止」
 	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 可选值有: 1: HR寻访, 2: 候选人主动投递
 	ResumeSourceInfo             *GetHireApplicationRespApplicationResumeSourceInfo           `json:"resume_source_info,omitempty"`              // 投递来源信息
 	WebsiteResumeSource          *GetHireApplicationRespApplicationWebsiteResumeSource        `json:"website_resume_source,omitempty"`           // 官网投递来源

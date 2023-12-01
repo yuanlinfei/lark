@@ -60,7 +60,7 @@ func (r *Mock) UnMockHireGetHireReferralWebsiteJobPostList() {
 type GetHireReferralWebsiteJobPostListReq struct {
 	ProcessType      *int64            `query:"process_type" json:"-"`       // 招聘流程类型, 示例值: 1, 可选值有: 1: 社招, 2: 校招
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 最大值: `10`
+	PageSize         *int64            `query:"page_size" json:"-"`          // 每页获取记录数量, 最大10, 示例值: 10, 最大值: `10`
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 的类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
 }
@@ -84,6 +84,8 @@ type GetHireReferralWebsiteJobPostListRespItem struct {
 	JobRecruitmentType *GetHireReferralWebsiteJobPostListRespItemJobRecruitmentType `json:"job_recruitment_type,omitempty"` // 职位雇佣类型
 	JobDepartment      *GetHireReferralWebsiteJobPostListRespItemJobDepartment      `json:"job_department,omitempty"`       // 职位部门
 	JobType            *GetHireReferralWebsiteJobPostListRespItemJobType            `json:"job_type,omitempty"`             // 职位类型
+	MinJobLevel        *GetHireReferralWebsiteJobPostListRespItemMinJobLevel        `json:"min_job_level,omitempty"`        // 最低职级
+	MaxJobLevel        *GetHireReferralWebsiteJobPostListRespItemMaxJobLevel        `json:"max_job_level,omitempty"`        // 最高职级
 	Address            *GetHireReferralWebsiteJobPostListRespItemAddress            `json:"address,omitempty"`              // 职位地址
 	MinSalary          string                                                       `json:"min_salary,omitempty"`           // 月薪范围-最低薪资
 	MaxSalary          string                                                       `json:"max_salary,omitempty"`           // 月薪范围-最高薪资
@@ -264,6 +266,30 @@ type GetHireReferralWebsiteJobPostListRespItemJobType struct {
 type GetHireReferralWebsiteJobPostListRespItemJobTypeName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMaxJobLevel ...
+type GetHireReferralWebsiteJobPostListRespItemMaxJobLevel struct {
+	ID   string                                                    `json:"id,omitempty"`   // 职级ID
+	Name *GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName `json:"name,omitempty"` // 职级名称
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName ...
+type GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
+	EnUs string `json:"en_us,omitempty"` // 职级英文名称
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMinJobLevel ...
+type GetHireReferralWebsiteJobPostListRespItemMinJobLevel struct {
+	ID   string                                                    `json:"id,omitempty"`   // 职级ID
+	Name *GetHireReferralWebsiteJobPostListRespItemMinJobLevelName `json:"name,omitempty"` // 职级名称
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMinJobLevelName ...
+type GetHireReferralWebsiteJobPostListRespItemMinJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
+	EnUs string `json:"en_us,omitempty"` // 职级英文名称
 }
 
 // getHireReferralWebsiteJobPostListResp ...

@@ -59,8 +59,8 @@ func (r *Mock) UnMockHireGetHireJob() {
 // GetHireJobReq ...
 type GetHireJobReq struct {
 	JobID            string            `path:"job_id" json:"-"`              // 职位 ID, 请求Path中, 示例值: "6001"
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: "open_department_id", 可选值有: open_department_id: 开放平台部门ID, department_id: 内部部门ID, 默认值: `open_department_id`
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: open_department_id, 可选值有: open_department_id: 开放平台部门ID, department_id: 内部部门ID, 默认值: `open_department_id`
 }
 
 // GetHireJobResp ...
@@ -105,6 +105,7 @@ type GetHireJobRespJob struct {
 	CreateTimestamp    string                             `json:"create_timestamp,omitempty"`     // 创建时间戳
 	UpdateTimestamp    string                             `json:"update_timestamp,omitempty"`     // 更新时间戳
 	ExpiryTimestamp    string                             `json:"expiry_timestamp,omitempty"`     // 到期时间戳
+	TargetMajorList    []*GetHireJobRespJobTargetMajor    `json:"target_major_list,omitempty"`    // 目标专业ID, 「0」 为不限专业, 其他情况可通过[「根据主数据编码批量获取专业」](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/batch_major/get)获取专业详情
 }
 
 // GetHireJobRespJobCity ...
@@ -237,6 +238,13 @@ type GetHireJobRespJobSubject struct {
 type GetHireJobRespJobSubjectName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireJobRespJobTargetMajor ...
+type GetHireJobRespJobTargetMajor struct {
+	ID     string `json:"id,omitempty"`      // 目标专业ID
+	ZhName string `json:"zh_name,omitempty"` // 目标专业中文名称
+	EnName string `json:"en_name,omitempty"` // 目标专业英文名称
 }
 
 // getHireJobResp ...

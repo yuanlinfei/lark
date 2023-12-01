@@ -375,6 +375,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveUnsubscribeDriveFile(func(ctx context.Context, request *lark.UnsubscribeDriveFileReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUnsubscribeDriveFile()
+
+			_, _, err := moduleCli.UnsubscribeDriveFile(ctx, &lark.UnsubscribeDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetSubscribeDriveFile(func(ctx context.Context, request *lark.GetSubscribeDriveFileReq, options ...lark.MethodOptionFunc) (*lark.GetSubscribeDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSubscribeDriveFile()
+
+			_, _, err := moduleCli.GetSubscribeDriveFile(ctx, &lark.GetSubscribeDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveSearchDriveFile(func(ctx context.Context, request *lark.SearchDriveFileReq, options ...lark.MethodOptionFunc) (*lark.SearchDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -735,6 +759,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveGetDrivePublicPermissionV2(func(ctx context.Context, request *lark.GetDrivePublicPermissionV2Req, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionV2Resp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDrivePublicPermissionV2()
+
+			_, _, err := moduleCli.GetDrivePublicPermissionV2(ctx, &lark.GetDrivePublicPermissionV2Req{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveUpdateDrivePublicPermissionV2(func(ctx context.Context, request *lark.UpdateDrivePublicPermissionV2Req, options ...lark.MethodOptionFunc) (*lark.UpdateDrivePublicPermissionV2Resp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateDrivePublicPermissionV2()
+
+			_, _, err := moduleCli.UpdateDrivePublicPermissionV2(ctx, &lark.UpdateDrivePublicPermissionV2Req{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveBatchGetDriveMediaTmpDownloadURL(func(ctx context.Context, request *lark.BatchGetDriveMediaTmpDownloadURLReq, options ...lark.MethodOptionFunc) (*lark.BatchGetDriveMediaTmpDownloadURLResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -753,6 +801,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveGetDriveCommentList()
 
 			_, _, err := moduleCli.GetDriveCommentList(ctx, &lark.GetDriveCommentListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveCreateDriveComment(func(ctx context.Context, request *lark.CreateDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateDriveComment()
+
+			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -783,12 +843,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockDriveCreateDriveComment(func(ctx context.Context, request *lark.CreateDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveCommentResp, *lark.Response, error) {
+			cli.Mock().MockDriveGetDriveCommentReplyList(func(ctx context.Context, request *lark.GetDriveCommentReplyListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveCommentReplyListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveCreateDriveComment()
+			defer cli.Mock().UnMockDriveGetDriveCommentReplyList()
 
-			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{})
+			_, _, err := moduleCli.GetDriveCommentReplyList(ctx, &lark.GetDriveCommentReplyListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2095,6 +2155,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UnsubscribeDriveFile(ctx, &lark.UnsubscribeDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSubscribeDriveFile(ctx, &lark.GetSubscribeDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SearchDriveFile(ctx, &lark.SearchDriveFileReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -2351,6 +2429,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetDrivePublicPermissionV2(ctx, &lark.GetDrivePublicPermissionV2Req{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateDrivePublicPermissionV2(ctx, &lark.UpdateDrivePublicPermissionV2Req{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetDriveMediaTmpDownloadURL(ctx, &lark.BatchGetDriveMediaTmpDownloadURLReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -2359,6 +2455,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetDriveCommentList(ctx, &lark.GetDriveCommentListReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
 				FileToken: "x",
 			})
 			as.NotNil(err)
@@ -2386,8 +2491,9 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
+			_, _, err := moduleCli.GetDriveCommentReplyList(ctx, &lark.GetDriveCommentReplyListReq{
 				FileToken: "x",
+				CommentID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -3460,6 +3566,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UnsubscribeDriveFile(ctx, &lark.UnsubscribeDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSubscribeDriveFile(ctx, &lark.GetSubscribeDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SearchDriveFile(ctx, &lark.SearchDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -3716,6 +3840,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetDrivePublicPermissionV2(ctx, &lark.GetDrivePublicPermissionV2Req{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateDrivePublicPermissionV2(ctx, &lark.UpdateDrivePublicPermissionV2Req{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetDriveMediaTmpDownloadURL(ctx, &lark.BatchGetDriveMediaTmpDownloadURLReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -3724,6 +3866,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetDriveCommentList(ctx, &lark.GetDriveCommentListReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
 				FileToken: "x",
 			})
 			as.NotNil(err)
@@ -3751,8 +3902,9 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
+			_, _, err := moduleCli.GetDriveCommentReplyList(ctx, &lark.GetDriveCommentReplyListReq{
 				FileToken: "x",
+				CommentID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
