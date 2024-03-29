@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibility != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationAppVisibility(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type UpdateApplicationAppVisibilityResp struct {
 
 // updateApplicationAppVisibilityResp ...
 type updateApplicationAppVisibilityResp struct {
-	Code int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 返回码的描述
-	Data *UpdateApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
+	Code  int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 返回码的描述
+	Data  *UpdateApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary
 func (r *CalendarService) GetPrimaryCalendar(ctx context.Context, request *GetPrimaryCalendarReq, options ...MethodOptionFunc) (*GetPrimaryCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetPrimaryCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetPrimaryCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetPrimaryCalendar mock enable")
 		return r.cli.mock.mockCalendarGetPrimaryCalendar(ctx, request, options...)
 	}
 
@@ -91,7 +91,8 @@ type GetPrimaryCalendarRespCalendarCalendar struct {
 
 // getPrimaryCalendarResp ...
 type getPrimaryCalendarResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetPrimaryCalendarResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetPrimaryCalendarResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

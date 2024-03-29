@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/classification/list
 func (r *LingoService) GetLingoClassificationList(ctx context.Context, request *GetLingoClassificationListReq, options ...MethodOptionFunc) (*GetLingoClassificationListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoClassificationList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoClassificationList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoClassificationList mock enable")
 		return r.cli.mock.mockLingoGetLingoClassificationList(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type GetLingoClassificationListRespItemI18nName struct {
 
 // getLingoClassificationListResp ...
 type getLingoClassificationListResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetLingoClassificationListResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetLingoClassificationListResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

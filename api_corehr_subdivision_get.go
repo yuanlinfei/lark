@@ -25,9 +25,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get-2
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRSubdivision(ctx context.Context, request *GetCoreHRSubdivisionReq, options ...MethodOptionFunc) (*GetCoreHRSubdivisionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRSubdivision != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubdivision mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubdivision mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRSubdivision(ctx, request, options...)
 	}
 
@@ -94,7 +96,8 @@ type GetCoreHRSubdivisionRespSubdivisionSubdivisionTypeDisplay struct {
 
 // getCoreHRSubdivisionResp ...
 type getCoreHRSubdivisionResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRSubdivisionResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRSubdivisionResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

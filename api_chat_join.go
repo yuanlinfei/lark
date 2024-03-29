@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/me_join
 func (r *ChatService) JoinChat(ctx context.Context, request *JoinChatReq, options ...MethodOptionFunc) (*JoinChatResp, *Response, error) {
 	if r.cli.mock.mockChatJoinChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#JoinChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#JoinChat mock enable")
 		return r.cli.mock.mockChatJoinChat(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type JoinChatResp struct {
 
 // joinChatResp ...
 type joinChatResp struct {
-	Code int64         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string        `json:"msg,omitempty"`  // 错误描述
-	Data *JoinChatResp `json:"data,omitempty"`
+	Code  int64         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string        `json:"msg,omitempty"`  // 错误描述
+	Data  *JoinChatResp `json:"data,omitempty"`
+	Error *ErrorDetail  `json:"error,omitempty"`
 }

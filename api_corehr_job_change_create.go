@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/create
 func (r *CoreHRService) CreateCoreHRJobChange(ctx context.Context, request *CreateCoreHRJobChangeReq, options ...MethodOptionFunc) (*CreateCoreHRJobChangeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRJobChange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobChange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobChange mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRJobChange(ctx, request, options...)
 	}
 
@@ -209,7 +209,8 @@ type CreateCoreHRJobChangeRespTransferInfoTargetCostCenterRate struct {
 
 // createCoreHRJobChangeResp ...
 type createCoreHRJobChangeResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHRJobChangeResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCoreHRJobChangeResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

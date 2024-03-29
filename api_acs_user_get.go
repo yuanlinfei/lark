@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/get
 func (r *ACSService) GetACSUser(ctx context.Context, request *GetACSUserReq, options ...MethodOptionFunc) (*GetACSUserResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#GetACSUser mock enable")
 		return r.cli.mock.mockACSGetACSUser(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type GetACSUserRespUserFeature struct {
 
 // getACSUserResp ...
 type getACSUserResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetACSUserResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetACSUserResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

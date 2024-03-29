@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-an-app-admin’s-management-permissions
 func (r *ApplicationService) GetApplicationUserAdminScope(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUserAdminScope != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserAdminScope mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserAdminScope mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUserAdminScope(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type GetApplicationUserAdminScopeResp struct {
 
 // getApplicationUserAdminScopeResp ...
 type getApplicationUserAdminScopeResp struct {
-	Code int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationUserAdminScopeResp `json:"data,omitempty"` // 返回业务数据
+	Code  int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 返回码的描述
+	Data  *GetApplicationUserAdminScopeResp `json:"data,omitempty"` // 返回业务数据
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

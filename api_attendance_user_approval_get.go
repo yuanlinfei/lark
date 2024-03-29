@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/query
 func (r *AttendanceService) GetAttendanceUserApproval(ctx context.Context, request *GetAttendanceUserApprovalReq, options ...MethodOptionFunc) (*GetAttendanceUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserApproval mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserApproval(ctx, request, options...)
 	}
 
@@ -66,8 +66,8 @@ type GetAttendanceUserApprovalReq struct {
 	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日, 与 check_date_from 的时间间隔不超过 30 天, 示例值: 20190820
 	CheckDateType *string      `json:"check_date_type,omitempty"` // 查询依据的时间类型（不填默认依据PeriodTime）, 示例值: "PeriodTime", 可选值有: PeriodTime: 单据作用时间, CreateTime: 单据创建时间（目前暂不支持）, UpdateTime: 单据状态更新时间（新增字段, 对特定租户生效）
 	Status        *int64       `json:"status,omitempty"`          // 查询状态（不填默认查询已通过状态）, 示例值: 2, 可选值有: 0: 待审批, 1: 未通过, 2: 已通过, 3: 已取消, 4: 已撤回
-	CheckTimeFrom *string      `json:"check_time_from,omitempty"` // 查询的起始时间, 精确到秒的时间戳, 示例值: "1566641088"
-	CheckTimeTo   *string      `json:"check_time_to,omitempty"`   // 查询的结束时间, 精确到秒的时间戳, 示例值: "1592561088"
+	CheckTimeFrom *string      `json:"check_time_from,omitempty"` // 查询的起始时间, 精确到秒的时间戳（灰度中, 暂不开放）, 示例值: "1566641088"
+	CheckTimeTo   *string      `json:"check_time_to,omitempty"`   // 查询的结束时间, 精确到秒的时间戳（灰度中, 暂不开放）, 示例值: "1592561088"
 }
 
 // GetAttendanceUserApprovalResp ...
@@ -125,6 +125,7 @@ type GetAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
 	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
 	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
+	Reason     string  `json:"reason,omitempty"`      // 加班事由
 }
 
 // GetAttendanceUserApprovalRespUserApprovalTrip ...
@@ -139,7 +140,8 @@ type GetAttendanceUserApprovalRespUserApprovalTrip struct {
 
 // getAttendanceUserApprovalResp ...
 type getAttendanceUserApprovalResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserApprovalResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceUserApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

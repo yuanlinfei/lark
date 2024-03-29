@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param
 func (r *CoreHRService) GetCoreHRCustomField(ctx context.Context, request *GetCoreHRCustomFieldReq, options ...MethodOptionFunc) (*GetCoreHRCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCustomField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomField mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRCustomField(ctx, request, options...)
 	}
 
@@ -172,7 +172,8 @@ type GetCoreHRCustomFieldRespDataName struct {
 
 // getCoreHRCustomFieldResp ...
 type getCoreHRCustomFieldResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRCustomFieldResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRCustomFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

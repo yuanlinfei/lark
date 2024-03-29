@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/approval-preview
 func (r *ApprovalService) PreviewApprovalInstance(ctx context.Context, request *PreviewApprovalInstanceReq, options ...MethodOptionFunc) (*PreviewApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalPreviewApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#PreviewApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#PreviewApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalPreviewApprovalInstance(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type PreviewApprovalInstanceRespPreviewNode struct {
 
 // previewApprovalInstanceResp ...
 type previewApprovalInstanceResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
-	Data *PreviewApprovalInstanceResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 返回码的描述
+	Data  *PreviewApprovalInstanceResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

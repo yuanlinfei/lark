@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/read_user
 func (r *MessageService) GetBatchSentMessageReadUser(ctx context.Context, request *GetBatchSentMessageReadUserReq, options ...MethodOptionFunc) (*GetBatchSentMessageReadUserResp, *Response, error) {
 	if r.cli.mock.mockMessageGetBatchSentMessageReadUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageReadUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageReadUser mock enable")
 		return r.cli.mock.mockMessageGetBatchSentMessageReadUser(ctx, request, options...)
 	}
 
@@ -78,7 +78,8 @@ type GetBatchSentMessageReadUserRespReadUser struct {
 
 // getBatchSentMessageReadUserResp ...
 type getBatchSentMessageReadUserResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetBatchSentMessageReadUserResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBatchSentMessageReadUserResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

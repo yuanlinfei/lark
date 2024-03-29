@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-member/delete
 func (r *MailService) DeleteMailGroupMember(ctx context.Context, request *DeleteMailGroupMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupMember mock enable")
 		return r.cli.mock.mockMailDeleteMailGroupMember(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteMailGroupMemberResp struct {
 
 // deleteMailGroupMemberResp ...
 type deleteMailGroupMemberResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMailGroupMemberResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteMailGroupMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

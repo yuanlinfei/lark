@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/delete
 func (r *TaskService) DeleteTaskFollower(ctx context.Context, request *DeleteTaskFollowerReq, options ...MethodOptionFunc) (*DeleteTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskFollower != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskFollower mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskFollower mock enable")
 		return r.cli.mock.mockTaskDeleteTaskFollower(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type DeleteTaskFollowerResp struct {
 
 // deleteTaskFollowerResp ...
 type deleteTaskFollowerResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTaskFollowerResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteTaskFollowerResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

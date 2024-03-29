@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/delete
 func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, options ...MethodOptionFunc) (*DeleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#DeleteTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTask mock enable")
 		return r.cli.mock.mockTaskDeleteTask(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteTaskResp struct {
 
 // deleteTaskResp ...
 type deleteTaskResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTaskResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

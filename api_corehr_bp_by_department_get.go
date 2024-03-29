@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/bp/get_by_department
 func (r *CoreHRService) GetCoreHrbpByDepartment(ctx context.Context, request *GetCoreHrbpByDepartmentReq, options ...MethodOptionFunc) (*GetCoreHrbpByDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHrbpByDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHrbpByDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHrbpByDepartment mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHrbpByDepartment(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type GetCoreHrbpByDepartmentRespItem struct {
 
 // getCoreHrbpByDepartmentResp ...
 type getCoreHrbpByDepartmentResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrbpByDepartmentResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHrbpByDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/suite-search/create
 func (r *SearchService) SearchMessage(ctx context.Context, request *SearchMessageReq, options ...MethodOptionFunc) (*SearchMessageResp, *Response, error) {
 	if r.cli.mock.mockSearchSearchMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#SearchMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#SearchMessage mock enable")
 		return r.cli.mock.mockSearchSearchMessage(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type SearchMessageResp struct {
 
 // searchMessageResp ...
 type searchMessageResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *SearchMessageResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

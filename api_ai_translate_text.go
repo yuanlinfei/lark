@@ -39,13 +39,13 @@ import (
 // "pt": 葡萄牙语；
 // "ko": 朝鲜语；
 // "vi": 越南语；
-// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
+// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流。免费版不支持调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
 // new doc: https://open.feishu.cn/document/server-docs/ai/translation-v1/translate
 func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error) {
 	if r.cli.mock.mockAITranslateText != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#TranslateText mock enable")
 		return r.cli.mock.mockAITranslateText(ctx, request, options...)
 	}
 
@@ -95,7 +95,8 @@ type TranslateTextResp struct {
 
 // translateTextResp ...
 type translateTextResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *TranslateTextResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *TranslateTextResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

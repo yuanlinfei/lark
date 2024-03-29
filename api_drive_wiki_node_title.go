@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/update_title
 func (r *DriveService) UpdateWikiNodeTitle(ctx context.Context, request *UpdateWikiNodeTitleReq, options ...MethodOptionFunc) (*UpdateWikiNodeTitleResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateWikiNodeTitle != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiNodeTitle mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiNodeTitle mock enable")
 		return r.cli.mock.mockDriveUpdateWikiNodeTitle(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type UpdateWikiNodeTitleResp struct {
 
 // updateWikiNodeTitleResp ...
 type updateWikiNodeTitleResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateWikiNodeTitleResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateWikiNodeTitleResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

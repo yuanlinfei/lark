@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/get
 func (r *DriveService) GetSheetFloatImage(ctx context.Context, request *GetSheetFloatImageReq, options ...MethodOptionFunc) (*GetSheetFloatImageResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetFloatImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetFloatImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetFloatImage mock enable")
 		return r.cli.mock.mockDriveGetSheetFloatImage(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type GetSheetFloatImageRespFloatImage struct {
 
 // getSheetFloatImageResp ...
 type getSheetFloatImageResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetSheetFloatImageResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSheetFloatImageResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

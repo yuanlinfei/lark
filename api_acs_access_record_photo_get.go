@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/access_record/get
 func (r *ACSService) GetACSAccessRecordPhoto(ctx context.Context, request *GetACSAccessRecordPhotoReq, options ...MethodOptionFunc) (*GetACSAccessRecordPhotoResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSAccessRecordPhoto != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSAccessRecordPhoto mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#GetACSAccessRecordPhoto mock enable")
 		return r.cli.mock.mockACSGetACSAccessRecordPhoto(ctx, request, options...)
 	}
 
@@ -66,9 +66,10 @@ type GetACSAccessRecordPhotoReq struct {
 
 // getACSAccessRecordPhotoResp ...
 type getACSAccessRecordPhotoResp struct {
-	Code int64                        `json:"code,omitempty"`
-	Msg  string                       `json:"msg,omitempty"`
-	Data *GetACSAccessRecordPhotoResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"`
+	Msg   string                       `json:"msg,omitempty"`
+	Data  *GetACSAccessRecordPhotoResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
 
 func (r *getACSAccessRecordPhotoResp) SetReader(file io.Reader) {

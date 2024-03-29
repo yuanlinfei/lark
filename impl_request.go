@@ -30,6 +30,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/chyroc/lark/internal"
 )
@@ -66,7 +67,7 @@ func (r *Mock) UnMockRawRequest() {
 }
 
 func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
-	r.log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
+	r.Log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
 
 	// 1. parse request
 	rawHttpReq, err := r.parseRawHttpRequest(ctx, req)
@@ -79,17 +80,19 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
 		return response, err
 	}
 
-	code, msg := getCodeMsg(resp)
+	code, msg, detailErr := getCodeMsg(resp)
 	if code != 0 {
-		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
-		return response, NewError(req.Scope, req.API, code, msg)
+		e := NewError(req.Scope, req.API, code, msg)
+		e.(*Error).ErrorDetail = detailErr
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
+		return response, e
 	}
 
-	r.log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
+	r.Log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
 
 	return response, nil
 }
@@ -118,6 +121,10 @@ func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*ra
 		Method:  strings.ToUpper(req.Method),
 		Headers: map[string]string{},
 		URL:     req.URL,
+		Timeout: r.timeout,
+	}
+	if req.MethodOption.timeout > 0 {
+		rawHttpReq.Timeout = req.MethodOption.timeout
 	}
 
 	// 1 headers
@@ -141,11 +148,17 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 	response.Header = map[string][]string{}
 
 	if r.logLevel <= LogLevelTrace {
-		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API,
+		r.Log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API,
 			rawHttpReq.Method, rawHttpReq.URL, jsonHeader(rawHttpReq.Headers), string(rawHttpReq.RawBody))
 	}
 
-	req, err := http.NewRequest(rawHttpReq.Method, rawHttpReq.URL, rawHttpReq.Body)
+	if rawHttpReq.Timeout > 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, rawHttpReq.Timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, rawHttpReq.Method, rawHttpReq.URL, rawHttpReq.Body)
 	if err != nil {
 		return response, err
 	}
@@ -180,9 +193,9 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	if r.logLevel <= LogLevelTrace {
 		if respFilename == "" {
-			r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
+			r.Log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
 		} else {
-			r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=<FILE: %d>", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, len(bs))
+			r.Log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=<FILE: %d>", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, len(bs))
 		}
 	}
 
@@ -337,6 +350,7 @@ type rawHttpRequest struct {
 	Body    io.Reader
 	RawBody []byte
 	Headers map[string]string
+	Timeout time.Duration
 }
 
 func newFileUploadRequest(params map[string]string, filekey string, reader io.Reader) (string, io.Reader, error) {
@@ -371,16 +385,16 @@ type filenameSetter interface {
 	SetFilename(filename string)
 }
 
-func getCodeMsg(v interface{}) (code int64, msg string) {
+func getCodeMsg(v interface{}) (code int64, msg string, detail *ErrorDetail) {
 	if v == nil {
-		return 0, ""
+		return 0, "", nil
 	}
 	vv := reflect.ValueOf(v)
 	if vv.Kind() == reflect.Ptr {
 		vv = vv.Elem()
 	}
 	if vv.Kind() != reflect.Struct {
-		return 0, ""
+		return 0, "", nil
 	}
 	codeField := vv.FieldByName("Code")
 	if codeField.IsValid() {
@@ -403,11 +417,16 @@ func getCodeMsg(v interface{}) (code int64, msg string) {
 		}
 	}
 
-	codeMsg := vv.FieldByName("Msg")
-	if codeField.IsValid() {
-		if codeMsg.Kind() == reflect.String {
-			msg = codeMsg.String()
+	msgField := vv.FieldByName("Msg")
+	if msgField.IsValid() {
+		if msgField.Kind() == reflect.String {
+			msg = msgField.String()
 		}
+	}
+
+	errorField := vv.FieldByName("Error")
+	if errorField.IsValid() {
+		detail, _ = errorField.Interface().(*ErrorDetail)
 	}
 	return
 }

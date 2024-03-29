@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_custom_field/batch_update
 func (r *HireService) BatchUpdateHireEcoBackgroundCheckCustomField(ctx context.Context, request *BatchUpdateHireEcoBackgroundCheckCustomFieldReq, options ...MethodOptionFunc) (*BatchUpdateHireEcoBackgroundCheckCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockHireBatchUpdateHireEcoBackgroundCheckCustomField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoBackgroundCheckCustomField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoBackgroundCheckCustomField mock enable")
 		return r.cli.mock.mockHireBatchUpdateHireEcoBackgroundCheckCustomField(ctx, request, options...)
 	}
 
@@ -102,7 +102,8 @@ type BatchUpdateHireEcoBackgroundCheckCustomFieldResp struct {
 
 // batchUpdateHireEcoBackgroundCheckCustomFieldResp ...
 type batchUpdateHireEcoBackgroundCheckCustomFieldResp struct {
-	Code int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                            `json:"msg,omitempty"`  // 错误描述
-	Data *BatchUpdateHireEcoBackgroundCheckCustomFieldResp `json:"data,omitempty"`
+	Code  int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                            `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchUpdateHireEcoBackgroundCheckCustomFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                                      `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/delete
 func (r *CoreHRService) DeleteCoreHRContract(ctx context.Context, request *DeleteCoreHRContractReq, options ...MethodOptionFunc) (*DeleteCoreHRContractResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRContract != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRContract mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRContract mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRContract(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHRContractResp struct {
 
 // deleteCoreHRContractResp ...
 type deleteCoreHRContractResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHRContractResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRContractResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

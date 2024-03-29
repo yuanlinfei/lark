@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/upload
 func (r *CoreHRService) UploadCoreHRPersonFile(ctx context.Context, request *UploadCoreHRPersonFileReq, options ...MethodOptionFunc) (*UploadCoreHRPersonFileResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUploadCoreHRPersonFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UploadCoreHRPersonFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UploadCoreHRPersonFile mock enable")
 		return r.cli.mock.mockCoreHRUploadCoreHRPersonFile(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type UploadCoreHRPersonFileResp struct {
 
 // uploadCoreHRPersonFileResp ...
 type uploadCoreHRPersonFileResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *UploadCoreHRPersonFileResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *UploadCoreHRPersonFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent/patch
 func (r *HelpdeskService) UpdateHelpdeskAgent(ctx context.Context, request *UpdateHelpdeskAgentReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskAgent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskAgent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskAgent mock enable")
 		return r.cli.mock.mockHelpdeskUpdateHelpdeskAgent(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type UpdateHelpdeskAgentResp struct {
 
 // updateHelpdeskAgentResp ...
 type updateHelpdeskAgentResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskAgentResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHelpdeskAgentResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

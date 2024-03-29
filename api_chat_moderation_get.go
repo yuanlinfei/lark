@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/get
 func (r *ChatService) GetChatModeration(ctx context.Context, request *GetChatModerationReq, options ...MethodOptionFunc) (*GetChatModerationResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatModeration != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatModeration mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatModeration mock enable")
 		return r.cli.mock.mockChatGetChatModeration(ctx, request, options...)
 	}
 
@@ -86,7 +86,8 @@ type GetChatModerationRespItem struct {
 
 // getChatModerationResp ...
 type getChatModerationResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetChatModerationResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetChatModerationResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

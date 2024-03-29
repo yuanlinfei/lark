@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/resume_source/list
 func (r *HireService) GetHireResumeSource(ctx context.Context, request *GetHireResumeSourceReq, options ...MethodOptionFunc) (*GetHireResumeSourceResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireResumeSource != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireResumeSource mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireResumeSource mock enable")
 		return r.cli.mock.mockHireGetHireResumeSource(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GetHireResumeSourceRespItem struct {
 
 // getHireResumeSourceResp ...
 type getHireResumeSourceResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireResumeSourceResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireResumeSourceResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/get
 func (r *MessageService) GetMessage(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessage mock enable")
 		return r.cli.mock.mockMessageGetMessage(ctx, request, options...)
 	}
 
@@ -68,7 +68,7 @@ type GetMessageReq struct {
 
 // GetMessageResp ...
 type GetMessageResp struct {
-	Items []*GetMessageRespItem `json:"items,omitempty"` // --
+	Items []*GetMessageRespItem `json:"items,omitempty"` // 若指定消息的类型为合并转发（merge_forward）, 返回的数据包含 1 条合并转发消息 + N 条子消息
 }
 
 // GetMessageRespItem ...
@@ -76,6 +76,7 @@ type GetMessageRespItem struct {
 	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID（不返回说明该消息非话题消息）, 说明参见: [话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
@@ -90,7 +91,8 @@ type GetMessageRespItem struct {
 
 // getMessageResp ...
 type getMessageResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

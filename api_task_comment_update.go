@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/update
 func (r *TaskService) UpdateTaskComment(ctx context.Context, request *UpdateTaskCommentReq, options ...MethodOptionFunc) (*UpdateTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTaskComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskComment mock enable")
 		return r.cli.mock.mockTaskUpdateTaskComment(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type UpdateTaskCommentRespComment struct {
 
 // updateTaskCommentResp ...
 type updateTaskCommentResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateTaskCommentResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateTaskCommentResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

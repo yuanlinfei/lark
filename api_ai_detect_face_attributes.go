@@ -30,7 +30,7 @@ import (
 // Deprecated
 func (r *AIService) DetectFaceAttributes(ctx context.Context, request *DetectFaceAttributesReq, options ...MethodOptionFunc) (*DetectFaceAttributesResp, *Response, error) {
 	if r.cli.mock.mockAIDetectFaceAttributes != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#DetectFaceAttributes mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#DetectFaceAttributes mock enable")
 		return r.cli.mock.mockAIDetectFaceAttributes(ctx, request, options...)
 	}
 
@@ -170,7 +170,8 @@ type DetectFaceAttributesRespImageInfo struct {
 
 // detectFaceAttributesResp ...
 type detectFaceAttributesResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DetectFaceAttributesResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DetectFaceAttributesResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

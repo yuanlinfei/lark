@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/get
 func (r *MailService) GetMailGroupPermissionMember(ctx context.Context, request *GetMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupPermissionMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember mock enable")
 		return r.cli.mock.mockMailGetMailGroupPermissionMember(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type GetMailGroupPermissionMemberResp struct {
 
 // getMailGroupPermissionMemberResp ...
 type getMailGroupPermissionMemberResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailGroupPermissionMemberResp `json:"data,omitempty"`
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMailGroupPermissionMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

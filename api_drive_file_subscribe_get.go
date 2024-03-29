@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// GetSubscribeDriveFile 该接口仅支持文档拥有者查询自己文档的订阅状态, 可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// GetSubscribeDriveFile 该接口仅支持文档拥有者和文档管理者查询文档的订阅状态（但目前文档管理者仅能接收到文件编辑事件）。可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/get_subscribe
 func (r *DriveService) GetSubscribeDriveFile(ctx context.Context, request *GetSubscribeDriveFileReq, options ...MethodOptionFunc) (*GetSubscribeDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSubscribeDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSubscribeDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSubscribeDriveFile mock enable")
 		return r.cli.mock.mockDriveGetSubscribeDriveFile(ctx, request, options...)
 	}
 
@@ -58,17 +58,20 @@ func (r *Mock) UnMockDriveGetSubscribeDriveFile() {
 
 // GetSubscribeDriveFileReq ...
 type GetSubscribeDriveFileReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: docx文档, sheet: 表格, bitable: 多维表格, file: 文件
+	FileToken string   `path:"file_token" json:"-"`  // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
+	FileType  FileType `query:"file_type" json:"-"`  // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: docx文档, sheet: 表格, bitable: 多维表格, file: 文件, folder: 文件夹
+	EventType *string  `query:"event_type" json:"-"` // 事件类型, 订阅为folder类型时必填, 示例值: file.created_in_folder_v1
 }
 
 // GetSubscribeDriveFileResp ...
 type GetSubscribeDriveFileResp struct {
+	IsSubseribe bool `json:"is_subseribe,omitempty"` // 是否有订阅, 取值 true 表示已订阅；false 表示未订阅
 }
 
 // getSubscribeDriveFileResp ...
 type getSubscribeDriveFileResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetSubscribeDriveFileResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSubscribeDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

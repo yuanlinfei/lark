@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetDriveDocRawContent 此接口只支持查询旧版文档纯文本内容, 如果需要查询新版文档的纯文本内容, 请使用[获取新版文档纯文本内容
+// GetDriveDocRawContent :::warning
 //
-// ](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content)接口。
+// 此接口只支持查询旧版文档纯文本内容。要查询新版文档（文档类型: `docx`）的纯文本内容, 使用[获取文档纯文本内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content)接口。
 // 该接口用于获取文档的纯文本内容, 不包含富文本格式信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveDocRawContent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")
 		return r.cli.mock.mockDriveGetDriveDocRawContent(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type GetDriveDocRawContentResp struct {
 
 // getDriveDocRawContentResp ...
 type getDriveDocRawContentResp struct {
-	Code int64                      `json:"code,omitempty"`
-	Msg  string                     `json:"msg,omitempty"`
-	Data *GetDriveDocRawContentResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"`
+	Msg   string                     `json:"msg,omitempty"`
+	Data  *GetDriveDocRawContentResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

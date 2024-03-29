@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/list
 func (r *CoreHRService) GetCoreHRDepartmentList(ctx context.Context, request *GetCoreHRDepartmentListReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRDepartmentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRDepartmentList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRDepartmentList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRDepartmentList(ctx, request, options...)
 	}
 
@@ -84,6 +84,7 @@ type GetCoreHRDepartmentListRespItem struct {
 	ExpirationTime   string                                           `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*GetCoreHRDepartmentListRespItemCustomField    `json:"custom_fields,omitempty"`     // 自定义字段
 	CostCenterID     string                                           `json:"cost_center_id,omitempty"`    // 成本中心id
+	StaffingModel    *GetCoreHRDepartmentListRespItemStaffingModel    `json:"staffing_model,omitempty"`    // 是否使用职务
 }
 
 // GetCoreHRDepartmentListRespItemCustomField ...
@@ -137,6 +138,18 @@ type GetCoreHRDepartmentListRespItemHiberarchyCommonTypeDisplay struct {
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
+// GetCoreHRDepartmentListRespItemStaffingModel ...
+type GetCoreHRDepartmentListRespItemStaffingModel struct {
+	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRDepartmentListRespItemStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRDepartmentListRespItemStaffingModelDisplay ...
+type GetCoreHRDepartmentListRespItemStaffingModelDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
 // GetCoreHRDepartmentListRespItemSubType ...
 type GetCoreHRDepartmentListRespItemSubType struct {
 	EnumName string                                           `json:"enum_name,omitempty"` // 枚举值
@@ -151,7 +164,8 @@ type GetCoreHRDepartmentListRespItemSubTypeDisplay struct {
 
 // getCoreHRDepartmentListResp ...
 type getCoreHRDepartmentListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRDepartmentListResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRDepartmentListResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

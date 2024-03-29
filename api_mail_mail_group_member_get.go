@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-member/get
 func (r *MailService) GetMailGroupMember(ctx context.Context, request *GetMailGroupMemberReq, options ...MethodOptionFunc) (*GetMailGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupMember mock enable")
 		return r.cli.mock.mockMailGetMailGroupMember(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type GetMailGroupMemberResp struct {
 
 // getMailGroupMemberResp ...
 type getMailGroupMemberResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailGroupMemberResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMailGroupMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

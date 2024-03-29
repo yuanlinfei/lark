@@ -38,7 +38,7 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCoreHRCustomField(ctx, &lark.GetCoreHRCustomFieldReq{})
+			_, _, err := moduleCli.SearchCoreHRNationality(ctx, &lark.SearchCoreHRNationalityReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -48,6 +48,42 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.CoreHR
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRNationality(func(ctx context.Context, request *lark.SearchCoreHRNationalityReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRNationalityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRNationality()
+
+			_, _, err := moduleCli.SearchCoreHRNationality(ctx, &lark.SearchCoreHRNationalityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRBank(func(ctx context.Context, request *lark.SearchCoreHRBankReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRBankResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRBank()
+
+			_, _, err := moduleCli.SearchCoreHRBank(ctx, &lark.SearchCoreHRBankReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRBankBranch(func(ctx context.Context, request *lark.SearchCoreHRBankBranchReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRBankBranchResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRBankBranch()
+
+			_, _, err := moduleCli.SearchCoreHRBankBranch(ctx, &lark.SearchCoreHRBankBranchReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -81,6 +117,54 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockCoreHRGetCoreHRCustomFieldObjectApiNameList()
 
 			_, _, err := moduleCli.GetCoreHRCustomFieldObjectApiNameList(ctx, &lark.GetCoreHRCustomFieldObjectApiNameListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRCountryRegion(func(ctx context.Context, request *lark.SearchCoreHRCountryRegionReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRCountryRegionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRCountryRegion()
+
+			_, _, err := moduleCli.SearchCoreHRCountryRegion(ctx, &lark.SearchCoreHRCountryRegionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRCountryRegionSubdivision(func(ctx context.Context, request *lark.SearchCoreHRCountryRegionSubdivisionReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRCountryRegionSubdivisionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRCountryRegionSubdivision()
+
+			_, _, err := moduleCli.SearchCoreHRCountryRegionSubdivision(ctx, &lark.SearchCoreHRCountryRegionSubdivisionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRCity(func(ctx context.Context, request *lark.SearchCoreHRCityReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRCityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRCity()
+
+			_, _, err := moduleCli.SearchCoreHRCity(ctx, &lark.SearchCoreHRCityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRDistrict(func(ctx context.Context, request *lark.SearchCoreHRDistrictReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRDistrictResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRDistrict()
+
+			_, _, err := moduleCli.SearchCoreHRDistrict(ctx, &lark.SearchCoreHRDistrictReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -339,6 +423,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRSearchCoreHRCurrency(func(ctx context.Context, request *lark.SearchCoreHRCurrencyReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRCurrencyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRCurrency()
+
+			_, _, err := moduleCli.SearchCoreHRCurrency(ctx, &lark.SearchCoreHRCurrencyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRGetCoreHRCurrency(func(ctx context.Context, request *lark.GetCoreHRCurrencyReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRCurrencyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -543,6 +639,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRQueryCoreHRJobData(func(ctx context.Context, request *lark.QueryCoreHRJobDataReq, options ...lark.MethodOptionFunc) (*lark.QueryCoreHRJobDataResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRQueryCoreHRJobData()
+
+			_, _, err := moduleCli.QueryCoreHRJobData(ctx, &lark.QueryCoreHRJobDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRBatchGetCoreHRJobData(func(ctx context.Context, request *lark.BatchGetCoreHRJobDataReq, options ...lark.MethodOptionFunc) (*lark.BatchGetCoreHRJobDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -639,6 +747,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRBatchGetCoreHRDepartment(func(ctx context.Context, request *lark.BatchGetCoreHRDepartmentReq, options ...lark.MethodOptionFunc) (*lark.BatchGetCoreHRDepartmentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRBatchGetCoreHRDepartment()
+
+			_, _, err := moduleCli.BatchGetCoreHRDepartment(ctx, &lark.BatchGetCoreHRDepartmentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRGetCoreHRDepartmentList(func(ctx context.Context, request *lark.GetCoreHRDepartmentListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRDepartmentListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -711,6 +831,30 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRGetCoreHRCompany(func(ctx context.Context, request *lark.GetCoreHRCompanyReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRCompanyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRGetCoreHRCompany()
+
+			_, _, err := moduleCli.GetCoreHRCompany(ctx, &lark.GetCoreHRCompanyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRGetCoreHRCompanyList(func(ctx context.Context, request *lark.GetCoreHRCompanyListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRCompanyListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRGetCoreHRCompanyList()
+
+			_, _, err := moduleCli.GetCoreHRCompanyList(ctx, &lark.GetCoreHRCompanyListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRBatchGetCoreHRCompany(func(ctx context.Context, request *lark.BatchGetCoreHRCompanyReq, options ...lark.MethodOptionFunc) (*lark.BatchGetCoreHRCompanyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -735,6 +879,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRUpdateCoreHRCompany(func(ctx context.Context, request *lark.UpdateCoreHRCompanyReq, options ...lark.MethodOptionFunc) (*lark.UpdateCoreHRCompanyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRUpdateCoreHRCompany()
+
+			_, _, err := moduleCli.UpdateCoreHRCompany(ctx, &lark.UpdateCoreHRCompanyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRDeleteCoreHRCompany(func(ctx context.Context, request *lark.DeleteCoreHRCompanyReq, options ...lark.MethodOptionFunc) (*lark.DeleteCoreHRCompanyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -747,24 +903,84 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCoreHRGetCoreHRCompany(func(ctx context.Context, request *lark.GetCoreHRCompanyReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRCompanyResp, *lark.Response, error) {
+			cli.Mock().MockCoreHRCreateCoreHRCostCenter(func(ctx context.Context, request *lark.CreateCoreHRCostCenterReq, options ...lark.MethodOptionFunc) (*lark.CreateCoreHRCostCenterResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockCoreHRGetCoreHRCompany()
+			defer cli.Mock().UnMockCoreHRCreateCoreHRCostCenter()
 
-			_, _, err := moduleCli.GetCoreHRCompany(ctx, &lark.GetCoreHRCompanyReq{})
+			_, _, err := moduleCli.CreateCoreHRCostCenter(ctx, &lark.CreateCoreHRCostCenterReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCoreHRGetCoreHRCompanyList(func(ctx context.Context, request *lark.GetCoreHRCompanyListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRCompanyListResp, *lark.Response, error) {
+			cli.Mock().MockCoreHRActiveCoreHRCostCenter(func(ctx context.Context, request *lark.ActiveCoreHRCostCenterReq, options ...lark.MethodOptionFunc) (*lark.ActiveCoreHRCostCenterResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockCoreHRGetCoreHRCompanyList()
+			defer cli.Mock().UnMockCoreHRActiveCoreHRCostCenter()
 
-			_, _, err := moduleCli.GetCoreHRCompanyList(ctx, &lark.GetCoreHRCompanyListReq{})
+			_, _, err := moduleCli.ActiveCoreHRCostCenter(ctx, &lark.ActiveCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRDeleteCoreHRCostCenter(func(ctx context.Context, request *lark.DeleteCoreHRCostCenterReq, options ...lark.MethodOptionFunc) (*lark.DeleteCoreHRCostCenterResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRDeleteCoreHRCostCenter()
+
+			_, _, err := moduleCli.DeleteCoreHRCostCenter(ctx, &lark.DeleteCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRSearchCoreHRCostCenter(func(ctx context.Context, request *lark.SearchCoreHRCostCenterReq, options ...lark.MethodOptionFunc) (*lark.SearchCoreHRCostCenterResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRSearchCoreHRCostCenter()
+
+			_, _, err := moduleCli.SearchCoreHRCostCenter(ctx, &lark.SearchCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRCreateCoreHRCostCenterVersion(func(ctx context.Context, request *lark.CreateCoreHRCostCenterVersionReq, options ...lark.MethodOptionFunc) (*lark.CreateCoreHRCostCenterVersionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRCreateCoreHRCostCenterVersion()
+
+			_, _, err := moduleCli.CreateCoreHRCostCenterVersion(ctx, &lark.CreateCoreHRCostCenterVersionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRUpdateCoreHRCostCenterVersion(func(ctx context.Context, request *lark.UpdateCoreHRCostCenterVersionReq, options ...lark.MethodOptionFunc) (*lark.UpdateCoreHRCostCenterVersionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRUpdateCoreHRCostCenterVersion()
+
+			_, _, err := moduleCli.UpdateCoreHRCostCenterVersion(ctx, &lark.UpdateCoreHRCostCenterVersionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRDeleteCoreHRCostCenterVersion(func(ctx context.Context, request *lark.DeleteCoreHRCostCenterVersionReq, options ...lark.MethodOptionFunc) (*lark.DeleteCoreHRCostCenterVersionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRDeleteCoreHRCostCenterVersion()
+
+			_, _, err := moduleCli.DeleteCoreHRCostCenterVersion(ctx, &lark.DeleteCoreHRCostCenterVersionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1431,6 +1647,30 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRGetCoreHRProcessList(func(ctx context.Context, request *lark.GetCoreHRProcessListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRProcessListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRGetCoreHRProcessList()
+
+			_, _, err := moduleCli.GetCoreHRProcessList(ctx, &lark.GetCoreHRProcessListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRGetCoreHRProcess(func(ctx context.Context, request *lark.GetCoreHRProcessReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRProcessResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRGetCoreHRProcess()
+
+			_, _, err := moduleCli.GetCoreHRProcess(ctx, &lark.GetCoreHRProcessReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRGetCoreHRProcessFormVariableData(func(ctx context.Context, request *lark.GetCoreHRProcessFormVariableDataReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRProcessFormVariableDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1461,6 +1701,27 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SearchCoreHRNationality(ctx, &lark.SearchCoreHRNationalityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRBank(ctx, &lark.SearchCoreHRBankReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRBankBranch(ctx, &lark.SearchCoreHRBankBranchReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRCustomField(ctx, &lark.GetCoreHRCustomFieldReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1476,6 +1737,34 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetCoreHRCustomFieldObjectApiNameList(ctx, &lark.GetCoreHRCustomFieldObjectApiNameListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCountryRegion(ctx, &lark.SearchCoreHRCountryRegionReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCountryRegionSubdivision(ctx, &lark.SearchCoreHRCountryRegionSubdivisionReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCity(ctx, &lark.SearchCoreHRCityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRDistrict(ctx, &lark.SearchCoreHRDistrictReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -1653,6 +1942,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SearchCoreHRCurrency(ctx, &lark.SearchCoreHRCurrencyReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRCurrency(ctx, &lark.GetCoreHRCurrencyReq{
 				CurrencyID: "x",
 			})
@@ -1792,6 +2088,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.QueryCoreHRJobData(ctx, &lark.QueryCoreHRJobDataReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetCoreHRJobData(ctx, &lark.BatchGetCoreHRJobDataReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1854,6 +2157,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchGetCoreHRDepartment(ctx, &lark.BatchGetCoreHRDepartmentReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRDepartmentList(ctx, &lark.GetCoreHRDepartmentListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1900,6 +2210,22 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetCoreHRCompany(ctx, &lark.GetCoreHRCompanyReq{
+				CompanyID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCoreHRCompanyList(ctx, &lark.GetCoreHRCompanyListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetCoreHRCompany(ctx, &lark.BatchGetCoreHRCompanyReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1908,6 +2234,15 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateCoreHRCompany(ctx, &lark.CreateCoreHRCompanyReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCoreHRCompany(ctx, &lark.UpdateCoreHRCompanyReq{
+				CompanyID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -1923,8 +2258,15 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCoreHRCompany(ctx, &lark.GetCoreHRCompanyReq{
-				CompanyID: "x",
+			_, _, err := moduleCli.CreateCoreHRCostCenter(ctx, &lark.CreateCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ActiveCoreHRCostCenter(ctx, &lark.ActiveCoreHRCostCenterReq{
+				CostCenterID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1932,7 +2274,45 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCoreHRCompanyList(ctx, &lark.GetCoreHRCompanyListReq{})
+			_, _, err := moduleCli.DeleteCoreHRCostCenter(ctx, &lark.DeleteCoreHRCostCenterReq{
+				CostCenterID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCostCenter(ctx, &lark.SearchCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCoreHRCostCenterVersion(ctx, &lark.CreateCoreHRCostCenterVersionReq{
+				CostCenterID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCoreHRCostCenterVersion(ctx, &lark.UpdateCoreHRCostCenterVersionReq{
+				CostCenterID: "x",
+				VersionID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteCoreHRCostCenterVersion(ctx, &lark.DeleteCoreHRCostCenterVersionReq{
+				CostCenterID: "x",
+				VersionID:    "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -2356,6 +2736,22 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetCoreHRSecurityGroupList(ctx, &lark.GetCoreHRSecurityGroupListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCoreHRProcessList(ctx, &lark.GetCoreHRProcessListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCoreHRProcess(ctx, &lark.GetCoreHRProcessReq{
+				ProcessID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -2387,6 +2783,27 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SearchCoreHRNationality(ctx, &lark.SearchCoreHRNationalityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRBank(ctx, &lark.SearchCoreHRBankReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRBankBranch(ctx, &lark.SearchCoreHRBankBranchReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRCustomField(ctx, &lark.GetCoreHRCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -2402,6 +2819,34 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetCoreHRCustomFieldObjectApiNameList(ctx, &lark.GetCoreHRCustomFieldObjectApiNameListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCountryRegion(ctx, &lark.SearchCoreHRCountryRegionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCountryRegionSubdivision(ctx, &lark.SearchCoreHRCountryRegionSubdivisionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCity(ctx, &lark.SearchCoreHRCityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRDistrict(ctx, &lark.SearchCoreHRDistrictReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -2579,6 +3024,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SearchCoreHRCurrency(ctx, &lark.SearchCoreHRCurrencyReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRCurrency(ctx, &lark.GetCoreHRCurrencyReq{
 				CurrencyID: "x",
 			})
@@ -2718,6 +3170,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.QueryCoreHRJobData(ctx, &lark.QueryCoreHRJobDataReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetCoreHRJobData(ctx, &lark.BatchGetCoreHRJobDataReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -2780,6 +3239,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchGetCoreHRDepartment(ctx, &lark.BatchGetCoreHRDepartmentReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRDepartmentList(ctx, &lark.GetCoreHRDepartmentListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -2826,6 +3292,22 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetCoreHRCompany(ctx, &lark.GetCoreHRCompanyReq{
+				CompanyID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCoreHRCompanyList(ctx, &lark.GetCoreHRCompanyListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetCoreHRCompany(ctx, &lark.BatchGetCoreHRCompanyReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -2834,6 +3316,15 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateCoreHRCompany(ctx, &lark.CreateCoreHRCompanyReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCoreHRCompany(ctx, &lark.UpdateCoreHRCompanyReq{
+				CompanyID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -2849,8 +3340,15 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCoreHRCompany(ctx, &lark.GetCoreHRCompanyReq{
-				CompanyID: "x",
+			_, _, err := moduleCli.CreateCoreHRCostCenter(ctx, &lark.CreateCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ActiveCoreHRCostCenter(ctx, &lark.ActiveCoreHRCostCenterReq{
+				CostCenterID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -2858,7 +3356,45 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCoreHRCompanyList(ctx, &lark.GetCoreHRCompanyListReq{})
+			_, _, err := moduleCli.DeleteCoreHRCostCenter(ctx, &lark.DeleteCoreHRCostCenterReq{
+				CostCenterID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCoreHRCostCenter(ctx, &lark.SearchCoreHRCostCenterReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCoreHRCostCenterVersion(ctx, &lark.CreateCoreHRCostCenterVersionReq{
+				CostCenterID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCoreHRCostCenterVersion(ctx, &lark.UpdateCoreHRCostCenterVersionReq{
+				CostCenterID: "x",
+				VersionID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteCoreHRCostCenterVersion(ctx, &lark.DeleteCoreHRCostCenterVersionReq{
+				CostCenterID: "x",
+				VersionID:    "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -3282,6 +3818,22 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetCoreHRSecurityGroupList(ctx, &lark.GetCoreHRSecurityGroupListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCoreHRProcessList(ctx, &lark.GetCoreHRProcessListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCoreHRProcess(ctx, &lark.GetCoreHRProcessReq{
+				ProcessID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

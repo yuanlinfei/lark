@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get-3
 func (r *VCService) GetVCReserveConfigAdmin(ctx context.Context, request *GetVCReserveConfigAdminReq, options ...MethodOptionFunc) (*GetVCReserveConfigAdminResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveConfigAdmin != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigAdmin mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigAdmin mock enable")
 		return r.cli.mock.mockVCGetVCReserveConfigAdmin(ctx, request, options...)
 	}
 
@@ -87,7 +87,8 @@ type GetVCReserveConfigAdminRespReserveAdminConfigUser struct {
 
 // getVCReserveConfigAdminResp ...
 type getVCReserveConfigAdminResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCReserveConfigAdminResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVCReserveConfigAdminResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/create
 func (r *DriveService) CreateSheetFloatImage(ctx context.Context, request *CreateSheetFloatImageReq, options ...MethodOptionFunc) (*CreateSheetFloatImageResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSheetFloatImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetFloatImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetFloatImage mock enable")
 		return r.cli.mock.mockDriveCreateSheetFloatImage(ctx, request, options...)
 	}
 
@@ -90,7 +90,8 @@ type CreateSheetFloatImageRespFloatImage struct {
 
 // createSheetFloatImageResp ...
 type createSheetFloatImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSheetFloatImageResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateSheetFloatImageResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

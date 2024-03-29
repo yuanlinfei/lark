@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/buzz-messages/urgent_app
 func (r *MessageService) SendUrgentAppMessage(ctx context.Context, request *SendUrgentAppMessageReq, options ...MethodOptionFunc) (*SendUrgentAppMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendUrgentAppMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendUrgentAppMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#SendUrgentAppMessage mock enable")
 		return r.cli.mock.mockMessageSendUrgentAppMessage(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type SendUrgentAppMessageResp struct {
 
 // sendUrgentAppMessageResp ...
 type sendUrgentAppMessageResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *SendUrgentAppMessageResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *SendUrgentAppMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

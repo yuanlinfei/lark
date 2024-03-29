@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-alias/create
 func (r *MailService) CreateMailGroupAlias(ctx context.Context, request *CreateMailGroupAliasReq, options ...MethodOptionFunc) (*CreateMailGroupAliasResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailGroupAlias != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroupAlias mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroupAlias mock enable")
 		return r.cli.mock.mockMailCreateMailGroupAlias(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type CreateMailGroupAliasRespMailGroupAlias struct {
 
 // createMailGroupAliasResp ...
 type createMailGroupAliasResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *CreateMailGroupAliasResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateMailGroupAliasResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

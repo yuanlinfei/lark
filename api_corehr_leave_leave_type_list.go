@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_types
 func (r *CoreHRService) GetCoreHRLeaveTypeList(ctx context.Context, request *GetCoreHRLeaveTypeListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRLeaveTypeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveTypeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveTypeList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRLeaveTypeList(ctx, request, options...)
 	}
 
@@ -105,7 +105,8 @@ type GetCoreHRLeaveTypeListRespLeaveTypeLeaveTypeName struct {
 
 // getCoreHRLeaveTypeListResp ...
 type getCoreHRLeaveTypeListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRLeaveTypeListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRLeaveTypeListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

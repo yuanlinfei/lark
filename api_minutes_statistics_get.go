@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/minutes-v1/minute-statistics/get
 func (r *MinutesService) GetMinutesStatistics(ctx context.Context, request *GetMinutesStatisticsReq, options ...MethodOptionFunc) (*GetMinutesStatisticsResp, *Response, error) {
 	if r.cli.mock.mockMinutesGetMinutesStatistics != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesStatistics mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesStatistics mock enable")
 		return r.cli.mock.mockMinutesGetMinutesStatistics(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type GetMinutesStatisticsRespStatisticsUserView struct {
 
 // getMinutesStatisticsResp ...
 type getMinutesStatisticsResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetMinutesStatisticsResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMinutesStatisticsResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

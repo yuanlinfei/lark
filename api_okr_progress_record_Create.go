@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/create
 func (r *OKRService) CreateOKRProgressRecord(ctx context.Context, request *CreateOKRProgressRecordReq, options ...MethodOptionFunc) (*CreateOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRCreateOKRProgressRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#CreateOKRProgressRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#CreateOKRProgressRecord mock enable")
 		return r.cli.mock.mockOKRCreateOKRProgressRecord(ctx, request, options...)
 	}
 
@@ -274,7 +274,8 @@ type CreateOKRProgressRecordRespContentBlockParagraphStyleList struct {
 
 // createOKRProgressRecordResp ...
 type createOKRProgressRecordResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *CreateOKRProgressRecordResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateOKRProgressRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

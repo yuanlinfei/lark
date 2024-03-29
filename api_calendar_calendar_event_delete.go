@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete
 func (r *CalendarService) DeleteCalendarEvent(ctx context.Context, request *DeleteCalendarEventReq, options ...MethodOptionFunc) (*DeleteCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEvent(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type DeleteCalendarEventResp struct {
 
 // deleteCalendarEventResp ...
 type deleteCalendarEventResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarEventResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCalendarEventResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

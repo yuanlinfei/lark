@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job_process/list
 func (r *HireService) GetHireJobProcessList(ctx context.Context, request *GetHireJobProcessListReq, options ...MethodOptionFunc) (*GetHireJobProcessListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireJobProcessList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobProcessList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobProcessList mock enable")
 		return r.cli.mock.mockHireGetHireJobProcessList(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type GetHireJobProcessListRespItemStage struct {
 
 // getHireJobProcessListResp ...
 type getHireJobProcessListResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireJobProcessListResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireJobProcessListResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

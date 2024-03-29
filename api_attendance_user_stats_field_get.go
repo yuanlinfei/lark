@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query-2
 func (r *AttendanceService) GetAttendanceUserStatsField(ctx context.Context, request *GetAttendanceUserStatsFieldReq, options ...MethodOptionFunc) (*GetAttendanceUserStatsFieldResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserStatsField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsField mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserStatsField(ctx, request, options...)
 	}
 
@@ -95,7 +95,8 @@ type GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField struct {
 
 // getAttendanceUserStatsFieldResp ...
 type getAttendanceUserStatsFieldResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserStatsFieldResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceUserStatsFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

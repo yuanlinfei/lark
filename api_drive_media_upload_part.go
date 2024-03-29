@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_part
 func (r *DriveService) PartUploadDriveMedia(ctx context.Context, request *PartUploadDriveMediaReq, options ...MethodOptionFunc) (*PartUploadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDrivePartUploadDriveMedia != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PartUploadDriveMedia mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#PartUploadDriveMedia mock enable")
 		return r.cli.mock.mockDrivePartUploadDriveMedia(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type PartUploadDriveMediaResp struct {
 
 // partUploadDriveMediaResp ...
 type partUploadDriveMediaResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *PartUploadDriveMediaResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *PartUploadDriveMediaResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

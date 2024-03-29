@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/get
 func (r *HireService) GetHireOffer(ctx context.Context, request *GetHireOfferReq, options ...MethodOptionFunc) (*GetHireOfferResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireOffer != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireOffer mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireOffer mock enable")
 		return r.cli.mock.mockHireGetHireOffer(ctx, request, options...)
 	}
 
@@ -58,9 +58,12 @@ func (r *Mock) UnMockHireGetHireOffer() {
 
 // GetHireOfferReq ...
 type GetHireOfferReq struct {
-	OfferID          string            `path:"offer_id" json:"-"`            // Offer ID, 示例值: "1111111"
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以 people_admin_id 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 的类型, 示例值: department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
+	OfferID            string            `path:"offer_id" json:"-"`               // Offer ID, 示例值: "1111111"
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以 people_admin_id 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 的类型, 示例值: department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
+	JobLevelIDType     *IDType           `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
+	JobFamilyIDType    *IDType           `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型, 示例值: 6942778198054125571, 可选值有: people_admin_job_category_id: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_family_id: 「飞书管理后台」适用的序列 ID, 通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取, 默认值: `people_admin_job_category_id`
+	EmployeeTypeIDType *IDType           `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型, 示例值: 1, 可选值有: people_admin_employee_type_id: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, employee_type_enum_id: 「飞书管理后台」适用的人员类型 ID, 通过[「查询人员类型」](https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list)接口获取, 默认值: `people_admin_employee_type_id`
 }
 
 // GetHireOfferResp ...
@@ -70,37 +73,39 @@ type GetHireOfferResp struct {
 
 // GetHireOfferRespOffer ...
 type GetHireOfferRespOffer struct {
-	ID            string                           `json:"id,omitempty"`             // Offer ID
-	ApplicationID string                           `json:"application_id,omitempty"` // 投递 ID
-	BasicInfo     *GetHireOfferRespOfferBasicInfo  `json:"basic_info,omitempty"`     // 基础信息
-	SalaryPlan    *GetHireOfferRespOfferSalaryPlan `json:"salary_plan,omitempty"`    // 薪酬计划
-	SchemaID      string                           `json:"schema_id,omitempty"`      // 当前 Offer 使用的 Schema
-	OfferStatus   int64                            `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批, 11: 实习待入职（仅实习 Offer 具有）, 12: 实习已入职（仅实习 Offer 具有）, 13: 实习已离职（仅实习 Offer 具有）
-	OfferType     int64                            `json:"offer_type,omitempty"`     // Offer 类型, 可选值有: 1: 正式 Offer, 2: 实习 Offer
-	JobInfo       *GetHireOfferRespOfferJobInfo    `json:"job_info,omitempty"`       // 职位信息
+	ID                   string                                   `json:"id,omitempty"`                     // Offer ID
+	ApplicationID        string                                   `json:"application_id,omitempty"`         // 投递 ID
+	BasicInfo            *GetHireOfferRespOfferBasicInfo          `json:"basic_info,omitempty"`             // 基础信息
+	SalaryPlan           *GetHireOfferRespOfferSalaryPlan         `json:"salary_plan,omitempty"`            // 薪酬计划, 字段权限要求（满足任一）: 获取 offer 信息, 更新 offer 信息
+	SchemaID             string                                   `json:"schema_id,omitempty"`              // 当前 Offer 使用的 Schema
+	OfferStatus          int64                                    `json:"offer_status,omitempty"`           // Offer 状态, 可选值有: 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批, 11: 实习待入职（仅实习 Offer 具有）, 12: 实习已入职（仅实习 Offer 具有）, 13: 实习已离职（仅实习 Offer 具有）
+	OfferType            int64                                    `json:"offer_type,omitempty"`             // Offer 类型, 可选值有: 1: 正式 Offer, 2: 实习 Offer
+	JobInfo              *GetHireOfferRespOfferJobInfo            `json:"job_info,omitempty"`               // 职位信息
+	CustomizedModuleList []*GetHireOfferRespOfferCustomizedModule `json:"customized_module_list,omitempty"` // offer自定义模块列表, 字段权限要求（满足任一）: 获取 offer 信息, 更新 offer 信息
 }
 
 // GetHireOfferRespOfferBasicInfo ...
 type GetHireOfferRespOfferBasicInfo struct {
-	OfferType         int64                                          `json:"offer_type,omitempty"`          // Offer 类型, 可选值有: 1: Social, 2: Campus, 3: Intern, 4: InternTransfer
-	Remark            string                                         `json:"remark,omitempty"`              // 备注
-	ExpireTime        int64                                          `json:"expire_time,omitempty"`         // Offer 过期时间
-	OwnerUserID       string                                         `json:"owner_user_id,omitempty"`       // Offer 负责人 ID
-	CreatorUserID     string                                         `json:"creator_user_id,omitempty"`     // Offer 创建人 ID
-	EmployeeType      *GetHireOfferRespOfferBasicInfoEmployeeType    `json:"employee_type,omitempty"`       // Offer 人员类型
-	CreateTime        string                                         `json:"create_time,omitempty"`         // 创建时间
-	LeaderUserID      string                                         `json:"leader_user_id,omitempty"`      // 直属上级 ID
-	OnboardDate       string                                         `json:"onboard_date,omitempty"`        // 入职日期
-	DepartmentID      string                                         `json:"department_id,omitempty"`       // 入职部门
-	ProbationMonth    int64                                          `json:"probation_month,omitempty"`     // 试用期, 比如试用期6个月
-	ContractYear      int64                                          `json:"contract_year,omitempty"`       // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段
-	ContractPeriod    *GetHireOfferRespOfferBasicInfoContractPeriod  `json:"contract_period,omitempty"`     // 合同期（年/月）
-	RecruitmentType   *GetHireOfferRespOfferBasicInfoRecruitmentType `json:"recruitment_type,omitempty"`    // 雇员类型
-	Sequence          *GetHireOfferRespOfferBasicInfoSequence        `json:"sequence,omitempty"`            // 序列
-	Level             *GetHireOfferRespOfferBasicInfoLevel           `json:"level,omitempty"`               // 级别
-	OnboardAddress    *GetHireOfferRespOfferBasicInfoOnboardAddress  `json:"onboard_address,omitempty"`     // 入职地点
-	WorkAddress       *GetHireOfferRespOfferBasicInfoWorkAddress     `json:"work_address,omitempty"`        // 工作地点
-	CustomizeInfoList []*GetHireOfferRespOfferBasicInfoCustomizeInfo `json:"customize_info_list,omitempty"` // 自定义字段信息
+	OfferType               int64                                                  `json:"offer_type,omitempty"`                 // Offer 类型, 可选值有: 1: 社招offer, 2: 校招offer, 3: 实习offer, 4: 实习生转正offer, 商业化租户无此选项
+	Remark                  string                                                 `json:"remark,omitempty"`                     // 备注, 字段权限要求（满足任一）: 获取 offer 信息, 更新 offer 信息
+	ExpireTime              int64                                                  `json:"expire_time,omitempty"`                // Offer 过期时间
+	OwnerUserID             string                                                 `json:"owner_user_id,omitempty"`              // Offer 负责人 ID
+	CreatorUserID           string                                                 `json:"creator_user_id,omitempty"`            // Offer 创建人 ID
+	EmployeeType            *GetHireOfferRespOfferBasicInfoEmployeeType            `json:"employee_type,omitempty"`              // Offer 人员类型
+	CreateTime              string                                                 `json:"create_time,omitempty"`                // 创建时间
+	LeaderUserID            string                                                 `json:"leader_user_id,omitempty"`             // 直属上级 ID
+	OnboardDate             string                                                 `json:"onboard_date,omitempty"`               // 入职日期
+	DepartmentID            string                                                 `json:"department_id,omitempty"`              // 入职部门
+	ProbationMonth          int64                                                  `json:"probation_month,omitempty"`            // 试用期, 比如试用期6个月
+	ContractYear            int64                                                  `json:"contract_year,omitempty"`              // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段
+	ContractPeriod          *GetHireOfferRespOfferBasicInfoContractPeriod          `json:"contract_period,omitempty"`            // 合同期（年/月）
+	RecruitmentType         *GetHireOfferRespOfferBasicInfoRecruitmentType         `json:"recruitment_type,omitempty"`           // 雇员类型
+	Sequence                *GetHireOfferRespOfferBasicInfoSequence                `json:"sequence,omitempty"`                   // 序列
+	Level                   *GetHireOfferRespOfferBasicInfoLevel                   `json:"level,omitempty"`                      // 级别, 字段权限要求（满足任一）: 获取 offer 信息, 更新 offer 信息
+	OnboardAddress          *GetHireOfferRespOfferBasicInfoOnboardAddress          `json:"onboard_address,omitempty"`            // 入职地点
+	WorkAddress             *GetHireOfferRespOfferBasicInfoWorkAddress             `json:"work_address,omitempty"`               // 工作地点
+	CustomizeInfoList       []*GetHireOfferRespOfferBasicInfoCustomizeInfo         `json:"customize_info_list,omitempty"`        // 自定义字段信息, 字段权限要求（满足任一）: 获取 offer 信息, 更新 offer 信息
+	WorkLocationAddressInfo *GetHireOfferRespOfferBasicInfoWorkLocationAddressInfo `json:"work_location_address_info,omitempty"` // 人事侧的办公地点与地址（目前仅字节可用)
 }
 
 // GetHireOfferRespOfferBasicInfoContractPeriod ...
@@ -229,6 +234,38 @@ type GetHireOfferRespOfferBasicInfoWorkAddressState struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
+// GetHireOfferRespOfferBasicInfoWorkLocationAddressInfo ...
+type GetHireOfferRespOfferBasicInfoWorkLocationAddressInfo struct {
+	LocationInfo *GetHireOfferRespOfferBasicInfoWorkLocationAddressInfoLocationInfo `json:"location_info,omitempty"` // 办公地点
+	AddressInfo  *GetHireOfferRespOfferBasicInfoWorkLocationAddressInfoAddressInfo  `json:"address_info,omitempty"`  // 办公地址
+}
+
+// GetHireOfferRespOfferBasicInfoWorkLocationAddressInfoAddressInfo ...
+type GetHireOfferRespOfferBasicInfoWorkLocationAddressInfoAddressInfo struct {
+	ID     string `json:"id,omitempty"`      // 地址ID
+	ZhName string `json:"zh_name,omitempty"` // 地址中文名称
+	EnName string `json:"en_name,omitempty"` // 地址英文名称
+}
+
+// GetHireOfferRespOfferBasicInfoWorkLocationAddressInfoLocationInfo ...
+type GetHireOfferRespOfferBasicInfoWorkLocationAddressInfoLocationInfo struct {
+	ID     string `json:"id,omitempty"`      // 地点ID
+	ZhName string `json:"zh_name,omitempty"` // 中文名称
+	EnName string `json:"en_name,omitempty"` // 英文名称
+}
+
+// GetHireOfferRespOfferCustomizedModule ...
+type GetHireOfferRespOfferCustomizedModule struct {
+	ID         string                                         `json:"ID,omitempty"`          // 自定义模块ID
+	ObjectList []*GetHireOfferRespOfferCustomizedModuleObject `json:"object_list,omitempty"` // 自定义模块下字段的值
+}
+
+// GetHireOfferRespOfferCustomizedModuleObject ...
+type GetHireOfferRespOfferCustomizedModuleObject struct {
+	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段ID
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段Value
+}
+
 // GetHireOfferRespOfferJobInfo ...
 type GetHireOfferRespOfferJobInfo struct {
 	JobID   string `json:"job_id,omitempty"`   // Offer 职位 ID
@@ -256,7 +293,8 @@ type GetHireOfferRespOfferSalaryPlanCustomizeInfo struct {
 
 // getHireOfferResp ...
 type getHireOfferResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireOfferResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireOfferResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

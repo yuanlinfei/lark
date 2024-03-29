@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/get
 func (r *ContactService) GetContactUnit(ctx context.Context, request *GetContactUnitReq, options ...MethodOptionFunc) (*GetContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactUnit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnit mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnit mock enable")
 		return r.cli.mock.mockContactGetContactUnit(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type GetContactUnitRespUnit struct {
 
 // getContactUnitResp ...
 type getContactUnitResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactUnitResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetContactUnitResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

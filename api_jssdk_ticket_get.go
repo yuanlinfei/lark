@@ -29,7 +29,7 @@ import (
 // - 在开发者后台[创建一个企业自建应用](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process)。
 // - 引入组件库。在网页 html 中引入如下代码:
 // ```html
-// <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.1.2.js"></script>
+// <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.2.12.js"></script>
 // ```
 // ::: warning
 // 若要使用成员卡片组件, SDK需要在`<body>`加载后引入。
@@ -38,7 +38,7 @@ import (
 // new doc: https://open.feishu.cn/document/common-capabilities/web-components/component-sdk-authentication-process
 func (r *JssdkService) GetJssdkTicket(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error) {
 	if r.cli.mock.mockJssdkGetJssdkTicket != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Jssdk#GetJssdkTicket mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Jssdk#GetJssdkTicket mock enable")
 		return r.cli.mock.mockJssdkGetJssdkTicket(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GetJssdkTicketResp struct {
 
 // getJssdkTicketResp ...
 type getJssdkTicketResp struct {
-	Code int64               `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 对返回码的文本描述
-	Data *GetJssdkTicketResp `json:"data,omitempty"` // 返回内容
+	Code  int64               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 对返回码的文本描述
+	Data  *GetJssdkTicketResp `json:"data,omitempty"` // 返回内容
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_balances
 func (r *CoreHRService) GetCoreHRLeaveBalanceList(ctx context.Context, request *GetCoreHRLeaveBalanceListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveBalanceListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRLeaveBalanceList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveBalanceList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveBalanceList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRLeaveBalanceList(ctx, request, options...)
 	}
 
@@ -107,7 +107,8 @@ type GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalanceLeaveTypeNam
 
 // getCoreHRLeaveBalanceListResp ...
 type getCoreHRLeaveBalanceListResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRLeaveBalanceListResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRLeaveBalanceListResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

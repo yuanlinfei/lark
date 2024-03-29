@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/get-2
 func (r *ApplicationService) GetApplicationVersion(ctx context.Context, request *GetApplicationVersionReq, options ...MethodOptionFunc) (*GetApplicationVersionResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationVersion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersion mock enable")
 		return r.cli.mock.mockApplicationGetApplicationVersion(ctx, request, options...)
 	}
 
@@ -243,7 +243,8 @@ type GetApplicationVersionRespAppVersionScope struct {
 
 // getApplicationVersionResp ...
 type getApplicationVersionResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetApplicationVersionResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApplicationVersionResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

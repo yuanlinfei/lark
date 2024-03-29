@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/highlight
 func (r *LingoService) HighlightLingoEntity(ctx context.Context, request *HighlightLingoEntityReq, options ...MethodOptionFunc) (*HighlightLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoHighlightLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#HighlightLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#HighlightLingoEntity mock enable")
 		return r.cli.mock.mockLingoHighlightLingoEntity(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type HighlightLingoEntityRespPhraseSpan struct {
 
 // highlightLingoEntityResp ...
 type highlightLingoEntityResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *HighlightLingoEntityResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *HighlightLingoEntityResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

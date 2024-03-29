@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-version/create
 func (r *DriveService) CreateDriveFileVersion(ctx context.Context, request *CreateDriveFileVersionReq, options ...MethodOptionFunc) (*CreateDriveFileVersionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFileVersion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileVersion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileVersion mock enable")
 		return r.cli.mock.mockDriveCreateDriveFileVersion(ctx, request, options...)
 	}
 
@@ -89,7 +89,8 @@ type CreateDriveFileVersionResp struct {
 
 // createDriveFileVersionResp ...
 type createDriveFileVersionResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveFileVersionResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDriveFileVersionResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

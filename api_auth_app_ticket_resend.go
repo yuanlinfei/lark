@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/authentication-management/access-token/app_ticket_resend
 func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {
 	if r.cli.mock.mockAuthResendAppTicket != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#ResendAppTicket mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#ResendAppTicket mock enable")
 		return r.cli.mock.mockAuthResendAppTicket(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type ResendAppTicketResp struct {
 
 // resendAppTicketResp ...
 type resendAppTicketResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *ResendAppTicketResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *ResendAppTicketResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

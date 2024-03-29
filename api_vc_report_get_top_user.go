@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/report/get_top_user
 func (r *VCService) GetVCTopUserReport(ctx context.Context, request *GetVCTopUserReportReq, options ...MethodOptionFunc) (*GetVCTopUserReportResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCTopUserReport != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCTopUserReport mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCTopUserReport mock enable")
 		return r.cli.mock.mockVCGetVCTopUserReport(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type GetVCTopUserReportRespTopUserReport struct {
 
 // getVCTopUserReportResp ...
 type getVCTopUserReportResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCTopUserReportResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVCTopUserReportResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

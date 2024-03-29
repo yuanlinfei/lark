@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delete-message-cards-that-are-only-visible-to-certain-people
 func (r *MessageService) DeleteEphemeralMessage(ctx context.Context, request *DeleteEphemeralMessageReq, options ...MethodOptionFunc) (*DeleteEphemeralMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteEphemeralMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteEphemeralMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#DeleteEphemeralMessage mock enable")
 		return r.cli.mock.mockMessageDeleteEphemeralMessage(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type DeleteEphemeralMessageResp struct {
 
 // deleteEphemeralMessageResp ...
 type deleteEphemeralMessageResp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *DeleteEphemeralMessageResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"`
+	Msg   string                      `json:"msg,omitempty"`
+	Data  *DeleteEphemeralMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

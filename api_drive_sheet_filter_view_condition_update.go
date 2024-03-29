@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/spreadsheet-sheet-filter_view-condition/update
 func (r *DriveService) UpdateSheetFilterViewCondition(ctx context.Context, request *UpdateSheetFilterViewConditionReq, options ...MethodOptionFunc) (*UpdateSheetFilterViewConditionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetFilterViewCondition != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFilterViewCondition mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFilterViewCondition mock enable")
 		return r.cli.mock.mockDriveUpdateSheetFilterViewCondition(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type UpdateSheetFilterViewConditionRespCondition struct {
 
 // updateSheetFilterViewConditionResp ...
 type updateSheetFilterViewConditionResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateSheetFilterViewConditionResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateSheetFilterViewConditionResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

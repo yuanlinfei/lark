@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/batch_create
 func (r *MailService) BatchCreatePublicMailboxMember(ctx context.Context, request *BatchCreatePublicMailboxMemberReq, options ...MethodOptionFunc) (*BatchCreatePublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchCreatePublicMailboxMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchCreatePublicMailboxMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#BatchCreatePublicMailboxMember mock enable")
 		return r.cli.mock.mockMailBatchCreatePublicMailboxMember(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type BatchCreatePublicMailboxMemberRespItem struct {
 
 // batchCreatePublicMailboxMemberResp ...
 type batchCreatePublicMailboxMemberResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreatePublicMailboxMemberResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchCreatePublicMailboxMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

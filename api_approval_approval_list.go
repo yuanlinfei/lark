@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *ApprovalService) GetApprovalList(ctx context.Context, request *GetApprovalListReq, options ...MethodOptionFunc) (*GetApprovalListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalList mock enable")
 		return r.cli.mock.mockApprovalGetApprovalList(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type GetApprovalListRespItem struct {
 
 // getApprovalListResp ...
 type getApprovalListResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetApprovalListResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApprovalListResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

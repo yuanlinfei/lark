@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/task/get
 func (r *DriveService) GetWikiTask(ctx context.Context, request *GetWikiTaskReq, options ...MethodOptionFunc) (*GetWikiTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetWikiTask mock enable")
 		return r.cli.mock.mockDriveGetWikiTask(ctx, request, options...)
 	}
 
@@ -105,7 +105,8 @@ type GetWikiTaskRespTaskMoveResultNode struct {
 
 // getWikiTaskResp ...
 type getWikiTaskResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetWikiTaskResp `json:"data,omitempty"`
+	Code  int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetWikiTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail     `json:"error,omitempty"`
 }

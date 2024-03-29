@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket-message/create
 func (r *HelpdeskService) SendHelpdeskTicketMessage(ctx context.Context, request *SendHelpdeskTicketMessageReq, options ...MethodOptionFunc) (*SendHelpdeskTicketMessageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSendHelpdeskTicketMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskTicketMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskTicketMessage mock enable")
 		return r.cli.mock.mockHelpdeskSendHelpdeskTicketMessage(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type SendHelpdeskTicketMessageResp struct {
 
 // sendHelpdeskTicketMessageResp ...
 type sendHelpdeskTicketMessageResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *SendHelpdeskTicketMessageResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *SendHelpdeskTicketMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

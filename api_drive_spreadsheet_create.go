@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/create
 func (r *DriveService) CreateSpreadsheet(ctx context.Context, request *CreateSpreadsheetReq, options ...MethodOptionFunc) (*CreateSpreadsheetResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSpreadsheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSpreadsheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSpreadsheet mock enable")
 		return r.cli.mock.mockDriveCreateSpreadsheet(ctx, request, options...)
 	}
 
@@ -78,7 +78,8 @@ type CreateSpreadsheetRespSpreadsheet struct {
 
 // createSpreadsheetResp ...
 type createSpreadsheetResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSpreadsheetResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateSpreadsheetResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

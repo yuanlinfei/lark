@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/list
 func (r *AttendanceService) GetAttendanceGroupList(ctx context.Context, request *GetAttendanceGroupListReq, options ...MethodOptionFunc) (*GetAttendanceGroupListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceGroupList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceGroupList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceGroupList mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceGroupList(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type GetAttendanceGroupListRespGroup struct {
 
 // getAttendanceGroupListResp ...
 type getAttendanceGroupListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceGroupListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceGroupListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

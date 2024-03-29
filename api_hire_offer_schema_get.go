@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *HireService) GetHireOfferSchema(ctx context.Context, request *GetHireOfferSchemaReq, options ...MethodOptionFunc) (*GetHireOfferSchemaResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireOfferSchema != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferSchema mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferSchema mock enable")
 		return r.cli.mock.mockHireGetHireOfferSchema(ctx, request, options...)
 	}
 
@@ -101,7 +101,8 @@ type GetHireOfferSchemaRespObjectOptionName struct {
 
 // getHireOfferSchemaResp ...
 type getHireOfferSchemaResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireOfferSchemaResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireOfferSchemaResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

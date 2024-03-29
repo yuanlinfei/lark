@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/search/document-search
 func (r *DriveService) SearchDriveFile(ctx context.Context, request *SearchDriveFileReq, options ...MethodOptionFunc) (*SearchDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveSearchDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SearchDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#SearchDriveFile mock enable")
 		return r.cli.mock.mockDriveSearchDriveFile(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type SearchDriveFileRespDocsEntity struct {
 
 // searchDriveFileResp ...
 type searchDriveFileResp struct {
-	Code int64                `json:"code,omitempty"`
-	Msg  string               `json:"msg,omitempty"`
-	Data *SearchDriveFileResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"`
+	Msg   string               `json:"msg,omitempty"`
+	Data  *SearchDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *BaikeService) DownloadBaikeImage(ctx context.Context, request *DownloadBaikeImageReq, options ...MethodOptionFunc) (*DownloadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeDownloadBaikeImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#DownloadBaikeImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#DownloadBaikeImage mock enable")
 		return r.cli.mock.mockBaikeDownloadBaikeImage(ctx, request, options...)
 	}
 
@@ -69,9 +69,10 @@ type DownloadBaikeImageReq struct {
 
 // downloadBaikeImageResp ...
 type downloadBaikeImageResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *DownloadBaikeImageResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"`
+	Msg   string                  `json:"msg,omitempty"`
+	Data  *DownloadBaikeImageResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }
 
 func (r *downloadBaikeImageResp) SetReader(file io.Reader) {

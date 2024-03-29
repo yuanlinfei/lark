@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/get
 func (r *ApprovalService) GetApproval(ctx context.Context, request *GetApprovalReq, options ...MethodOptionFunc) (*GetApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApproval mock enable")
 		return r.cli.mock.mockApprovalGetApproval(ctx, request, options...)
 	}
 
@@ -71,7 +71,7 @@ type GetApprovalResp struct {
 	Form             ApprovalWidgetList       `json:"form,omitempty"`               // 控件信息, 见下方form字段说明
 	NodeList         []*GetApprovalRespNode   `json:"node_list,omitempty"`          // 节点信息
 	Viewers          []*GetApprovalRespViewer `json:"viewers,omitempty"`            // 可见人列表
-	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
+	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID, 由参数“with_admin_id”控制是否返回
 }
 
 // GetApprovalRespNode ...
@@ -101,7 +101,8 @@ type GetApprovalRespViewer struct {
 
 // getApprovalResp ...
 type getApprovalResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetApprovalResp `json:"data,omitempty"`
+	Code  int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail     `json:"error,omitempty"`
 }

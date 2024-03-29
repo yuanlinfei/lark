@@ -23,11 +23,14 @@ import (
 
 // DeleteHelpdeskCategory 该接口用于删除知识库分类详情。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/delete
 func (r *HelpdeskService) DeleteHelpdeskCategory(ctx context.Context, request *DeleteHelpdeskCategoryReq, options ...MethodOptionFunc) (*DeleteHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskCategory != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskCategory mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskCategory mock enable")
 		return r.cli.mock.mockHelpdeskDeleteHelpdeskCategory(ctx, request, options...)
 	}
 
@@ -68,7 +71,8 @@ type DeleteHelpdeskCategoryResp struct {
 
 // deleteHelpdeskCategoryResp ...
 type deleteHelpdeskCategoryResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteHelpdeskCategoryResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHelpdeskCategoryResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

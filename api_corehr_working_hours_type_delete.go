@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/delete
 func (r *CoreHRService) DeleteCoreHRWorkingHoursType(ctx context.Context, request *DeleteCoreHRWorkingHoursTypeReq, options ...MethodOptionFunc) (*DeleteCoreHRWorkingHoursTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRWorkingHoursType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRWorkingHoursType mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRWorkingHoursType mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRWorkingHoursType(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHRWorkingHoursTypeResp struct {
 
 // deleteCoreHRWorkingHoursTypeResp ...
 type deleteCoreHRWorkingHoursTypeResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHRWorkingHoursTypeResp `json:"data,omitempty"`
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRWorkingHoursTypeResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

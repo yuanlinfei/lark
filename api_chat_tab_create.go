@@ -36,7 +36,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/create
 func (r *ChatService) CreateChatTab(ctx context.Context, request *CreateChatTabReq, options ...MethodOptionFunc) (*CreateChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChatTab != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChatTab mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#CreateChatTab mock enable")
 		return r.cli.mock.mockChatCreateChatTab(ctx, request, options...)
 	}
 
@@ -122,7 +122,8 @@ type CreateChatTabRespChatTabTabContent struct {
 
 // createChatTabResp ...
 type createChatTabResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *CreateChatTabResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateChatTabResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

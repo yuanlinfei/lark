@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2
 func (r *CalendarService) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventAttendeeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeList(ctx, request, options...)
 	}
 
@@ -119,7 +119,8 @@ type GetCalendarEventAttendeeListRespItemResourceCustomizationOption struct {
 
 // getCalendarEventAttendeeListResp ...
 type getCalendarEventAttendeeListResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *GetCalendarEventAttendeeListResp `json:"data,omitempty"`
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCalendarEventAttendeeListResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/start_service
 func (r *HelpdeskService) StartHelpdeskService(ctx context.Context, request *StartHelpdeskServiceReq, options ...MethodOptionFunc) (*StartHelpdeskServiceResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskStartHelpdeskService != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#StartHelpdeskService mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#StartHelpdeskService mock enable")
 		return r.cli.mock.mockHelpdeskStartHelpdeskService(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type StartHelpdeskServiceResp struct {
 
 // startHelpdeskServiceResp ...
 type startHelpdeskServiceResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *StartHelpdeskServiceResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *StartHelpdeskServiceResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

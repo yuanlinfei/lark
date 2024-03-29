@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task/get
 func (r *AttendanceService) GetAttendanceUserFlow(ctx context.Context, request *GetAttendanceUserFlowReq, options ...MethodOptionFunc) (*GetAttendanceUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserFlow mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserFlow mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserFlow(ctx, request, options...)
 	}
 
@@ -76,12 +76,15 @@ type GetAttendanceUserFlowResp struct {
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
 	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: 0: 用户打卡, 1: 管理员修改, 2: 用户补卡, 3: 系统自动生成, 4: 下班免打卡, 5: 考勤机, 6: 极速打卡, 7: 考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
+	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备ID
 	CheckResult  string   `json:"check_result,omitempty"`  // 打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, SeriousLate: 严重迟到, Lack: 缺卡, Invalid: 无效, None: 无状态, Todo: 尚未打卡
+	ExternalID   string   `json:"external_id,omitempty"`   // 用户导入的外部打卡记录ID
 }
 
 // getAttendanceUserFlowResp ...
 type getAttendanceUserFlowResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserFlowResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceUserFlowResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

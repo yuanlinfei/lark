@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/get
 func (r *ApprovalService) GetApprovalExternalApproval(ctx context.Context, request *GetApprovalExternalApprovalReq, options ...MethodOptionFunc) (*GetApprovalExternalApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalExternalApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalApproval mock enable")
 		return r.cli.mock.mockApprovalGetApprovalExternalApproval(ctx, request, options...)
 	}
 
@@ -114,7 +114,8 @@ type GetApprovalExternalApprovalRespViewer struct {
 
 // getApprovalExternalApprovalResp ...
 type getApprovalExternalApprovalResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetApprovalExternalApprovalResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApprovalExternalApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/patch
 func (r *DriveService) UpdateDriveCommentPatch(ctx context.Context, request *UpdateDriveCommentPatchReq, options ...MethodOptionFunc) (*UpdateDriveCommentPatchResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveCommentPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveCommentPatch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveCommentPatch mock enable")
 		return r.cli.mock.mockDriveUpdateDriveCommentPatch(ctx, request, options...)
 	}
 
@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveUpdateDriveCommentPatch() {
 type UpdateDriveCommentPatchReq struct {
 	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnGp4UK1UskrOEJwBXd3"
 	CommentID string   `path:"comment_id" json:"-"` // 评论ID, 示例值: "6916106822734578184"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: "doc", 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
+	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: doc, 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
 	IsSolved  bool     `json:"is_solved,omitempty"` // 评论解决标志, 示例值: true
 }
 
@@ -71,7 +71,8 @@ type UpdateDriveCommentPatchResp struct {
 
 // updateDriveCommentPatchResp ...
 type updateDriveCommentPatchResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDriveCommentPatchResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateDriveCommentPatchResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

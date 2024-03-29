@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/appstore-paid-info/query-a-user's-app-access
 func (r *ApplicationService) CheckUserIsInApplicationPaidScope(ctx context.Context, request *CheckUserIsInApplicationPaidScopeReq, options ...MethodOptionFunc) (*CheckUserIsInApplicationPaidScopeResp, *Response, error) {
 	if r.cli.mock.mockApplicationCheckUserIsInApplicationPaidScope != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#CheckUserIsInApplicationPaidScope mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#CheckUserIsInApplicationPaidScope mock enable")
 		return r.cli.mock.mockApplicationCheckUserIsInApplicationPaidScope(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type CheckUserIsInApplicationPaidScopeResp struct {
 
 // checkUserIsInApplicationPaidScopeResp ...
 type checkUserIsInApplicationPaidScopeResp struct {
-	Code int64                                  `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 返回码的描述
-	Data *CheckUserIsInApplicationPaidScopeResp `json:"data,omitempty"` // 返回的业务信息
+	Code  int64                                  `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 返回码的描述
+	Data  *CheckUserIsInApplicationPaidScopeResp `json:"data,omitempty"` // 返回的业务信息
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

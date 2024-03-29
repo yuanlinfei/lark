@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search-approval-id-(dedicated)
 func (r *ApprovalService) TransformApprovalUserID(ctx context.Context, request *TransformApprovalUserIDReq, options ...MethodOptionFunc) (*TransformApprovalUserIDResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransformApprovalUserID != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransformApprovalUserID mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#TransformApprovalUserID mock enable")
 		return r.cli.mock.mockApprovalTransformApprovalUserID(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type TransformApprovalUserIDResp struct {
 
 // transformApprovalUserIDResp ...
 type transformApprovalUserIDResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
-	Data *TransformApprovalUserIDResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 返回码的描述
+	Data  *TransformApprovalUserIDResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

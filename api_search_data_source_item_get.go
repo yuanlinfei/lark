@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source-item/get
 func (r *SearchService) GetSearchDataSourceItem(ctx context.Context, request *GetSearchDataSourceItemReq, options ...MethodOptionFunc) (*GetSearchDataSourceItemResp, *Response, error) {
 	if r.cli.mock.mockSearchGetSearchDataSourceItem != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#GetSearchDataSourceItem mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#GetSearchDataSourceItem mock enable")
 		return r.cli.mock.mockSearchGetSearchDataSourceItem(ctx, request, options...)
 	}
 
@@ -100,7 +100,8 @@ type GetSearchDataSourceItemRespItemMetadata struct {
 
 // getSearchDataSourceItemResp ...
 type getSearchDataSourceItemResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetSearchDataSourceItemResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSearchDataSourceItemResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

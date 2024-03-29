@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/delete
 func (r *ContactService) DeleteUser(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteUser mock enable")
 		return r.cli.mock.mockContactDeleteUser(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type DeleteUserResp struct {
 
 // deleteUserResp ...
 type deleteUserResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteUserResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteUserResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

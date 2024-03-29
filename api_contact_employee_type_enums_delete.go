@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/delete
 func (r *ContactService) DeleteEmployeeTypeEnum(ctx context.Context, request *DeleteEmployeeTypeEnumReq, options ...MethodOptionFunc) (*DeleteEmployeeTypeEnumResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteEmployeeTypeEnum != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteEmployeeTypeEnum mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteEmployeeTypeEnum mock enable")
 		return r.cli.mock.mockContactDeleteEmployeeTypeEnum(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteEmployeeTypeEnumResp struct {
 
 // deleteEmployeeTypeEnumResp ...
 type deleteEmployeeTypeEnumResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteEmployeeTypeEnumResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteEmployeeTypeEnumResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

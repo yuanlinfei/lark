@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/list
 func (r *VCService) GetVCRoomList(ctx context.Context, request *GetVCRoomListReq, options ...MethodOptionFunc) (*GetVCRoomListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCRoomList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCRoomList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCRoomList mock enable")
 		return r.cli.mock.mockVCGetVCRoomList(ctx, request, options...)
 	}
 
@@ -105,7 +105,8 @@ type GetVCRoomListRespRoomRoomStatus struct {
 
 // getVCRoomListResp ...
 type getVCRoomListResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCRoomListResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVCRoomListResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

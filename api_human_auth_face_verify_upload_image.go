@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/upload-facial-reference-image
 func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type UploadFaceVerifyImageResp struct {
 
 // uploadFaceVerifyImageResp ...
 type uploadFaceVerifyImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 返回码, 非0为失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回信息, 返回码的描述
-	Data *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
+	Code  int64                      `json:"code,omitempty"` // 返回码, 非0为失败
+	Msg   string                     `json:"msg,omitempty"`  // 返回信息, 返回码的描述
+	Data  *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

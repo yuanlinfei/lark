@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/move
 func (r *DriveService) MoveWikiNode(ctx context.Context, request *MoveWikiNodeReq, options ...MethodOptionFunc) (*MoveWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveWikiNode != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveWikiNode mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#MoveWikiNode mock enable")
 		return r.cli.mock.mockDriveMoveWikiNode(ctx, request, options...)
 	}
 
@@ -96,7 +96,8 @@ type MoveWikiNodeRespNode struct {
 
 // moveWikiNodeResp ...
 type moveWikiNodeResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *MoveWikiNodeResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *MoveWikiNodeResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

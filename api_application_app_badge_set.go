@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/app_badge/set
 func (r *ApplicationService) SetApplicationAppBadge(ctx context.Context, request *SetApplicationAppBadgeReq, options ...MethodOptionFunc) (*SetApplicationAppBadgeResp, *Response, error) {
 	if r.cli.mock.mockApplicationSetApplicationAppBadge != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#SetApplicationAppBadge mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#SetApplicationAppBadge mock enable")
 		return r.cli.mock.mockApplicationSetApplicationAppBadge(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type SetApplicationAppBadgeResp struct {
 
 // setApplicationAppBadgeResp ...
 type setApplicationAppBadgeResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *SetApplicationAppBadgeResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *SetApplicationAppBadgeResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

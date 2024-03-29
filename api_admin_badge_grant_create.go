@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/create
 func (r *AdminService) CreateAdminBadgeGrant(ctx context.Context, request *CreateAdminBadgeGrantReq, options ...MethodOptionFunc) (*CreateAdminBadgeGrantResp, *Response, error) {
 	if r.cli.mock.mockAdminCreateAdminBadgeGrant != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#CreateAdminBadgeGrant mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#CreateAdminBadgeGrant mock enable")
 		return r.cli.mock.mockAdminCreateAdminBadgeGrant(ctx, request, options...)
 	}
 
@@ -108,7 +108,8 @@ type CreateAdminBadgeGrantRespGrantRuleDetail struct {
 
 // createAdminBadgeGrantResp ...
 type createAdminBadgeGrantResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateAdminBadgeGrantResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAdminBadgeGrantResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

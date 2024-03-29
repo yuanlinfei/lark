@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/authentication-management/login-state-management/query
 func (r *PassportService) GetPassportSession(ctx context.Context, request *GetPassportSessionReq, options ...MethodOptionFunc) (*GetPassportSessionResp, *Response, error) {
 	if r.cli.mock.mockPassportGetPassportSession != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Passport#GetPassportSession mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Passport#GetPassportSession mock enable")
 		return r.cli.mock.mockPassportGetPassportSession(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type GetPassportSessionRespMaskSession struct {
 
 // getPassportSessionResp ...
 type getPassportSessionResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetPassportSessionResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetPassportSessionResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

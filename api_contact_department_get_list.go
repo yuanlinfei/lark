@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/children
 func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList mock enable")
 		return r.cli.mock.mockContactGetDepartmentList(ctx, request, options...)
 	}
 
@@ -120,7 +120,8 @@ type GetDepartmentListRespItemStatus struct {
 
 // getDepartmentListResp ...
 type getDepartmentListResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetDepartmentListResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDepartmentListResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

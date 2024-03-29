@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/reconciliation
 func (r *HireService) ReconcileHireReferralAccount(ctx context.Context, request *ReconcileHireReferralAccountReq, options ...MethodOptionFunc) (*ReconcileHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireReconcileHireReferralAccount != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#ReconcileHireReferralAccount mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ReconcileHireReferralAccount mock enable")
 		return r.cli.mock.mockHireReconcileHireReferralAccount(ctx, request, options...)
 	}
 
@@ -82,7 +82,8 @@ type ReconcileHireReferralAccountRespCheckFailed struct {
 
 // reconcileHireReferralAccountResp ...
 type reconcileHireReferralAccountResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *ReconcileHireReferralAccountResp `json:"data,omitempty"`
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *ReconcileHireReferralAccountResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

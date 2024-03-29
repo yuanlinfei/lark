@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/query
 func (r *DriveService) GetSheetList(ctx context.Context, request *GetSheetListReq, options ...MethodOptionFunc) (*GetSheetListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetList mock enable")
 		return r.cli.mock.mockDriveGetSheetList(ctx, request, options...)
 	}
 
@@ -96,7 +96,8 @@ type GetSheetListRespSheetMerge struct {
 
 // getSheetListResp ...
 type getSheetListResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetSheetListResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSheetListResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

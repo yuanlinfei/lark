@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/get
 func (r *HelpdeskService) GetHelpdeskFAQ(ctx context.Context, request *GetHelpdeskFAQReq, options ...MethodOptionFunc) (*GetHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQ mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQ mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskFAQ(ctx, request, options...)
 	}
 
@@ -112,7 +112,8 @@ type GetHelpdeskFAQRespFAQUpdateUser struct {
 
 // getHelpdeskFAQResp ...
 type getHelpdeskFAQResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskFAQResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHelpdeskFAQResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

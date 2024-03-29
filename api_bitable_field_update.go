@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/update
 func (r *BitableService) UpdateBitableField(ctx context.Context, request *UpdateBitableFieldReq, options ...MethodOptionFunc) (*UpdateBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableField mock enable")
 		return r.cli.mock.mockBitableUpdateBitableField(ctx, request, options...)
 	}
 
@@ -212,7 +212,8 @@ type UpdateBitableFieldRespFieldPropertyRating struct {
 
 // updateBitableFieldResp ...
 type updateBitableFieldResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateBitableFieldResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateBitableFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

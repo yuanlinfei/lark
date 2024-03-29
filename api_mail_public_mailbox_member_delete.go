@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/delete
 func (r *MailService) DeletePublicMailboxMember(ctx context.Context, request *DeletePublicMailboxMemberReq, options ...MethodOptionFunc) (*DeletePublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailDeletePublicMailboxMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeletePublicMailboxMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeletePublicMailboxMember mock enable")
 		return r.cli.mock.mockMailDeletePublicMailboxMember(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeletePublicMailboxMemberResp struct {
 
 // deletePublicMailboxMemberResp ...
 type deletePublicMailboxMemberResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *DeletePublicMailboxMemberResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *DeletePublicMailboxMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

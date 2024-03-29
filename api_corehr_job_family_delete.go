@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/delete
 func (r *CoreHRService) DeleteCoreHRJobFamily(ctx context.Context, request *DeleteCoreHRJobFamilyReq, options ...MethodOptionFunc) (*DeleteCoreHRJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRJobFamily != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRJobFamily mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRJobFamily mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRJobFamily(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHRJobFamilyResp struct {
 
 // deleteCoreHRJobFamilyResp ...
 type deleteCoreHRJobFamilyResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHRJobFamilyResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRJobFamilyResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

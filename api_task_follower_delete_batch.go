@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/batch_delete_follower
 func (r *TaskService) BatchDeleteTaskFollower(ctx context.Context, request *BatchDeleteTaskFollowerReq, options ...MethodOptionFunc) (*BatchDeleteTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskBatchDeleteTaskFollower != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskFollower mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskFollower mock enable")
 		return r.cli.mock.mockTaskBatchDeleteTaskFollower(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type BatchDeleteTaskFollowerResp struct {
 
 // batchDeleteTaskFollowerResp ...
 type batchDeleteTaskFollowerResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteTaskFollowerResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteTaskFollowerResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

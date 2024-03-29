@@ -25,9 +25,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/country_region/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRCountryRegion(ctx context.Context, request *GetCoreHRCountryRegionReq, options ...MethodOptionFunc) (*GetCoreHRCountryRegionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCountryRegion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCountryRegion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCountryRegion mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRCountryRegion(ctx, request, options...)
 	}
 
@@ -82,7 +84,8 @@ type GetCoreHRCountryRegionRespCountryRegionName struct {
 
 // getCoreHRCountryRegionResp ...
 type getCoreHRCountryRegionResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRCountryRegionResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRCountryRegionResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

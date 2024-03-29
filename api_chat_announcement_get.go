@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-announcement/get
 func (r *ChatService) GetChatAnnouncement(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatAnnouncement != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatAnnouncement mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatAnnouncement mock enable")
 		return r.cli.mock.mockChatGetChatAnnouncement(ctx, request, options...)
 	}
 
@@ -82,7 +82,8 @@ type GetChatAnnouncementResp struct {
 
 // getChatAnnouncementResp ...
 type getChatAnnouncementResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetChatAnnouncementResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetChatAnnouncementResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-meeting_chat/delete
 func (r *CalendarService) DeleteCalendarEventMeetingChat(ctx context.Context, request *DeleteCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*DeleteCalendarEventMeetingChatResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEventMeetingChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventMeetingChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventMeetingChat mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEventMeetingChat(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type DeleteCalendarEventMeetingChatResp struct {
 
 // deleteCalendarEventMeetingChatResp ...
 type deleteCalendarEventMeetingChatResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarEventMeetingChatResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCalendarEventMeetingChatResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/patch
 func (r *ChatService) UpdateChatMenuTree(ctx context.Context, request *UpdateChatMenuTreeReq, options ...MethodOptionFunc) (*UpdateChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatMenuTree != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatMenuTree mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatMenuTree mock enable")
 		return r.cli.mock.mockChatUpdateChatMenuTree(ctx, request, options...)
 	}
 
@@ -112,7 +112,8 @@ type UpdateChatMenuTreeRespChatMenuItemRedirectLink struct {
 
 // updateChatMenuTreeResp ...
 type updateChatMenuTreeResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateChatMenuTreeResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateChatMenuTreeResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

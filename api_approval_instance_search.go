@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/query-2
 func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *SearchApprovalInstanceReq, options ...MethodOptionFunc) (*SearchApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalSearchApprovalInstance(ctx, request, options...)
 	}
 
@@ -63,7 +63,7 @@ type SearchApprovalInstanceReq struct {
 	PageSize              *int64  `query:"page_size" json:"-"`                // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `5` ～ `200`
 	PageToken             *string `query:"page_token" json:"-"`               // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
 	UserIDType            *IDType `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID                *string `json:"user_id,omitempty"`                  // 根据x_user_type填写用户 id, 示例值: "lwiu098wj"
+	UserID                *string `json:"user_id,omitempty"`                  // 根据user_id_type填写用户 id, 示例值: "lwiu098wj"
 	ApprovalCode          *string `json:"approval_code,omitempty"`            // 审批定义 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
 	InstanceCode          *string `json:"instance_code,omitempty"`            // 审批实例 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
 	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例第三方 id 注: 和 approval_code 取并集, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
@@ -118,7 +118,7 @@ type SearchApprovalInstanceRespInstanceInstance struct {
 	UserID     string                                          `json:"user_id,omitempty"`     // 审批实例发起人 id
 	StartTime  string                                          `json:"start_time,omitempty"`  // 审批实例开始时间
 	EndTime    string                                          `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                          `json:"status,omitempty"`      // 审批实例状态, 可选值有: reject: 拒绝, pending: 审批中, recall: 撤回, deleted: 已删除, approved: 通过
+	Status     string                                          `json:"status,omitempty"`      // 审批实例状态, 可选值有: rejected: 拒绝, pending: 审批中, canceled: 撤回, deleted: 已删除, approved: 通过
 	Title      string                                          `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
 	Extra      string                                          `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	SerialID   string                                          `json:"serial_id,omitempty"`   // 审批流水号
@@ -133,7 +133,8 @@ type SearchApprovalInstanceRespInstanceInstanceLink struct {
 
 // searchApprovalInstanceResp ...
 type searchApprovalInstanceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *SearchApprovalInstanceResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchApprovalInstanceResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

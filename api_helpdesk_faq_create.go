@@ -23,11 +23,14 @@ import (
 
 // CreateHelpdeskFAQ 该接口用于创建知识库。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/create
 func (r *HelpdeskService) CreateHelpdeskFAQ(ctx context.Context, request *CreateHelpdeskFAQReq, options ...MethodOptionFunc) (*CreateHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskFAQ mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskFAQ mock enable")
 		return r.cli.mock.mockHelpdeskCreateHelpdeskFAQ(ctx, request, options...)
 	}
 
@@ -121,7 +124,8 @@ type CreateHelpdeskFAQRespFAQUpdateUser struct {
 
 // createHelpdeskFAQResp ...
 type createHelpdeskFAQResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHelpdeskFAQResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHelpdeskFAQResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

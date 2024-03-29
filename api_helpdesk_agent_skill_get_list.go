@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/list
 func (r *HelpdeskService) GetHelpdeskAgentSkillList(ctx context.Context, request *GetHelpdeskAgentSkillListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentSkillList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkillList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkillList mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskAgentSkillList(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type GetHelpdeskAgentSkillListRespAgentSkill struct {
 
 // getHelpdeskAgentSkillListResp ...
 type getHelpdeskAgentSkillListResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskAgentSkillListResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHelpdeskAgentSkillListResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

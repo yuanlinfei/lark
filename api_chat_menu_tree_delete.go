@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/delete
 func (r *ChatService) DeleteChatMenuTree(ctx context.Context, request *DeleteChatMenuTreeReq, options ...MethodOptionFunc) (*DeleteChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatMenuTree != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMenuTree mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMenuTree mock enable")
 		return r.cli.mock.mockChatDeleteChatMenuTree(ctx, request, options...)
 	}
 
@@ -128,7 +128,8 @@ type DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectL
 
 // deleteChatMenuTreeResp ...
 type deleteChatMenuTreeResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteChatMenuTreeResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteChatMenuTreeResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

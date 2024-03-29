@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list
 func (r *PerformanceService) GetPerformanceSemesterList(ctx context.Context, request *GetPerformanceSemesterListReq, options ...MethodOptionFunc) (*GetPerformanceSemesterListResp, *Response, error) {
 	if r.cli.mock.mockPerformanceGetPerformanceSemesterList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceSemesterList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceSemesterList mock enable")
 		return r.cli.mock.mockPerformanceGetPerformanceSemesterList(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type GetPerformanceSemesterListRespItemName struct {
 
 // getPerformanceSemesterListResp ...
 type getPerformanceSemesterListResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetPerformanceSemesterListResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetPerformanceSemesterListResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

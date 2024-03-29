@@ -23,11 +23,14 @@ import (
 
 // DeleteHelpdeskFAQ 该接口用于删除知识库。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/delete
 func (r *HelpdeskService) DeleteHelpdeskFAQ(ctx context.Context, request *DeleteHelpdeskFAQReq, options ...MethodOptionFunc) (*DeleteHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskFAQ mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskFAQ mock enable")
 		return r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ(ctx, request, options...)
 	}
 
@@ -68,7 +71,8 @@ type DeleteHelpdeskFAQResp struct {
 
 // deleteHelpdeskFAQResp ...
 type deleteHelpdeskFAQResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteHelpdeskFAQResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHelpdeskFAQResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

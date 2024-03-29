@@ -23,11 +23,14 @@ import (
 
 // UpdateHelpdeskFAQ 该接口用于修改知识库。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/patch
 func (r *HelpdeskService) UpdateHelpdeskFAQ(ctx context.Context, request *UpdateHelpdeskFAQReq, options ...MethodOptionFunc) (*UpdateHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskFAQ mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskFAQ mock enable")
 		return r.cli.mock.mockHelpdeskUpdateHelpdeskFAQ(ctx, request, options...)
 	}
 
@@ -78,7 +81,8 @@ type UpdateHelpdeskFAQResp struct {
 
 // updateHelpdeskFAQResp ...
 type updateHelpdeskFAQResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskFAQResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHelpdeskFAQResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

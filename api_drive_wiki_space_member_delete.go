@@ -23,6 +23,7 @@ import (
 
 // DeleteWikiSpaceMember 此接口用于删除知识空间成员或管理员。
 //
+// 使用tenant access token操作时, 无法使用部门ID(opendepartmentid)删除知识空间成员。
 // 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制:
 // - 可见性限制: 公开知识空间（visibility为public）对租户所有用户可见, 因此不支持再删除成员, 但可以删除管理员。
 // - 类型限制: 个人知识空间 （type为person）为个人管理的知识空间, 不支持删除管理员。但可以删除成员。
@@ -33,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-member/delete
 func (r *DriveService) DeleteWikiSpaceMember(ctx context.Context, request *DeleteWikiSpaceMemberReq, options ...MethodOptionFunc) (*DeleteWikiSpaceMemberResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteWikiSpaceMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteWikiSpaceMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteWikiSpaceMember mock enable")
 		return r.cli.mock.mockDriveDeleteWikiSpaceMember(ctx, request, options...)
 	}
 
@@ -85,7 +86,8 @@ type DeleteWikiSpaceMemberRespMember struct {
 
 // deleteWikiSpaceMemberResp ...
 type deleteWikiSpaceMemberResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteWikiSpaceMemberResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteWikiSpaceMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

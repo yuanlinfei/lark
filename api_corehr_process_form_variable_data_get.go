@@ -21,13 +21,13 @@ import (
 	"context"
 )
 
-// GetCoreHRProcessFormVariableData 获取流程表单数据。
+// GetCoreHRProcessFormVariableData 根据流程实例 id（process_id）获取流程表单字段数据, 包括表单里的业务字段和自定义字段。仅支持飞书人事、假勤相关业务流程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
 func (r *CoreHRService) GetCoreHRProcessFormVariableData(ctx context.Context, request *GetCoreHRProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHRProcessFormVariableDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessFormVariableData mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessFormVariableData mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData(ctx, request, options...)
 	}
 
@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcessFormVariableData() {
 
 // GetCoreHRProcessFormVariableDataReq ...
 type GetCoreHRProcessFormVariableDataReq struct {
-	ProcessID string `path:"process_id" json:"-"` // 流程ID, 示例值: "123456987"
+	ProcessID string `path:"process_id" json:"-"` // 流程实例 ID, 示例值: "123456987"
 }
 
 // GetCoreHRProcessFormVariableDataResp ...
@@ -281,7 +281,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValu
 
 // getCoreHRProcessFormVariableDataResp ...
 type getCoreHRProcessFormVariableDataResp struct {
-	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRProcessFormVariableDataResp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRProcessFormVariableDataResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

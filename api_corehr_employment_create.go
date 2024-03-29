@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/create
 func (r *CoreHRService) CreateCoreHREmployment(ctx context.Context, request *CreateCoreHREmploymentReq, options ...MethodOptionFunc) (*CreateCoreHREmploymentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHREmployment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHREmployment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHREmployment mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHREmployment(ctx, request, options...)
 	}
 
@@ -256,7 +256,8 @@ type CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsageDisplay struct {
 
 // createCoreHREmploymentResp ...
 type createCoreHREmploymentResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHREmploymentResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCoreHREmploymentResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

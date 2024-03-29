@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/delete
 func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *DeleteBitableRecordReq, options ...MethodOptionFunc) (*DeleteBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord mock enable")
 		return r.cli.mock.mockBitableDeleteBitableRecord(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type DeleteBitableRecordResp struct {
 
 // deleteBitableRecordResp ...
 type deleteBitableRecordResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteBitableRecordResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteBitableRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

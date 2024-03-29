@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/batch_remove
 func (r *ContactService) BatchDeleteContactGroupMember(ctx context.Context, request *BatchDeleteContactGroupMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchDeleteContactGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchDeleteContactGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchDeleteContactGroupMember mock enable")
 		return r.cli.mock.mockContactBatchDeleteContactGroupMember(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type BatchDeleteContactGroupMemberResp struct {
 
 // batchDeleteContactGroupMemberResp ...
 type batchDeleteContactGroupMemberResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteContactGroupMemberResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteContactGroupMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

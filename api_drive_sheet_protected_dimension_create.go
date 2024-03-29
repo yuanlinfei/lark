@@ -23,11 +23,13 @@ import (
 
 // CreateSheetProtectedDimension 该接口用于根据 spreadsheetToken 和维度信息增加多个保护范围；单次操作不超过5000行或列。
 //
+// 仅支持设置保护行或保护列, 暂不支持设置保护单元格
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNzUjL4QzM14CO0MTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/add-locked-cells
 func (r *DriveService) CreateSheetProtectedDimension(ctx context.Context, request *CreateSheetProtectedDimensionReq, options ...MethodOptionFunc) (*CreateSheetProtectedDimensionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSheetProtectedDimension != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetProtectedDimension mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetProtectedDimension mock enable")
 		return r.cli.mock.mockDriveCreateSheetProtectedDimension(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query-user-authorization
 func (r *CoreHRService) GetCoreHRAuthorization(ctx context.Context, request *GetCoreHRAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHRAuthorizationResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRAuthorization != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRAuthorization mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRAuthorization mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRAuthorization(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type GetCoreHRAuthorizationResp struct {
 
 // getCoreHRAuthorizationResp ...
 type getCoreHRAuthorizationResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRAuthorizationResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRAuthorizationResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/is_in_chat
 func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
 	if r.cli.mock.mockChatIsInChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#IsInChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#IsInChat mock enable")
 		return r.cli.mock.mockChatIsInChat(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type IsInChatResp struct {
 
 // isInChatResp ...
 type isInChatResp struct {
-	Code int64         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string        `json:"msg,omitempty"`  // 错误描述
-	Data *IsInChatResp `json:"data,omitempty"`
+	Code  int64         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string        `json:"msg,omitempty"`  // 错误描述
+	Data  *IsInChatResp `json:"data,omitempty"`
+	Error *ErrorDetail  `json:"error,omitempty"`
 }

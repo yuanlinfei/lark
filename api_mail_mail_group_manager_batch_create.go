@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-manager/batch_create
 func (r *MailService) BatchCreateMailGroupManager(ctx context.Context, request *BatchCreateMailGroupManagerReq, options ...MethodOptionFunc) (*BatchCreateMailGroupManagerResp, *Response, error) {
 	if r.cli.mock.mockMailBatchCreateMailGroupManager != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchCreateMailGroupManager mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#BatchCreateMailGroupManager mock enable")
 		return r.cli.mock.mockMailBatchCreateMailGroupManager(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type BatchCreateMailGroupManagerResp struct {
 
 // batchCreateMailGroupManagerResp ...
 type batchCreateMailGroupManagerResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateMailGroupManagerResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchCreateMailGroupManagerResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

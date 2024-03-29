@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/schema/create
 func (r *SearchService) CreateSearchSchema(ctx context.Context, request *CreateSearchSchemaReq, options ...MethodOptionFunc) (*CreateSearchSchemaResp, *Response, error) {
 	if r.cli.mock.mockSearchCreateSearchSchema != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#CreateSearchSchema mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#CreateSearchSchema mock enable")
 		return r.cli.mock.mockSearchCreateSearchSchema(ctx, request, options...)
 	}
 
@@ -180,7 +180,8 @@ type CreateSearchSchemaRespSchemaPropertieTypeDefinitionsTag struct {
 
 // createSearchSchemaResp ...
 type createSearchSchemaResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSearchSchemaResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateSearchSchemaResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

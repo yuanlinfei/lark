@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/batch_delete_collaborator
 func (r *TaskService) BatchDeleteTaskCollaborator(ctx context.Context, request *BatchDeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*BatchDeleteTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskBatchDeleteTaskCollaborator != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskCollaborator mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskCollaborator mock enable")
 		return r.cli.mock.mockTaskBatchDeleteTaskCollaborator(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type BatchDeleteTaskCollaboratorResp struct {
 
 // batchDeleteTaskCollaboratorResp ...
 type batchDeleteTaskCollaboratorResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteTaskCollaboratorResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteTaskCollaboratorResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

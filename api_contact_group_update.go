@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/patch
 func (r *ContactService) UpdateContactGroup(ctx context.Context, request *UpdateContactGroupReq, options ...MethodOptionFunc) (*UpdateContactGroupResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactGroup != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactGroup mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactGroup mock enable")
 		return r.cli.mock.mockContactUpdateContactGroup(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type UpdateContactGroupResp struct {
 
 // updateContactGroupResp ...
 type updateContactGroupResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateContactGroupResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateContactGroupResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

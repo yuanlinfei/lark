@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update_department_id
 func (r *ContactService) UpdateDepartmentID(ctx context.Context, request *UpdateDepartmentIDReq, options ...MethodOptionFunc) (*UpdateDepartmentIDResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartmentID != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartmentID mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartmentID mock enable")
 		return r.cli.mock.mockContactUpdateDepartmentID(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type UpdateDepartmentIDResp struct {
 
 // updateDepartmentIDResp ...
 type updateDepartmentIDResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDepartmentIDResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateDepartmentIDResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_package/create
 func (r *HireService) CreateHireEcoBackgroundCheckPackage(ctx context.Context, request *CreateHireEcoBackgroundCheckPackageReq, options ...MethodOptionFunc) (*CreateHireEcoBackgroundCheckPackageResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireEcoBackgroundCheckPackage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoBackgroundCheckPackage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoBackgroundCheckPackage mock enable")
 		return r.cli.mock.mockHireCreateHireEcoBackgroundCheckPackage(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type CreateHireEcoBackgroundCheckPackageResp struct {
 
 // createHireEcoBackgroundCheckPackageResp ...
 type createHireEcoBackgroundCheckPackageResp struct {
-	Code int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireEcoBackgroundCheckPackageResp `json:"data,omitempty"`
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireEcoBackgroundCheckPackageResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }

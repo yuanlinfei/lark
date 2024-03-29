@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/resubmit
 func (r *ApprovalService) ResubmitApprovalInstanceTask(ctx context.Context, request *ResubmitApprovalInstanceTaskReq, options ...MethodOptionFunc) (*ResubmitApprovalInstanceTaskResp, *Response, error) {
 	if r.cli.mock.mockApprovalResubmitApprovalInstanceTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#ResubmitApprovalInstanceTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#ResubmitApprovalInstanceTask mock enable")
 		return r.cli.mock.mockApprovalResubmitApprovalInstanceTask(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type ResubmitApprovalInstanceTaskResp struct {
 
 // resubmitApprovalInstanceTaskResp ...
 type resubmitApprovalInstanceTaskResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *ResubmitApprovalInstanceTaskResp `json:"data,omitempty"`
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *ResubmitApprovalInstanceTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

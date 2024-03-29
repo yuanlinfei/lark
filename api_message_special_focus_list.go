@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *MessageService) GetMessageSpecialFocusList(ctx context.Context, request *GetMessageSpecialFocusListReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageSpecialFocusList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusList mock enable")
 		return r.cli.mock.mockMessageGetMessageSpecialFocusList(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type GetMessageSpecialFocusListRespItem struct {
 
 // getMessageSpecialFocusListResp ...
 type getMessageSpecialFocusListResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageSpecialFocusListResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMessageSpecialFocusListResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

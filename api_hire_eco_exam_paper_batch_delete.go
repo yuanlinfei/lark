@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam_paper/batch_delete
 func (r *HireService) BatchDeleteHireEcoExamPaper(ctx context.Context, request *BatchDeleteHireEcoExamPaperReq, options ...MethodOptionFunc) (*BatchDeleteHireEcoExamPaperResp, *Response, error) {
 	if r.cli.mock.mockHireBatchDeleteHireEcoExamPaper != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchDeleteHireEcoExamPaper mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchDeleteHireEcoExamPaper mock enable")
 		return r.cli.mock.mockHireBatchDeleteHireEcoExamPaper(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type BatchDeleteHireEcoExamPaperResp struct {
 
 // batchDeleteHireEcoExamPaperResp ...
 type batchDeleteHireEcoExamPaperResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteHireEcoExamPaperResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteHireEcoExamPaperResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

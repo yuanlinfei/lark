@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-alias/delete
 func (r *MailService) DeleteMailPublicMailboxAlias(ctx context.Context, request *DeleteMailPublicMailboxAliasReq, options ...MethodOptionFunc) (*DeleteMailPublicMailboxAliasResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailPublicMailboxAlias != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailPublicMailboxAlias mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailPublicMailboxAlias mock enable")
 		return r.cli.mock.mockMailDeleteMailPublicMailboxAlias(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteMailPublicMailboxAliasResp struct {
 
 // deleteMailPublicMailboxAliasResp ...
 type deleteMailPublicMailboxAliasResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMailPublicMailboxAliasResp `json:"data,omitempty"`
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteMailPublicMailboxAliasResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

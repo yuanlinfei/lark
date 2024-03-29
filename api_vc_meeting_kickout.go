@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/kickout
 func (r *VCService) KickoutVCMeeting(ctx context.Context, request *KickoutVCMeetingReq, options ...MethodOptionFunc) (*KickoutVCMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCKickoutVCMeeting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#KickoutVCMeeting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#KickoutVCMeeting mock enable")
 		return r.cli.mock.mockVCKickoutVCMeeting(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type KickoutVCMeetingRespKickoutResult struct {
 
 // kickoutVCMeetingResp ...
 type kickoutVCMeetingResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *KickoutVCMeetingResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *KickoutVCMeetingResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

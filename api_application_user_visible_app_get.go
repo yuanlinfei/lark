@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-apps-available-to-a-user
 func (r *ApplicationService) GetApplicationUserVisibleApp(ctx context.Context, request *GetApplicationUserVisibleAppReq, options ...MethodOptionFunc) (*GetApplicationUserVisibleAppResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUserVisibleApp != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserVisibleApp mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserVisibleApp mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUserVisibleApp(ctx, request, options...)
 	}
 
@@ -90,7 +90,8 @@ type GetApplicationUserVisibleAppRespAppList struct {
 
 // getApplicationUserVisibleAppResp ...
 type getApplicationUserVisibleAppResp struct {
-	Code int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationUserVisibleAppResp `json:"data,omitempty"` // 返回的业务信息, 仅 code = 0 时有效
+	Code  int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 返回码的描述
+	Data  *GetApplicationUserVisibleAppResp `json:"data,omitempty"` // 返回的业务信息, 仅 code = 0 时有效
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

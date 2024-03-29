@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/parents
 func (r *CoreHRService) GetCoreHRDepartmentParentList(ctx context.Context, request *GetCoreHRDepartmentParentListReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentParentListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRDepartmentParentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRDepartmentParentList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRDepartmentParentList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRDepartmentParentList(ctx, request, options...)
 	}
 
@@ -90,7 +90,8 @@ type GetCoreHRDepartmentParentListRespItemParentDepartmentDepartmentName struct 
 
 // getCoreHRDepartmentParentListResp ...
 type getCoreHRDepartmentParentListResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRDepartmentParentListResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRDepartmentParentListResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

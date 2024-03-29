@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/create
 func (r *MessageService) CreateMessagePin(ctx context.Context, request *CreateMessagePinReq, options ...MethodOptionFunc) (*CreateMessagePinResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateMessagePin != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#CreateMessagePin mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#CreateMessagePin mock enable")
 		return r.cli.mock.mockMessageCreateMessagePin(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type CreateMessagePinRespPin struct {
 
 // createMessagePinResp ...
 type createMessagePinResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *CreateMessagePinResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateMessagePinResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

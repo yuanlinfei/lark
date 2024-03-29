@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/get
 func (r *HireService) GetHireAttachment(ctx context.Context, request *GetHireAttachmentReq, options ...MethodOptionFunc) (*GetHireAttachmentResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireAttachment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireAttachment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireAttachment mock enable")
 		return r.cli.mock.mockHireGetHireAttachment(ctx, request, options...)
 	}
 
@@ -78,7 +78,8 @@ type GetHireAttachmentRespAttachment struct {
 
 // getHireAttachmentResp ...
 type getHireAttachmentResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireAttachmentResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireAttachmentResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/event/subscribe
 func (r *HelpdeskService) SubscribeHelpdeskEvent(ctx context.Context, request *SubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*SubscribeHelpdeskEventResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSubscribeHelpdeskEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeHelpdeskEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeHelpdeskEvent mock enable")
 		return r.cli.mock.mockHelpdeskSubscribeHelpdeskEvent(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type SubscribeHelpdeskEventResp struct {
 
 // subscribeHelpdeskEventResp ...
 type subscribeHelpdeskEventResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *SubscribeHelpdeskEventResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *SubscribeHelpdeskEventResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

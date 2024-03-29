@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/mget
 func (r *VCService) BatchGetVCRoomLevel(ctx context.Context, request *BatchGetVCRoomLevelReq, options ...MethodOptionFunc) (*BatchGetVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCBatchGetVCRoomLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#BatchGetVCRoomLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#BatchGetVCRoomLevel mock enable")
 		return r.cli.mock.mockVCBatchGetVCRoomLevel(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type BatchGetVCRoomLevelRespItem struct {
 
 // batchGetVCRoomLevelResp ...
 type batchGetVCRoomLevelResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetVCRoomLevelResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetVCRoomLevelResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

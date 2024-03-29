@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/scope/list
 func (r *ContactService) GetContactScopeList(ctx context.Context, request *GetContactScopeListReq, options ...MethodOptionFunc) (*GetContactScopeListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactScopeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactScopeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactScopeList mock enable")
 		return r.cli.mock.mockContactGetContactScopeList(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type GetContactScopeListResp struct {
 
 // getContactScopeListResp ...
 type getContactScopeListResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactScopeListResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetContactScopeListResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

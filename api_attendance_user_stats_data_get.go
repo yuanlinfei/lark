@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query-3
 func (r *AttendanceService) GetAttendanceUserStatsData(ctx context.Context, request *GetAttendanceUserStatsDataReq, options ...MethodOptionFunc) (*GetAttendanceUserStatsDataResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserStatsData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsData mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsData mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserStatsData(ctx, request, options...)
 	}
 
@@ -101,7 +101,8 @@ type GetAttendanceUserStatsDataRespUserDataDataFeature struct {
 
 // getAttendanceUserStatsDataResp ...
 type getAttendanceUserStatsDataResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserStatsDataResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceUserStatsDataResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

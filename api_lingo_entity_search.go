@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/search
 func (r *LingoService) SearchLingoEntity(ctx context.Context, request *SearchLingoEntityReq, options ...MethodOptionFunc) (*SearchLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoSearchLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#SearchLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#SearchLingoEntity mock enable")
 		return r.cli.mock.mockLingoSearchLingoEntity(ctx, request, options...)
 	}
 
@@ -205,7 +205,8 @@ type SearchLingoEntityRespEntitieStatistics struct {
 
 // searchLingoEntityResp ...
 type searchLingoEntityResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *SearchLingoEntityResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchLingoEntityResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

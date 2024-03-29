@@ -21,16 +21,16 @@ import (
 	"context"
 )
 
-// GetFaceVerifyAuthResult 无源人脸比对流程, 开发者后台通过调用此接口请求飞书后台, 对本次活体比对结果做校验。
+// GetFaceVerifyAuthResult 人脸比对流程, 开发者后台调用此接口请求飞书后台, 对本次活体比对结果做校验, 支持查询有源认证与无源认证结果。
 //
 // ::: note
-// 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: open-platform@bytedance.com。
+// 人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: open-platform@bytedance.com。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/query-recognition-result
 // new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/query-recognition-result
 func (r *HumanAuthService) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
 		return r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult(ctx, request, options...)
 	}
 
@@ -64,6 +64,7 @@ type GetFaceVerifyAuthResultReq struct {
 	ReqOrderNo string  `query:"req_order_no" json:"-"` // 人脸识别单次唯一标识, 由`tt.startFaceVerify`接口返回
 	OpenID     *string `query:"open_id" json:"-"`      // 用户应用标识, 与employee_id二选其一
 	EmployeeID *string `query:"employee_id" json:"-"`  // 用户租户标识, 与open_id二选其一
+	TicketType *string `query:"ticket_type" json:"-"`  // 认证方式标识, 可取值'verify'或空; verify表示查询有源认证结果, 缺省表示查询无源认证结果
 }
 
 // GetFaceVerifyAuthResultResp ...
@@ -74,7 +75,8 @@ type GetFaceVerifyAuthResultResp struct {
 
 // getFaceVerifyAuthResultResp ...
 type getFaceVerifyAuthResultResp struct {
-	Code int64                        `json:"code,omitempty"` // 返回码, 非0为失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回信息, 返回码的描述
-	Data *GetFaceVerifyAuthResultResp `json:"data,omitempty"` // 业务数据
+	Code  int64                        `json:"code,omitempty"` // 返回码, 非0为失败
+	Msg   string                       `json:"msg,omitempty"`  // 返回信息, 返回码的描述
+	Data  *GetFaceVerifyAuthResultResp `json:"data,omitempty"` // 业务数据
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

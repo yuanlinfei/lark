@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/batch_get_tmp_download_url
 func (r *DriveService) BatchGetDriveMediaTmpDownloadURL(ctx context.Context, request *BatchGetDriveMediaTmpDownloadURLReq, options ...MethodOptionFunc) (*BatchGetDriveMediaTmpDownloadURLResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchGetDriveMediaTmpDownloadURL != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetDriveMediaTmpDownloadURL mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchGetDriveMediaTmpDownloadURL mock enable")
 		return r.cli.mock.mockDriveBatchGetDriveMediaTmpDownloadURL(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type BatchGetDriveMediaTmpDownloadURLRespTmpDownloadURL struct {
 
 // batchGetDriveMediaTmpDownloadURLResp ...
 type batchGetDriveMediaTmpDownloadURLResp struct {
-	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetDriveMediaTmpDownloadURLResp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetDriveMediaTmpDownloadURLResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

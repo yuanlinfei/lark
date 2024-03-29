@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/create
 func (r *ContactService) CreateContactJobFamily(ctx context.Context, request *CreateContactJobFamilyReq, options ...MethodOptionFunc) (*CreateContactJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactJobFamily != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactJobFamily mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateContactJobFamily mock enable")
 		return r.cli.mock.mockContactCreateContactJobFamily(ctx, request, options...)
 	}
 
@@ -108,7 +108,8 @@ type CreateContactJobFamilyRespJobFamilyI18nName struct {
 
 // createContactJobFamilyResp ...
 type createContactJobFamilyResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateContactJobFamilyResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateContactJobFamilyResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

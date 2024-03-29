@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/list
 func (r *MailService) GetPublicMailboxMemberList(ctx context.Context, request *GetPublicMailboxMemberListReq, options ...MethodOptionFunc) (*GetPublicMailboxMemberListResp, *Response, error) {
 	if r.cli.mock.mockMailGetPublicMailboxMemberList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxMemberList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxMemberList mock enable")
 		return r.cli.mock.mockMailGetPublicMailboxMemberList(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GetPublicMailboxMemberListRespItem struct {
 
 // getPublicMailboxMemberListResp ...
 type getPublicMailboxMemberListResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetPublicMailboxMemberListResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetPublicMailboxMemberListResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

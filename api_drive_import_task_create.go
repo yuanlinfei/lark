@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/import_task/create
 func (r *DriveService) CreateDriveImportTask(ctx context.Context, request *CreateDriveImportTaskReq, options ...MethodOptionFunc) (*CreateDriveImportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveImportTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveImportTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveImportTask mock enable")
 		return r.cli.mock.mockDriveCreateDriveImportTask(ctx, request, options...)
 	}
 
@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveCreateDriveImportTask() {
 // CreateDriveImportTaskReq ...
 type CreateDriveImportTaskReq struct {
 	FileExtension string                         `json:"file_extension,omitempty"` // 导入文件格式后缀, 示例值: "xlsx"
-	FileToken     string                         `json:"file_token,omitempty"`     // 导入文件Drive FileToken, 示例值: "boxcnxe5OxxxxxxxSNdsJviENsk"
+	FileToken     string                         `json:"file_token,omitempty"`     // 导入文件Drive FileToken, 示例值: "boxcnxe5OxxxxxxxSNdsJviENsk", 最大长度: `27` 字符
 	Type          string                         `json:"type,omitempty"`           // 导入目标云文档格式, 示例值: "sheet"
 	FileName      *string                        `json:"file_name,omitempty"`      // 导入目标云文档文件名, 若为空使用Drive文件名, 示例值: "test"
 	Point         *CreateDriveImportTaskReqPoint `json:"point,omitempty"`          // 挂载点
@@ -79,7 +79,8 @@ type CreateDriveImportTaskResp struct {
 
 // createDriveImportTaskResp ...
 type createDriveImportTaskResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveImportTaskResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDriveImportTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

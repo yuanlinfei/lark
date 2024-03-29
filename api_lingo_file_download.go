@@ -27,7 +27,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/file/download
 func (r *LingoService) DownloadLingoFile(ctx context.Context, request *DownloadLingoFileReq, options ...MethodOptionFunc) (*DownloadLingoFileResp, *Response, error) {
 	if r.cli.mock.mockLingoDownloadLingoFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#DownloadLingoFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#DownloadLingoFile mock enable")
 		return r.cli.mock.mockLingoDownloadLingoFile(ctx, request, options...)
 	}
 
@@ -64,9 +64,10 @@ type DownloadLingoFileReq struct {
 
 // downloadLingoFileResp ...
 type downloadLingoFileResp struct {
-	Code int64                  `json:"code,omitempty"`
-	Msg  string                 `json:"msg,omitempty"`
-	Data *DownloadLingoFileResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"`
+	Msg   string                 `json:"msg,omitempty"`
+	Data  *DownloadLingoFileResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
 
 func (r *downloadLingoFileResp) SetReader(file io.Reader) {

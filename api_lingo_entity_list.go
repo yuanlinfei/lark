@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/list
 func (r *LingoService) GetLingoEntityList(ctx context.Context, request *GetLingoEntityListReq, options ...MethodOptionFunc) (*GetLingoEntityListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoEntityList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoEntityList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoEntityList mock enable")
 		return r.cli.mock.mockLingoGetLingoEntityList(ctx, request, options...)
 	}
 
@@ -196,7 +196,8 @@ type GetLingoEntityListRespEntityStatistics struct {
 
 // getLingoEntityListResp ...
 type getLingoEntityListResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetLingoEntityListResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetLingoEntityListResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/list
 func (r *BitableService) GetBitableTableList(ctx context.Context, request *GetBitableTableListReq, options ...MethodOptionFunc) (*GetBitableTableListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableList mock enable")
 		return r.cli.mock.mockBitableGetBitableTableList(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type GetBitableTableListRespItem struct {
 
 // getBitableTableListResp ...
 type getBitableTableListResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableTableListResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBitableTableListResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

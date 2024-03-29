@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/patch
 func (r *CoreHRService) UpdateCoreHRPreHire(ctx context.Context, request *UpdateCoreHRPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRPreHire != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRPreHire mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRPreHire mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRPreHire(ctx, request, options...)
 	}
 
@@ -150,7 +150,8 @@ type UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay struct {
 
 // updateCoreHRPreHireResp ...
 type updateCoreHRPreHireResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHRPreHireResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateCoreHRPreHireResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

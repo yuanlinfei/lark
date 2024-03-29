@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/get-root-folder-meta
 func (r *DriveService) GetDriveRootFolderMeta(ctx context.Context, request *GetDriveRootFolderMetaReq, options ...MethodOptionFunc) (*GetDriveRootFolderMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveRootFolderMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveRootFolderMeta mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveRootFolderMeta mock enable")
 		return r.cli.mock.mockDriveGetDriveRootFolderMeta(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type GetDriveRootFolderMetaResp struct {
 
 // getDriveRootFolderMetaResp ...
 type getDriveRootFolderMetaResp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *GetDriveRootFolderMetaResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"`
+	Msg   string                      `json:"msg,omitempty"`
+	Data  *GetDriveRootFolderMetaResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

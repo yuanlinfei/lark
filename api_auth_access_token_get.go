@@ -23,13 +23,12 @@ import (
 
 // GetAccessToken 根据[登录预授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code) 返回 code 获取 `user_access_token`。
 //
-// 本接口用于网页应用时授权登录场景, 小程序应用获取 user_access_token 的方法, 请参考小程序应用提供的 [code2session](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN) 接口。
 // 为了让流程更加规范, 本接口不再返回用户信息, 只返回token相关的字段。如需用户信息, 请通过 [获取用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get)接口获取数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-access_token/create
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthGetAccessToken != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")
 		return r.cli.mock.mockAuthGetAccessToken(ctx, request, options...)
 	}
 
@@ -76,7 +75,8 @@ type GetAccessTokenResp struct {
 
 // getAccessTokenResp ...
 type getAccessTokenResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetAccessTokenResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAccessTokenResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

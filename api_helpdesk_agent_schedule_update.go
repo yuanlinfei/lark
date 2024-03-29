@@ -23,11 +23,14 @@ import (
 
 // UpdateHelpdeskAgentSchedule 该接口用于更新客服的日程。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/patch
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/patch
 func (r *HelpdeskService) UpdateHelpdeskAgentSchedule(ctx context.Context, request *UpdateHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentScheduleResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskAgentSchedule != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskAgentSchedule mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskAgentSchedule mock enable")
 		return r.cli.mock.mockHelpdeskUpdateHelpdeskAgentSchedule(ctx, request, options...)
 	}
 
@@ -82,7 +85,8 @@ type UpdateHelpdeskAgentScheduleResp struct {
 
 // updateHelpdeskAgentScheduleResp ...
 type updateHelpdeskAgentScheduleResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskAgentScheduleResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHelpdeskAgentScheduleResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

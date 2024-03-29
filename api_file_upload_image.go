@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/image/create
 func (r *FileService) UploadImage(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error) {
 	if r.cli.mock.mockFileUploadImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] File#UploadImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] File#UploadImage mock enable")
 		return r.cli.mock.mockFileUploadImage(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type UploadImageResp struct {
 
 // uploadImageResp ...
 type uploadImageResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *UploadImageResp `json:"data,omitempty"`
+	Code  int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string           `json:"msg,omitempty"`  // 错误描述
+	Data  *UploadImageResp `json:"data,omitempty"`
+	Error *ErrorDetail     `json:"error,omitempty"`
 }

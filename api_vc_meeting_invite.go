@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/invite
 func (r *VCService) InviteVCMeeting(ctx context.Context, request *InviteVCMeetingReq, options ...MethodOptionFunc) (*InviteVCMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCInviteVCMeeting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#InviteVCMeeting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#InviteVCMeeting mock enable")
 		return r.cli.mock.mockVCInviteVCMeeting(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type InviteVCMeetingRespInviteResult struct {
 
 // inviteVCMeetingResp ...
 type inviteVCMeetingResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *InviteVCMeetingResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *InviteVCMeetingResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

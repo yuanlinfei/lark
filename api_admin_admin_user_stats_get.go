@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/data-report-management/list-2
 func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminUserStatsReq, options ...MethodOptionFunc) (*GetAdminUserStatsResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminUserStats != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats mock enable")
 		return r.cli.mock.mockAdminGetAdminUserStats(ctx, request, options...)
 	}
 
@@ -113,7 +113,8 @@ type GetAdminUserStatsRespItem struct {
 
 // getAdminUserStatsResp ...
 type getAdminUserStatsResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetAdminUserStatsResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAdminUserStatsResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

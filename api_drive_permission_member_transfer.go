@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *DriveService) TransferDriveMemberPermission(ctx context.Context, request *TransferDriveMemberPermissionReq, options ...MethodOptionFunc) (*TransferDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveTransferDriveMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferDriveMemberPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#TransferDriveMemberPermission mock enable")
 		return r.cli.mock.mockDriveTransferDriveMemberPermission(ctx, request, options...)
 	}
 
@@ -90,7 +90,8 @@ type TransferDriveMemberPermissionRespOwner struct {
 
 // transferDriveMemberPermissionResp ...
 type transferDriveMemberPermissionResp struct {
-	Code int64                              `json:"code,omitempty"`
-	Msg  string                             `json:"msg,omitempty"`
-	Data *TransferDriveMemberPermissionResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *TransferDriveMemberPermissionResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket_customized_field/get-ticket-customized-field
 func (r *HelpdeskService) GetHelpdeskTicketCustomizedField(ctx context.Context, request *GetHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*GetHelpdeskTicketCustomizedFieldResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskTicketCustomizedField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketCustomizedField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskTicketCustomizedField(ctx, request, options...)
 	}
 
@@ -100,7 +100,8 @@ type GetHelpdeskTicketCustomizedFieldRespUpdatedBy struct {
 
 // getHelpdeskTicketCustomizedFieldResp ...
 type getHelpdeskTicketCustomizedFieldResp struct {
-	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

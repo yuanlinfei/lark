@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/update
 func (r *BitableService) UpdateBitableRecord(ctx context.Context, request *UpdateBitableRecordReq, options ...MethodOptionFunc) (*UpdateBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableRecord mock enable")
 		return r.cli.mock.mockBitableUpdateBitableRecord(ctx, request, options...)
 	}
 
@@ -104,7 +104,8 @@ type UpdateBitableRecordRespRecordLastModifiedBy struct {
 
 // updateBitableRecordResp ...
 type updateBitableRecordResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateBitableRecordResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateBitableRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

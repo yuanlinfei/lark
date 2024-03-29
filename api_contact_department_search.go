@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/search
 func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactSearchDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment mock enable")
 		return r.cli.mock.mockContactSearchDepartment(ctx, request, options...)
 	}
 
@@ -114,7 +114,8 @@ type SearchDepartmentRespItemStatus struct {
 
 // searchDepartmentResp ...
 type searchDepartmentResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *SearchDepartmentResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

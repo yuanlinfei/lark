@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/put_top_notice
 func (r *ChatService) UpdateChatTopNotice(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatTopNotice != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatTopNotice mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatTopNotice mock enable")
 		return r.cli.mock.mockChatUpdateChatTopNotice(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type UpdateChatTopNoticeResp struct {
 
 // updateChatTopNoticeResp ...
 type updateChatTopNoticeResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateChatTopNoticeResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateChatTopNoticeResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

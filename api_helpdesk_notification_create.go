@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/create
 func (r *HelpdeskService) CreateHelpdeskNotification(ctx context.Context, request *CreateHelpdeskNotificationReq, options ...MethodOptionFunc) (*CreateHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskNotification != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskNotification mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskNotification mock enable")
 		return r.cli.mock.mockHelpdeskCreateHelpdeskNotification(ctx, request, options...)
 	}
 
@@ -129,7 +129,8 @@ type CreateHelpdeskNotificationResp struct {
 
 // createHelpdeskNotificationResp ...
 type createHelpdeskNotificationResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHelpdeskNotificationResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHelpdeskNotificationResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

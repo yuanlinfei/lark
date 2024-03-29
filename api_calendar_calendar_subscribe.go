@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/subscribe
 func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendar(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type SubscribeCalendarRespCalendar struct {
 
 // subscribeCalendarResp ...
 type subscribeCalendarResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *SubscribeCalendarResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *SubscribeCalendarResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

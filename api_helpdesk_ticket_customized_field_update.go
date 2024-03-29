@@ -23,11 +23,14 @@ import (
 
 // UpdateHelpdeskTicketCustomizedField 该接口用于更新自定义字段。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket_customized_field/update-ticket-customized-field
 func (r *HelpdeskService) UpdateHelpdeskTicketCustomizedField(ctx context.Context, request *UpdateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketCustomizedFieldResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskTicketCustomizedField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskTicketCustomizedField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskUpdateHelpdeskTicketCustomizedField(ctx, request, options...)
 	}
 
@@ -74,7 +77,8 @@ type UpdateHelpdeskTicketCustomizedFieldResp struct {
 
 // updateHelpdeskTicketCustomizedFieldResp ...
 type updateHelpdeskTicketCustomizedFieldResp struct {
-	Code int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }

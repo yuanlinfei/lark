@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/delete
 func (r *AttendanceService) DeleteAttendanceGroup(ctx context.Context, request *DeleteAttendanceGroupReq, options ...MethodOptionFunc) (*DeleteAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceGroup != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceGroup mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceGroup mock enable")
 		return r.cli.mock.mockAttendanceDeleteAttendanceGroup(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteAttendanceGroupResp struct {
 
 // deleteAttendanceGroupResp ...
 type deleteAttendanceGroupResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteAttendanceGroupResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAttendanceGroupResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

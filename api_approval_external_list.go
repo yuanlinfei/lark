@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_task/list
 func (r *ApprovalService) GetApprovalExternalList(ctx context.Context, request *GetApprovalExternalListReq, options ...MethodOptionFunc) (*GetApprovalExternalListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalExternalList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalList mock enable")
 		return r.cli.mock.mockApprovalGetApprovalExternalList(ctx, request, options...)
 	}
 
@@ -97,7 +97,8 @@ type GetApprovalExternalListRespDataTask struct {
 
 // getApprovalExternalListResp ...
 type getApprovalExternalListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetApprovalExternalListResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApprovalExternalListResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

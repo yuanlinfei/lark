@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/tenant-v2/tenant-product_assign_info/query
 func (r *TenantService) GetTenantProductAssignInfo(ctx context.Context, request *GetTenantProductAssignInfoReq, options ...MethodOptionFunc) (*GetTenantProductAssignInfoResp, *Response, error) {
 	if r.cli.mock.mockTenantGetTenantProductAssignInfo != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#GetTenantProductAssignInfo mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Tenant#GetTenantProductAssignInfo mock enable")
 		return r.cli.mock.mockTenantGetTenantProductAssignInfo(ctx, request, options...)
 	}
 
@@ -86,7 +86,8 @@ type GetTenantProductAssignInfoRespAssignInfoI18nName struct {
 
 // getTenantProductAssignInfoResp ...
 type getTenantProductAssignInfoResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetTenantProductAssignInfoResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTenantProductAssignInfoResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

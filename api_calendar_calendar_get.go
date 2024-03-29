@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get
 func (r *CalendarService) GetCalendar(ctx context.Context, request *GetCalendarReq, options ...MethodOptionFunc) (*GetCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendar mock enable")
 		return r.cli.mock.mockCalendarGetCalendar(ctx, request, options...)
 	}
 
@@ -82,7 +82,8 @@ type GetCalendarResp struct {
 
 // getCalendarResp ...
 type getCalendarResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetCalendarResp `json:"data,omitempty"`
+	Code  int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCalendarResp `json:"data,omitempty"`
+	Error *ErrorDetail     `json:"error,omitempty"`
 }

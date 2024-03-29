@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/delete_tabs
 func (r *ChatService) DeleteChatTab(ctx context.Context, request *DeleteChatTabReq, options ...MethodOptionFunc) (*DeleteChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatTab != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatTab mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatTab mock enable")
 		return r.cli.mock.mockChatDeleteChatTab(ctx, request, options...)
 	}
 
@@ -99,7 +99,8 @@ type DeleteChatTabRespChatTabTabContent struct {
 
 // deleteChatTabResp ...
 type deleteChatTabResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteChatTabResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteChatTabResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

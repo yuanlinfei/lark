@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/upload/multipart-upload-file-/upload_finish
 func (r *DriveService) FinishUploadDriveFile(ctx context.Context, request *FinishUploadDriveFileReq, options ...MethodOptionFunc) (*FinishUploadDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveFinishUploadDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#FinishUploadDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#FinishUploadDriveFile mock enable")
 		return r.cli.mock.mockDriveFinishUploadDriveFile(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type FinishUploadDriveFileResp struct {
 
 // finishUploadDriveFileResp ...
 type finishUploadDriveFileResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *FinishUploadDriveFileResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *FinishUploadDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

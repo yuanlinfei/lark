@@ -23,11 +23,14 @@ import (
 
 // CreateHelpdeskCategory 该接口用于创建知识库分类。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/create
 func (r *HelpdeskService) CreateHelpdeskCategory(ctx context.Context, request *CreateHelpdeskCategoryReq, options ...MethodOptionFunc) (*CreateHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskCategory != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskCategory mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskCategory mock enable")
 		return r.cli.mock.mockHelpdeskCreateHelpdeskCategory(ctx, request, options...)
 	}
 
@@ -71,7 +74,8 @@ type CreateHelpdeskCategoryResp struct {
 
 // createHelpdeskCategoryResp ...
 type createHelpdeskCategoryResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHelpdeskCategoryResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHelpdeskCategoryResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

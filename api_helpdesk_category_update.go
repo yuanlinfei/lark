@@ -23,11 +23,14 @@ import (
 
 // UpdateHelpdeskCategory 该接口用于更新知识库分类详情。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/patch
 func (r *HelpdeskService) UpdateHelpdeskCategory(ctx context.Context, request *UpdateHelpdeskCategoryReq, options ...MethodOptionFunc) (*UpdateHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskCategory != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskCategory mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskCategory mock enable")
 		return r.cli.mock.mockHelpdeskUpdateHelpdeskCategory(ctx, request, options...)
 	}
 
@@ -70,7 +73,8 @@ type UpdateHelpdeskCategoryResp struct {
 
 // updateHelpdeskCategoryResp ...
 type updateHelpdeskCategoryResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskCategoryResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHelpdeskCategoryResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

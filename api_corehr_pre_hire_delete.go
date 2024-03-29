@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/delete
 func (r *CoreHRService) DeleteCoreHRPreHire(ctx context.Context, request *DeleteCoreHRPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRPreHire != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPreHire mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPreHire mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRPreHire(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHRPreHireResp struct {
 
 // deleteCoreHRPreHireResp ...
 type deleteCoreHRPreHireResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHRPreHireResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRPreHireResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

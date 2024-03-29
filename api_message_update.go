@@ -36,7 +36,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/patch
 func (r *MessageService) UpdateMessage(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateMessage mock enable")
 		return r.cli.mock.mockMessageUpdateMessage(ctx, request, options...)
 	}
 
@@ -78,7 +78,8 @@ type UpdateMessageResp struct {
 
 // updateMessageResp ...
 type updateMessageResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateMessageResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

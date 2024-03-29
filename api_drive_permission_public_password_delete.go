@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/permission-public-password/delete
 func (r *DriveService) DeleteDrivePermissionPublicPassword(ctx context.Context, request *DeleteDrivePermissionPublicPasswordReq, options ...MethodOptionFunc) (*DeleteDrivePermissionPublicPasswordResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDrivePermissionPublicPassword != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDrivePermissionPublicPassword mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteDrivePermissionPublicPassword mock enable")
 		return r.cli.mock.mockDriveDeleteDrivePermissionPublicPassword(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type DeleteDrivePermissionPublicPasswordResp struct {
 
 // deleteDrivePermissionPublicPasswordResp ...
 type deleteDrivePermissionPublicPasswordResp struct {
-	Code int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteDrivePermissionPublicPasswordResp `json:"data,omitempty"`
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteDrivePermissionPublicPasswordResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }

@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/stage_task/find_by_user_list
 func (r *PerformanceService) GetPerformanceStageTaskByUser(ctx context.Context, request *GetPerformanceStageTaskByUserReq, options ...MethodOptionFunc) (*GetPerformanceStageTaskByUserResp, *Response, error) {
 	if r.cli.mock.mockPerformanceGetPerformanceStageTaskByUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceStageTaskByUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceStageTaskByUser mock enable")
 		return r.cli.mock.mockPerformanceGetPerformanceStageTaskByUser(ctx, request, options...)
 	}
 
@@ -118,7 +118,8 @@ type GetPerformanceStageTaskByUserRespItemStageTaskInfoListName struct {
 
 // getPerformanceStageTaskByUserResp ...
 type getPerformanceStageTaskByUserResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *GetPerformanceStageTaskByUserResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetPerformanceStageTaskByUserResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

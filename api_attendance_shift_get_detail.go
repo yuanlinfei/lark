@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/get
 func (r *AttendanceService) GetAttendanceShiftDetail(ctx context.Context, request *GetAttendanceShiftDetailReq, options ...MethodOptionFunc) (*GetAttendanceShiftDetailResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceShiftDetail != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceShiftDetail mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceShiftDetail mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceShiftDetail(ctx, request, options...)
 	}
 
@@ -117,7 +117,8 @@ type GetAttendanceShiftDetailRespRestTimeRule struct {
 
 // getAttendanceShiftDetailResp ...
 type getAttendanceShiftDetailResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceShiftDetailResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceShiftDetailResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

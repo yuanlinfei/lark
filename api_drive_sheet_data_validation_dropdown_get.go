@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/query-datavalidation
 func (r *DriveService) GetSheetDataValidationDropdown(ctx context.Context, request *GetSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*GetSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetDataValidationDropdown != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetDataValidationDropdown mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetDataValidationDropdown mock enable")
 		return r.cli.mock.mockDriveGetSheetDataValidationDropdown(ctx, request, options...)
 	}
 
@@ -89,7 +89,8 @@ type GetSheetDataValidationDropdownRespDataValidationOptions struct {
 
 // getSheetDataValidationDropdownResp ...
 type getSheetDataValidationDropdownResp struct {
-	Code int64                               `json:"code,omitempty"` // 状态码, 0代表成功
-	Msg  *string                             `json:"msg,omitempty"`  // 状态信息
-	Data *GetSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 状态码, 0代表成功
+	Msg   *string                             `json:"msg,omitempty"`  // 状态信息
+	Data  *GetSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

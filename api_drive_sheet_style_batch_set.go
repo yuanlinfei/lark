@@ -21,13 +21,13 @@ import (
 	"context"
 )
 
-// BatchSetSheetStyle 该接口用于根据 spreadsheetToken 、range和样式信息 批量更新单元格样式；单次写入不超过5000行, 100列。建议在设置边框样式时, 每次更新的单元格数量不要超过30000个。
+// BatchSetSheetStyle 该接口用于根据 spreadsheetToken 、range和样式信息 批量更新单元格样式；单次写入不超过5000行, 100列。建议在设置边框样式时, 每次更新的单元格数量不要超过30000个。一个区域被多个range覆盖时, 仅最后一个样式会被应用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAzMzUjLwMzM14CMzMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/batch-set-cell-style
 func (r *DriveService) BatchSetSheetStyle(ctx context.Context, request *BatchSetSheetStyleReq, options ...MethodOptionFunc) (*BatchSetSheetStyleResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchSetSheetStyle != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetStyle mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetStyle mock enable")
 		return r.cli.mock.mockDriveBatchSetSheetStyle(ctx, request, options...)
 	}
 

@@ -28,9 +28,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/list
+//
+// Deprecated
 func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetBitableRecordListReq, options ...MethodOptionFunc) (*GetBitableRecordListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableRecordList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList mock enable")
 		return r.cli.mock.mockBitableGetBitableRecordList(ctx, request, options...)
 	}
 
@@ -114,7 +116,8 @@ type GetBitableRecordListRespItemLastModifiedBy struct {
 
 // getBitableRecordListResp ...
 type getBitableRecordListResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableRecordListResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBitableRecordListResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

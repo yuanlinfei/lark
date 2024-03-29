@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/batch_query
 func (r *DriveService) GetDriveFileMeta(ctx context.Context, request *GetDriveFileMetaReq, options ...MethodOptionFunc) (*GetDriveFileMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileMeta mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileMeta mock enable")
 		return r.cli.mock.mockDriveGetDriveFileMeta(ctx, request, options...)
 	}
 
@@ -97,7 +97,8 @@ type GetDriveFileMetaRespMeta struct {
 
 // getDriveFileMetaResp ...
 type getDriveFileMetaResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileMetaResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDriveFileMetaResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

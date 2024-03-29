@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/get
 func (r *VCService) GetVCMeeting(ctx context.Context, request *GetVCMeetingReq, options ...MethodOptionFunc) (*GetVCMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCMeeting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCMeeting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCMeeting mock enable")
 		return r.cli.mock.mockVCGetVCMeeting(ctx, request, options...)
 	}
 
@@ -120,7 +120,8 @@ type GetVCMeetingRespMeetingParticipant struct {
 
 // getVCMeetingResp ...
 type getVCMeetingResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCMeetingResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVCMeetingResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

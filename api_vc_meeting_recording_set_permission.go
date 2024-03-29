@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-recording/set_permission
 func (r *VCService) SetVCPermissionMeetingRecording(ctx context.Context, request *SetVCPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetVCPermissionMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCSetVCPermissionMeetingRecording != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetVCPermissionMeetingRecording mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SetVCPermissionMeetingRecording mock enable")
 		return r.cli.mock.mockVCSetVCPermissionMeetingRecording(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type SetVCPermissionMeetingRecordingResp struct {
 
 // setVCPermissionMeetingRecordingResp ...
 type setVCPermissionMeetingRecordingResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *SetVCPermissionMeetingRecordingResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *SetVCPermissionMeetingRecordingResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

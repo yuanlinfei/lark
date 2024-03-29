@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/create
 func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthCreateIdentity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#CreateIdentity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] HumanAuth#CreateIdentity mock enable")
 		return r.cli.mock.mockHumanAuthCreateIdentity(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type CreateIdentityResp struct {
 
 // createIdentityResp ...
 type createIdentityResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateIdentityResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateIdentityResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

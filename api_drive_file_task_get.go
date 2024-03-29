@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/async-task/task_check
 func (r *DriveService) GetDriveFileTask(ctx context.Context, request *GetDriveFileTaskReq, options ...MethodOptionFunc) (*GetDriveFileTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileTask mock enable")
 		return r.cli.mock.mockDriveGetDriveFileTask(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type GetDriveFileTaskResp struct {
 
 // getDriveFileTaskResp ...
 type getDriveFileTaskResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileTaskResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDriveFileTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

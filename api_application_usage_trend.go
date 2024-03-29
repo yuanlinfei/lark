@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN0YjLyUDN24iM1QjN
 func (r *ApplicationService) GetApplicationUsageTrend(ctx context.Context, request *GetApplicationUsageTrendReq, options ...MethodOptionFunc) (*GetApplicationUsageTrendResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUsageTrend != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageTrend mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageTrend mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUsageTrend(ctx, request, options...)
 	}
 
@@ -94,7 +94,8 @@ type GetApplicationUsageTrendRespItemTrend struct {
 
 // getApplicationUsageTrendResp ...
 type getApplicationUsageTrendResp struct {
-	Code int64                         `json:"code,omitempty"` // 返回码, 非0表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationUsageTrendResp `json:"data,omitempty"` // 返回的业务信息, 仅code = 0时有效
+	Code  int64                         `json:"code,omitempty"` // 返回码, 非0表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 返回码的描述
+	Data  *GetApplicationUsageTrendResp `json:"data,omitempty"` // 返回的业务信息, 仅code = 0时有效
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

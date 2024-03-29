@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation/enable_disable_assessment
 func (r *CoreHRService) EnableDisableCoreHRProbationAssessment(ctx context.Context, request *EnableDisableCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*EnableDisableCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHREnableDisableCoreHRProbationAssessment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#EnableDisableCoreHRProbationAssessment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#EnableDisableCoreHRProbationAssessment mock enable")
 		return r.cli.mock.mockCoreHREnableDisableCoreHRProbationAssessment(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type EnableDisableCoreHRProbationAssessmentResp struct {
 
 // enableDisableCoreHRProbationAssessmentResp ...
 type enableDisableCoreHRProbationAssessmentResp struct {
-	Code int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                      `json:"msg,omitempty"`  // 错误描述
-	Data *EnableDisableCoreHRProbationAssessmentResp `json:"data,omitempty"`
+	Code  int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                      `json:"msg,omitempty"`  // 错误描述
+	Data  *EnableDisableCoreHRProbationAssessmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                                `json:"error,omitempty"`
 }

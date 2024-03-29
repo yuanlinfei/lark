@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/delete
 func (r *MessageService) BatchDeleteMessage(ctx context.Context, request *BatchDeleteMessageReq, options ...MethodOptionFunc) (*BatchDeleteMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageBatchDeleteMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#BatchDeleteMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#BatchDeleteMessage mock enable")
 		return r.cli.mock.mockMessageBatchDeleteMessage(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type BatchDeleteMessageResp struct {
 
 // batchDeleteMessageResp ...
 type batchDeleteMessageResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteMessageResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

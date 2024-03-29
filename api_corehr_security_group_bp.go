@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query
 func (r *CoreHRService) GetCoreHRSecurityGroupBp(ctx context.Context, request *GetCoreHRSecurityGroupBpReq, options ...MethodOptionFunc) (*GetCoreHRSecurityGroupBpResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRSecurityGroupBp != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSecurityGroupBp mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSecurityGroupBp mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRSecurityGroupBp(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type GetCoreHRSecurityGroupBpRespHrbp struct {
 
 // getCoreHRSecurityGroupBpResp ...
 type getCoreHRSecurityGroupBpResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRSecurityGroupBpResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRSecurityGroupBpResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_package/batch_delete
 func (r *HireService) BatchDeleteHireEcoBackgroundCheckPackage(ctx context.Context, request *BatchDeleteHireEcoBackgroundCheckPackageReq, options ...MethodOptionFunc) (*BatchDeleteHireEcoBackgroundCheckPackageResp, *Response, error) {
 	if r.cli.mock.mockHireBatchDeleteHireEcoBackgroundCheckPackage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchDeleteHireEcoBackgroundCheckPackage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchDeleteHireEcoBackgroundCheckPackage mock enable")
 		return r.cli.mock.mockHireBatchDeleteHireEcoBackgroundCheckPackage(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type BatchDeleteHireEcoBackgroundCheckPackageResp struct {
 
 // batchDeleteHireEcoBackgroundCheckPackageResp ...
 type batchDeleteHireEcoBackgroundCheckPackageResp struct {
-	Code int64                                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                        `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteHireEcoBackgroundCheckPackageResp `json:"data,omitempty"`
+	Code  int64                                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                        `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteHireEcoBackgroundCheckPackageResp `json:"data,omitempty"`
+	Error *ErrorDetail                                  `json:"error,omitempty"`
 }

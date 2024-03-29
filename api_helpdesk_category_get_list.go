@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/list-categories
 func (r *HelpdeskService) GetHelpdeskCategoryList(ctx context.Context, request *GetHelpdeskCategoryListReq, options ...MethodOptionFunc) (*GetHelpdeskCategoryListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskCategoryList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskCategoryList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskCategoryList mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskCategoryList(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type GetHelpdeskCategoryListResp struct {
 
 // getHelpdeskCategoryListResp ...
 type getHelpdeskCategoryListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskCategoryListResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHelpdeskCategoryListResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

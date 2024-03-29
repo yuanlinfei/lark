@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/patch
 func (r *CoreHRService) UpdateCoreHREmployment(ctx context.Context, request *UpdateCoreHREmploymentReq, options ...MethodOptionFunc) (*UpdateCoreHREmploymentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHREmployment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHREmployment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHREmployment mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHREmployment(ctx, request, options...)
 	}
 
@@ -230,7 +230,8 @@ type UpdateCoreHREmploymentRespEmploymentWorkEmailEmailUsageDisplay struct {
 
 // updateCoreHREmploymentResp ...
 type updateCoreHREmploymentResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHREmploymentResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateCoreHREmploymentResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

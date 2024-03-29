@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/batch_open
 func (r *PersonalSettingsService) BatchOpenPersonalSettingsSystemStatus(ctx context.Context, request *BatchOpenPersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*BatchOpenPersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsBatchOpenPersonalSettingsSystemStatus != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#BatchOpenPersonalSettingsSystemStatus mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] PersonalSettings#BatchOpenPersonalSettingsSystemStatus mock enable")
 		return r.cli.mock.mockPersonalSettingsBatchOpenPersonalSettingsSystemStatus(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type BatchOpenPersonalSettingsSystemStatusRespResult struct {
 
 // batchOpenPersonalSettingsSystemStatusResp ...
 type batchOpenPersonalSettingsSystemStatusResp struct {
-	Code int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                     `json:"msg,omitempty"`  // 错误描述
-	Data *BatchOpenPersonalSettingsSystemStatusResp `json:"data,omitempty"`
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchOpenPersonalSettingsSystemStatusResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

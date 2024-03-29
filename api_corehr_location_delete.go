@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/delete
 func (r *CoreHRService) DeleteCoreHRLocation(ctx context.Context, request *DeleteCoreHRLocationReq, options ...MethodOptionFunc) (*DeleteCoreHRLocationResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRLocation != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLocation mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLocation mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRLocation(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHRLocationResp struct {
 
 // deleteCoreHRLocationResp ...
 type deleteCoreHRLocationResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHRLocationResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRLocationResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

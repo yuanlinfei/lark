@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/create
 func (r *ContactService) CreateDepartment(ctx context.Context, request *CreateDepartmentReq, options ...MethodOptionFunc) (*CreateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactCreateDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateDepartment mock enable")
 		return r.cli.mock.mockContactCreateDepartment(ctx, request, options...)
 	}
 
@@ -133,7 +133,8 @@ type CreateDepartmentRespDepartmentStatus struct {
 
 // createDepartmentResp ...
 type createDepartmentResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDepartmentResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/patch
 func (r *CoreHRService) UpdateCoreHRContract(ctx context.Context, request *UpdateCoreHRContractReq, options ...MethodOptionFunc) (*UpdateCoreHRContractResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRContract != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRContract mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRContract mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRContract(ctx, request, options...)
 	}
 
@@ -159,7 +159,8 @@ type UpdateCoreHRContractRespContractSigningTypeDisplay struct {
 
 // updateCoreHRContractResp ...
 type updateCoreHRContractResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHRContractResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateCoreHRContractResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

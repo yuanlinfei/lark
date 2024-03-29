@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/get-2
 func (r *ChatService) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
 	if r.cli.mock.mockChatGetChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChat mock enable")
 		return r.cli.mock.mockChatGetChat(ctx, request, options...)
 	}
 
@@ -82,6 +82,7 @@ type GetChatResp struct {
 	OwnerID                string                            `json:"owner_id,omitempty"`                 // 群主 ID, ID值与查询参数中的 [user_id_type] 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 当群主是机器人时不返回该字段, 单聊不返回该字段
 	UserManagerIDList      []string                          `json:"user_manager_id_list,omitempty"`     // 用户管理员列表
 	BotManagerIDList       []string                          `json:"bot_manager_id_list,omitempty"`      // 机器人管理员列表
+	GroupMessageType       MsgType                           `json:"group_message_type,omitempty"`       // 群消息模式, 可选值有: `chat`: 会话消息, ` thread`: 话题消息, 注意: 仅对话群返回该字段
 	ChatMode               ChatMode                          `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`: 群组, `topic`: 话题, `p2p`: 单聊
 	ChatType               ChatType                          `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 注意: 单聊不返回该字段
 	ChatTag                string                            `json:"chat_tag,omitempty"`                 // 群标签, 如有多个, 则按照下列顺序返回第一个, 可选值有: `inner`: 内部群, `tenant`: 公司群, `department`: 部门群, `edu`: 教育群, `meeting`: 会议群, `customer_service`: 客服群, 注意: 单聊不返回该字段
@@ -108,7 +109,8 @@ type GetChatRespRestrictedModeSetting struct {
 
 // getChatResp ...
 type getChatResp struct {
-	Code int64        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetChatResp `json:"data,omitempty"`
+	Code  int64        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetChatResp `json:"data,omitempty"`
+	Error *ErrorDetail `json:"error,omitempty"`
 }

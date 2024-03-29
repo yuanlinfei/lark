@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *OKRService) GetOKRMetricSourceList(ctx context.Context, request *GetOKRMetricSourceListReq, options ...MethodOptionFunc) (*GetOKRMetricSourceListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetOKRMetricSourceList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRMetricSourceList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#GetOKRMetricSourceList mock enable")
 		return r.cli.mock.mockOKRGetOKRMetricSourceList(ctx, request, options...)
 	}
 
@@ -89,7 +89,8 @@ type GetOKRMetricSourceListRespItemMetricUnit struct {
 
 // getOKRMetricSourceListResp ...
 type getOKRMetricSourceListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetOKRMetricSourceListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetOKRMetricSourceListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

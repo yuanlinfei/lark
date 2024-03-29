@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) GetBaikeEntityList(ctx context.Context, request *GetBaikeEntityListReq, options ...MethodOptionFunc) (*GetBaikeEntityListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeEntityList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeEntityList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeEntityList mock enable")
 		return r.cli.mock.mockBaikeGetBaikeEntityList(ctx, request, options...)
 	}
 
@@ -189,7 +189,8 @@ type GetBaikeEntityListRespEntityStatistics struct {
 
 // getBaikeEntityListResp ...
 type getBaikeEntityListResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetBaikeEntityListResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBaikeEntityListResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

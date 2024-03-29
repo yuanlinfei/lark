@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-visibility/patch
 func (r *ApplicationService) UpdateApplicationAppVisibilityV6(ctx context.Context, request *UpdateApplicationAppVisibilityV6Req, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityV6Resp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibilityV6 != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibilityV6 mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibilityV6 mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationAppVisibilityV6(ctx, request, options...)
 	}
 
@@ -104,7 +104,8 @@ type UpdateApplicationAppVisibilityV6Resp struct {
 
 // updateApplicationAppVisibilityV6Resp ...
 type updateApplicationAppVisibilityV6Resp struct {
-	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationAppVisibilityV6Resp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateApplicationAppVisibilityV6Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

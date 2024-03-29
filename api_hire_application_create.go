@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/create
 func (r *HireService) CreateHireApplication(ctx context.Context, request *CreateHireApplicationReq, options ...MethodOptionFunc) (*CreateHireApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireApplication mock enable")
 		return r.cli.mock.mockHireCreateHireApplication(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type CreateHireApplicationResp struct {
 
 // createHireApplicationResp ...
 type createHireApplicationResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireApplicationResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireApplicationResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

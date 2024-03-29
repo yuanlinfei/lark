@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *OKRService) UpdateOKRMetricSourceTableItem(ctx context.Context, request *UpdateOKRMetricSourceTableItemReq, options ...MethodOptionFunc) (*UpdateOKRMetricSourceTableItemResp, *Response, error) {
 	if r.cli.mock.mockOKRUpdateOKRMetricSourceTableItem != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#UpdateOKRMetricSourceTableItem mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#UpdateOKRMetricSourceTableItem mock enable")
 		return r.cli.mock.mockOKRUpdateOKRMetricSourceTableItem(ctx, request, options...)
 	}
 
@@ -98,7 +98,8 @@ type UpdateOKRMetricSourceTableItemRespMetricUnit struct {
 
 // updateOKRMetricSourceTableItemResp ...
 type updateOKRMetricSourceTableItemResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateOKRMetricSourceTableItemResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateOKRMetricSourceTableItemResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

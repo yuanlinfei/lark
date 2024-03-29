@@ -21,16 +21,15 @@ import (
 	"context"
 )
 
-// GetDocxDocument 获取文档最新版本号、标题等
+// GetDocxDocument 获取文档标题和最新版本 ID。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://feishu.feishu.cn/docx/JTyjdXtsHo3H9AxXkgOcLTsynaf#doxcnQNbSz9cEXV86h9t1OsuQPa), 了解相关规则及约束。
 // 应用频率限制: 单个应用调用频率上限为每秒 5 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/get
 func (r *DriveService) GetDocxDocument(ctx context.Context, request *GetDocxDocumentReq, options ...MethodOptionFunc) (*GetDocxDocumentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDocxDocument != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDocxDocument mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDocxDocument mock enable")
 		return r.cli.mock.mockDriveGetDocxDocument(ctx, request, options...)
 	}
 
@@ -62,7 +61,7 @@ func (r *Mock) UnMockDriveGetDocxDocument() {
 
 // GetDocxDocumentReq ...
 type GetDocxDocumentReq struct {
-	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh", 长度范围: `27` ～ `27` 字符
+	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`, 示例值: "doxcnePuYufKa49ISjhD8Iabcef", 长度范围: `27` ～ `27` 字符
 }
 
 // GetDocxDocumentResp ...
@@ -72,14 +71,15 @@ type GetDocxDocumentResp struct {
 
 // GetDocxDocumentRespDocument ...
 type GetDocxDocumentRespDocument struct {
-	DocumentID string `json:"document_id,omitempty"` // 文档唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
-	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID
+	DocumentID string `json:"document_id,omitempty"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
+	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID。起始值为 1
 	Title      string `json:"title,omitempty"`       // 文档标题
 }
 
 // getDocxDocumentResp ...
 type getDocxDocumentResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetDocxDocumentResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDocxDocumentResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

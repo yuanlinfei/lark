@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/transfer
 func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request *TransferApprovalInstanceReq, options ...MethodOptionFunc) (*TransferApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransferApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransferApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#TransferApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalTransferApprovalInstance(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type TransferApprovalInstanceResp struct {
 
 // transferApprovalInstanceResp ...
 type transferApprovalInstanceResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *TransferApprovalInstanceResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *TransferApprovalInstanceResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

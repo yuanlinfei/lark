@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/batch_delete
 func (r *ContactService) BatchDeleteContactFunctionalRoleMember(ctx context.Context, request *BatchDeleteContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactFunctionalRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchDeleteContactFunctionalRoleMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchDeleteContactFunctionalRoleMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchDeleteContactFunctionalRoleMember mock enable")
 		return r.cli.mock.mockContactBatchDeleteContactFunctionalRoleMember(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type BatchDeleteContactFunctionalRoleMemberRespResult struct {
 
 // batchDeleteContactFunctionalRoleMemberResp ...
 type batchDeleteContactFunctionalRoleMemberResp struct {
-	Code int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                      `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteContactFunctionalRoleMemberResp `json:"data,omitempty"`
+	Code  int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                      `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteContactFunctionalRoleMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                                `json:"error,omitempty"`
 }

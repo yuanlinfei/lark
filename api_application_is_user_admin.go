@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/verify-app-admin
 func (r *ApplicationService) IsApplicationUserAdmin(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error) {
 	if r.cli.mock.mockApplicationIsApplicationUserAdmin != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#IsApplicationUserAdmin mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#IsApplicationUserAdmin mock enable")
 		return r.cli.mock.mockApplicationIsApplicationUserAdmin(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type IsApplicationUserAdminResp struct {
 
 // isApplicationUserAdminResp ...
 type isApplicationUserAdminResp struct {
-	Code int64                       `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
-	Data *IsApplicationUserAdminResp `json:"data,omitempty"` // 返回的业务信息
+	Code  int64                       `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 返回码的描述
+	Data  *IsApplicationUserAdminResp `json:"data,omitempty"` // 返回的业务信息
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/delete
 func (r *HireService) DeleteHireExternalApplication(ctx context.Context, request *DeleteHireExternalApplicationReq, options ...MethodOptionFunc) (*DeleteHireExternalApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireDeleteHireExternalApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalApplication mock enable")
 		return r.cli.mock.mockHireDeleteHireExternalApplication(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type DeleteHireExternalApplicationRespExternalApplication struct {
 
 // deleteHireExternalApplicationResp ...
 type deleteHireExternalApplicationResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteHireExternalApplicationResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireExternalApplicationResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

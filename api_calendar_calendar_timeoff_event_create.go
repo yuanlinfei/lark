@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/timeoff_event/create
 func (r *CalendarService) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarTimeoffEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarTimeoffEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarTimeoffEvent(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type CreateCalendarTimeoffEventResp struct {
 
 // createCalendarTimeoffEventResp ...
 type createCalendarTimeoffEventResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCalendarTimeoffEventResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCalendarTimeoffEventResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

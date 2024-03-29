@@ -21,13 +21,13 @@ import (
 	"context"
 )
 
-// UpdateSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息更新隐藏行列、单元格大小；单次操作不超过5000行或列。
+// UpdateSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息更新隐藏行列、单元格大小、行高列宽；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjMzUjL2IzM14iNyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/update-rows-or-columns
 func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *UpdateSheetDimensionRangeReq, options ...MethodOptionFunc) (*UpdateSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetDimensionRange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDimensionRange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDimensionRange mock enable")
 		return r.cli.mock.mockDriveUpdateSheetDimensionRange(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type UpdateSheetDimensionRangeResp struct {
 
 // updateSheetDimensionRangeResp ...
 type updateSheetDimensionRangeResp struct {
-	Code int64                          `json:"code,omitempty"`
-	Data *UpdateSheetDimensionRangeResp `json:"data,omitempty"`
-	Msg  string                         `json:"msg,omitempty"`
+	Code  int64                          `json:"code,omitempty"`
+	Data  *UpdateSheetDimensionRangeResp `json:"data,omitempty"`
+	Msg   string                         `json:"msg,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

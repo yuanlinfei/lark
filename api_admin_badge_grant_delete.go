@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/delete
 func (r *AdminService) DeleteAdminBadgeGrant(ctx context.Context, request *DeleteAdminBadgeGrantReq, options ...MethodOptionFunc) (*DeleteAdminBadgeGrantResp, *Response, error) {
 	if r.cli.mock.mockAdminDeleteAdminBadgeGrant != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#DeleteAdminBadgeGrant mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#DeleteAdminBadgeGrant mock enable")
 		return r.cli.mock.mockAdminDeleteAdminBadgeGrant(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteAdminBadgeGrantResp struct {
 
 // deleteAdminBadgeGrantResp ...
 type deleteAdminBadgeGrantResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteAdminBadgeGrantResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAdminBadgeGrantResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

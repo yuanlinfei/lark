@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-refresh_access_token/create
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")
 		return r.cli.mock.mockAuthRefreshAccessToken(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type RefreshAccessTokenResp struct {
 
 // refreshAccessTokenResp ...
 type refreshAccessTokenResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *RefreshAccessTokenResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *RefreshAccessTokenResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

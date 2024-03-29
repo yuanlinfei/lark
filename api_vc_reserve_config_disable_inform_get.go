@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get-4
 func (r *VCService) GetVCReserveConfigDisableInform(ctx context.Context, request *GetVCReserveConfigDisableInformReq, options ...MethodOptionFunc) (*GetVCReserveConfigDisableInformResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveConfigDisableInform != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigDisableInform mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigDisableInform mock enable")
 		return r.cli.mock.mockVCGetVCReserveConfigDisableInform(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type GetVCReserveConfigDisableInformRespDisableInformInformedUser struct {
 
 // getVCReserveConfigDisableInformResp ...
 type getVCReserveConfigDisableInformResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCReserveConfigDisableInformResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVCReserveConfigDisableInformResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

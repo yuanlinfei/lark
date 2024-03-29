@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get
 func (r *CoreHRService) BatchGetCoreHRJobLevel(ctx context.Context, request *BatchGetCoreHRJobLevelReq, options ...MethodOptionFunc) (*BatchGetCoreHRJobLevelResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHRJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobLevel mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHRJobLevel(ctx, request, options...)
 	}
 
@@ -104,7 +104,8 @@ type BatchGetCoreHRJobLevelRespItemName struct {
 
 // batchGetCoreHRJobLevelResp ...
 type batchGetCoreHRJobLevelResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetCoreHRJobLevelResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetCoreHRJobLevelResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

@@ -21,13 +21,13 @@ import (
 	"context"
 )
 
-// UnsubscribeDriveFile 该接口仅支持文档拥有者取消订阅自己文档的通知事件, 可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。暂时无法指定取消的具体事件类型, 事件类型以开发者后台为准。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// UnsubscribeDriveFile 该接口仅支持文档拥有者和文档管理者取消订阅文档的通知事件（但目前文档管理者仅能接收到文件编辑事件）。可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。暂时无法指定取消的具体事件类型, 事件类型以开发者后台为准。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete_subscribe
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/delete_subscribe
 func (r *DriveService) UnsubscribeDriveFile(ctx context.Context, request *UnsubscribeDriveFileReq, options ...MethodOptionFunc) (*UnsubscribeDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveUnsubscribeDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UnsubscribeDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UnsubscribeDriveFile mock enable")
 		return r.cli.mock.mockDriveUnsubscribeDriveFile(ctx, request, options...)
 	}
 
@@ -59,8 +59,9 @@ func (r *Mock) UnMockDriveUnsubscribeDriveFile() {
 
 // UnsubscribeDriveFileReq ...
 type UnsubscribeDriveFileReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: doc, sheet: 表格, bitable: 多维表格, file: 文件
+	FileToken string   `path:"file_token" json:"-"`  // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
+	FileType  FileType `query:"file_type" json:"-"`  // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: doc, sheet: 表格, bitable: 多维表格, file: 文件, folder: 文件夹
+	EventType *string  `query:"event_type" json:"-"` // 事件类型, 订阅为folder类型时必填, 示例值: file.created_in_folder_v1
 }
 
 // UnsubscribeDriveFileResp ...
@@ -69,7 +70,8 @@ type UnsubscribeDriveFileResp struct {
 
 // unsubscribeDriveFileResp ...
 type unsubscribeDriveFileResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UnsubscribeDriveFileResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *UnsubscribeDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

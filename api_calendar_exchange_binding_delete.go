@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/exchange_binding/delete
 func (r *CalendarService) DeleteCalendarExchangeBinding(ctx context.Context, request *DeleteCalendarExchangeBindingReq, options ...MethodOptionFunc) (*DeleteCalendarExchangeBindingResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarExchangeBinding != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarExchangeBinding mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarExchangeBinding mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarExchangeBinding(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type DeleteCalendarExchangeBindingResp struct {
 
 // deleteCalendarExchangeBindingResp ...
 type deleteCalendarExchangeBindingResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarExchangeBindingResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCalendarExchangeBindingResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

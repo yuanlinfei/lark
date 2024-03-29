@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/list
 func (r *CoreHRService) GetCoreHRPreHireList(ctx context.Context, request *GetCoreHRPreHireListReq, options ...MethodOptionFunc) (*GetCoreHRPreHireListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPreHireList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHireList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHireList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRPreHireList(ctx, request, options...)
 	}
 
@@ -151,7 +151,8 @@ type GetCoreHRPreHireListRespItemWorkEmailEmailUsageDisplay struct {
 
 // getCoreHRPreHireListResp ...
 type getCoreHRPreHireListResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRPreHireListResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRPreHireListResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

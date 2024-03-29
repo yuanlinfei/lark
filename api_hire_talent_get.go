@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get
 func (r *HireService) GetHireTalent(ctx context.Context, request *GetHireTalentReq, options ...MethodOptionFunc) (*GetHireTalentResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireTalent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalent mock enable")
 		return r.cli.mock.mockHireGetHireTalent(ctx, request, options...)
 	}
 
@@ -126,7 +126,7 @@ type GetHireTalentRespTalentAwardCustomizedDataValue struct {
 // GetHireTalentRespTalentAwardCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentAwardCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -209,7 +209,7 @@ type GetHireTalentRespTalentBasicInfoCustomizedDataValue struct {
 // GetHireTalentRespTalentBasicInfoCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -262,7 +262,7 @@ type GetHireTalentRespTalentCareer struct {
 	StartTime          string                                         `json:"start_time,omitempty"`           // 开始时间
 	EndTime            string                                         `json:"end_time,omitempty"`             // 结束时间
 	CareerType         int64                                          `json:"career_type,omitempty"`          // 经历类型, 可选值有: 1: 实习经历, 2: 工作经历
-	TagList            []int64                                        `json:"tag_list,omitempty"`             // 工作经历标签, 可选值有: 5: 百度 阿里 腾讯, 6: 头条, 美团, 滴滴, 7: 其它大厂
+	TagList            []int64                                        `json:"tag_list,omitempty"`             // 工作经历标签, 可选值有: 5: BAT, 6: TMD, 14: 互联网100强
 	CustomizedDataList []*GetHireTalentRespTalentCareerCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
@@ -294,7 +294,7 @@ type GetHireTalentRespTalentCareerCustomizedDataValue struct {
 // GetHireTalentRespTalentCareerCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentCareerCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -353,7 +353,7 @@ type GetHireTalentRespTalentCustomizedDataChildrenValue struct {
 // GetHireTalentRespTalentCustomizedDataChildrenValueCustomizedAttachment ...
 type GetHireTalentRespTalentCustomizedDataChildrenValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -424,7 +424,7 @@ type GetHireTalentRespTalentEducationCustomizedDataValue struct {
 // GetHireTalentRespTalentEducationCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentEducationCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -490,7 +490,7 @@ type GetHireTalentRespTalentLanguageCustomizedDataValue struct {
 // GetHireTalentRespTalentLanguageCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentLanguageCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -553,7 +553,7 @@ type GetHireTalentRespTalentProjectCustomizedDataValue struct {
 // GetHireTalentRespTalentProjectCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentProjectCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -627,7 +627,7 @@ type GetHireTalentRespTalentSnsCustomizedDataValue struct {
 // GetHireTalentRespTalentSnsCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentSnsCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -687,7 +687,7 @@ type GetHireTalentRespTalentWorksCustomizedDataValue struct {
 // GetHireTalentRespTalentWorksCustomizedDataValueCustomizedAttachment ...
 type GetHireTalentRespTalentWorksCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
-	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	Name        string `json:"name,omitempty"`         // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
 	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
@@ -712,7 +712,8 @@ type GetHireTalentRespTalentWorksCustomizedDataValueTimeRange struct {
 
 // getHireTalentResp ...
 type getHireTalentResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireTalentResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireTalentResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

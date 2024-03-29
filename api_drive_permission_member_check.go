@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/auth
 func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *CheckDriveMemberPermissionReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCheckDriveMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermission mock enable")
 		return r.cli.mock.mockDriveCheckDriveMemberPermission(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type CheckDriveMemberPermissionResp struct {
 
 // checkDriveMemberPermissionResp ...
 type checkDriveMemberPermissionResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CheckDriveMemberPermissionResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CheckDriveMemberPermissionResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

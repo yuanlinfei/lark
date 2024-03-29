@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/tenant-v2/query
 func (r *TenantService) GetTenant(ctx context.Context, request *GetTenantReq, options ...MethodOptionFunc) (*GetTenantResp, *Response, error) {
 	if r.cli.mock.mockTenantGetTenant != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#GetTenant mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Tenant#GetTenant mock enable")
 		return r.cli.mock.mockTenantGetTenant(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type GetTenantRespTenantAvatar struct {
 
 // getTenantResp ...
 type getTenantResp struct {
-	Code int64          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *GetTenantResp `json:"data,omitempty"`
+	Code  int64          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTenantResp `json:"data,omitempty"`
+	Error *ErrorDetail   `json:"error,omitempty"`
 }

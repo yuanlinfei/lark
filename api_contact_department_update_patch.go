@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/patch
 func (r *ContactService) UpdateDepartmentPatch(ctx context.Context, request *UpdateDepartmentPatchReq, options ...MethodOptionFunc) (*UpdateDepartmentPatchResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartmentPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartmentPatch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartmentPatch mock enable")
 		return r.cli.mock.mockContactUpdateDepartmentPatch(ctx, request, options...)
 	}
 
@@ -132,7 +132,8 @@ type UpdateDepartmentPatchRespDepartmentStatus struct {
 
 // updateDepartmentPatchResp ...
 type updateDepartmentPatchResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDepartmentPatchResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateDepartmentPatchResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

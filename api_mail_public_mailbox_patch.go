@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox/patch
 func (r *MailService) UpdatePublicMailboxPatch(ctx context.Context, request *UpdatePublicMailboxPatchReq, options ...MethodOptionFunc) (*UpdatePublicMailboxPatchResp, *Response, error) {
 	if r.cli.mock.mockMailUpdatePublicMailboxPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailboxPatch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailboxPatch mock enable")
 		return r.cli.mock.mockMailUpdatePublicMailboxPatch(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type UpdatePublicMailboxPatchResp struct {
 
 // updatePublicMailboxPatchResp ...
 type updatePublicMailboxPatchResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *UpdatePublicMailboxPatchResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdatePublicMailboxPatchResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

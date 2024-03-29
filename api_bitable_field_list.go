@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/list
 func (r *BitableService) GetBitableFieldList(ctx context.Context, request *GetBitableFieldListReq, options ...MethodOptionFunc) (*GetBitableFieldListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableFieldList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableFieldList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableFieldList mock enable")
 		return r.cli.mock.mockBitableGetBitableFieldList(ctx, request, options...)
 	}
 
@@ -151,7 +151,8 @@ type GetBitableFieldListRespItemPropertyRating struct {
 
 // getBitableFieldListResp ...
 type getBitableFieldListResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableFieldListResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBitableFieldListResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

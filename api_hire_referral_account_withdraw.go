@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw
 func (r *HireService) WithdrawHireReferralAccount(ctx context.Context, request *WithdrawHireReferralAccountReq, options ...MethodOptionFunc) (*WithdrawHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireWithdrawHireReferralAccount != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#WithdrawHireReferralAccount mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#WithdrawHireReferralAccount mock enable")
 		return r.cli.mock.mockHireWithdrawHireReferralAccount(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type WithdrawHireReferralAccountRespWithdrawalDetails struct {
 
 // withdrawHireReferralAccountResp ...
 type withdrawHireReferralAccountResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *WithdrawHireReferralAccountResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *WithdrawHireReferralAccountResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

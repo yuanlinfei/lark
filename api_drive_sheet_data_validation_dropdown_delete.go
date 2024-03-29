@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/delete-datavalidation
 func (r *DriveService) DeleteSheetDataValidationDropdown(ctx context.Context, request *DeleteSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*DeleteSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetDataValidationDropdown != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDataValidationDropdown mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDataValidationDropdown mock enable")
 		return r.cli.mock.mockDriveDeleteSheetDataValidationDropdown(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type DeleteSheetDataValidationDropdownRespRangeResult struct {
 
 // deleteSheetDataValidationDropdownResp ...
 type deleteSheetDataValidationDropdownResp struct {
-	Code int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
-	Msg  *string                                `json:"msg,omitempty"`  // 状态信息
-	Data *DeleteSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Code  int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
+	Msg   *string                                `json:"msg,omitempty"`  // 状态信息
+	Data  *DeleteSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

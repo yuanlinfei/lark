@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/create
 func (r *DriveService) CreateSheetFilter(ctx context.Context, request *CreateSheetFilterReq, options ...MethodOptionFunc) (*CreateSheetFilterResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSheetFilter != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetFilter mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetFilter mock enable")
 		return r.cli.mock.mockDriveCreateSheetFilter(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type CreateSheetFilterResp struct {
 
 // createSheetFilterResp ...
 type createSheetFilterResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSheetFilterResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateSheetFilterResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

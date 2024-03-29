@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *ContactService) UpdateUser(ctx context.Context, request *UpdateUserReq, options ...MethodOptionFunc) (*UpdateUserResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateUser mock enable")
 		return r.cli.mock.mockContactUpdateUser(ctx, request, options...)
 	}
 
@@ -206,7 +206,8 @@ type UpdateUserRespUserStatus struct {
 
 // updateUserResp ...
 type updateUserResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateUserResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateUserResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

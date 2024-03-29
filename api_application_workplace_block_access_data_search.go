@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/workplace-v1/workplace_block_access_data/search
 func (r *ApplicationService) SearchApplicationWorkplaceBlockAccessData(ctx context.Context, request *SearchApplicationWorkplaceBlockAccessDataReq, options ...MethodOptionFunc) (*SearchApplicationWorkplaceBlockAccessDataResp, *Response, error) {
 	if r.cli.mock.mockApplicationSearchApplicationWorkplaceBlockAccessData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#SearchApplicationWorkplaceBlockAccessData mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#SearchApplicationWorkplaceBlockAccessData mock enable")
 		return r.cli.mock.mockApplicationSearchApplicationWorkplaceBlockAccessData(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type SearchApplicationWorkplaceBlockAccessDataResp struct {
 
 // searchApplicationWorkplaceBlockAccessDataResp ...
 type searchApplicationWorkplaceBlockAccessDataResp struct {
-	Code int64                                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                         `json:"msg,omitempty"`  // 错误描述
-	Data *SearchApplicationWorkplaceBlockAccessDataResp `json:"data,omitempty"`
+	Code  int64                                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                         `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchApplicationWorkplaceBlockAccessDataResp `json:"data,omitempty"`
+	Error *ErrorDetail                                   `json:"error,omitempty"`
 }

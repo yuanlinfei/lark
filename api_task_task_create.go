@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/create
 func (r *TaskService) CreateTask(ctx context.Context, request *CreateTaskReq, options ...MethodOptionFunc) (*CreateTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTask mock enable")
 		return r.cli.mock.mockTaskCreateTask(ctx, request, options...)
 	}
 
@@ -157,7 +157,8 @@ type CreateTaskRespTaskOriginHref struct {
 
 // createTaskResp ...
 type createTaskResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateTaskResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

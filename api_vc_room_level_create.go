@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/create
 func (r *VCService) CreateVCRoomLevel(ctx context.Context, request *CreateVCRoomLevelReq, options ...MethodOptionFunc) (*CreateVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCCreateVCRoomLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#CreateVCRoomLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#CreateVCRoomLevel mock enable")
 		return r.cli.mock.mockVCCreateVCRoomLevel(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type CreateVCRoomLevelRespRoomLevel struct {
 
 // createVCRoomLevelResp ...
 type createVCRoomLevelResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateVCRoomLevelResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateVCRoomLevelResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

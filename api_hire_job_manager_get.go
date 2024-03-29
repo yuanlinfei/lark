@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *HireService) GetHireJobManager(ctx context.Context, request *GetHireJobManagerReq, options ...MethodOptionFunc) (*GetHireJobManagerResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireJobManager != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobManager mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobManager mock enable")
 		return r.cli.mock.mockHireGetHireJobManager(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GetHireJobManagerRespInfo struct {
 
 // getHireJobManagerResp ...
 type getHireJobManagerResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireJobManagerResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireJobManagerResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

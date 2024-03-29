@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs-assistant/file-subscription/create
 func (r *DriveService) CreateDriveFileSubscription(ctx context.Context, request *CreateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*CreateDriveFileSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFileSubscription != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileSubscription mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileSubscription mock enable")
 		return r.cli.mock.mockDriveCreateDriveFileSubscription(ctx, request, options...)
 	}
 
@@ -75,7 +75,8 @@ type CreateDriveFileSubscriptionResp struct {
 
 // createDriveFileSubscriptionResp ...
 type createDriveFileSubscriptionResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveFileSubscriptionResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDriveFileSubscriptionResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

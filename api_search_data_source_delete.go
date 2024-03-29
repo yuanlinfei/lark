@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source/delete
 func (r *SearchService) DeleteSearchDataSource(ctx context.Context, request *DeleteSearchDataSourceReq, options ...MethodOptionFunc) (*DeleteSearchDataSourceResp, *Response, error) {
 	if r.cli.mock.mockSearchDeleteSearchDataSource != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#DeleteSearchDataSource mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#DeleteSearchDataSource mock enable")
 		return r.cli.mock.mockSearchDeleteSearchDataSource(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteSearchDataSourceResp struct {
 
 // deleteSearchDataSourceResp ...
 type deleteSearchDataSourceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSearchDataSourceResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteSearchDataSourceResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

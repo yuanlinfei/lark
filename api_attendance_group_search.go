@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/search
 func (r *AttendanceService) SearchAttendanceGroup(ctx context.Context, request *SearchAttendanceGroupReq, options ...MethodOptionFunc) (*SearchAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceSearchAttendanceGroup != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#SearchAttendanceGroup mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#SearchAttendanceGroup mock enable")
 		return r.cli.mock.mockAttendanceSearchAttendanceGroup(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type SearchAttendanceGroupRespGroup struct {
 
 // searchAttendanceGroupResp ...
 type searchAttendanceGroupResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *SearchAttendanceGroupResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchAttendanceGroupResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

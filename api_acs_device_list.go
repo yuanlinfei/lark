@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/device/list
 func (r *ACSService) GetACSDeviceList(ctx context.Context, request *GetACSDeviceListReq, options ...MethodOptionFunc) (*GetACSDeviceListResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSDeviceList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSDeviceList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#GetACSDeviceList mock enable")
 		return r.cli.mock.mockACSGetACSDeviceList(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type GetACSDeviceListRespItem struct {
 
 // getACSDeviceListResp ...
 type getACSDeviceListResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetACSDeviceListResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetACSDeviceListResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

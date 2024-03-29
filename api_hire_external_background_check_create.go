@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create-2
 func (r *HireService) CreateHireExternalBackgroundCheck(ctx context.Context, request *CreateHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*CreateHireExternalBackgroundCheckResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireExternalBackgroundCheck != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalBackgroundCheck mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalBackgroundCheck mock enable")
 		return r.cli.mock.mockHireCreateHireExternalBackgroundCheck(ctx, request, options...)
 	}
 
@@ -91,7 +91,8 @@ type CreateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment stru
 
 // createHireExternalBackgroundCheckResp ...
 type createHireExternalBackgroundCheckResp struct {
-	Code int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireExternalBackgroundCheckResp `json:"data,omitempty"`
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireExternalBackgroundCheckResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

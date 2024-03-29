@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/patch
 func (r *ApplicationService) UpdateApplication(ctx context.Context, request *UpdateApplicationReq, options ...MethodOptionFunc) (*UpdateApplicationResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplication mock enable")
 		return r.cli.mock.mockApplicationUpdateApplication(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type UpdateApplicationResp struct {
 
 // updateApplicationResp ...
 type updateApplicationResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateApplicationResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

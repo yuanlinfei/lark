@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/delete
 func (r *OKRService) DeleteOKRProgressRecord(ctx context.Context, request *DeleteOKRProgressRecordReq, options ...MethodOptionFunc) (*DeleteOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRDeleteOKRProgressRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#DeleteOKRProgressRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#DeleteOKRProgressRecord mock enable")
 		return r.cli.mock.mockOKRDeleteOKRProgressRecord(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteOKRProgressRecordResp struct {
 
 // deleteOKRProgressRecordResp ...
 type deleteOKRProgressRecordResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteOKRProgressRecordResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteOKRProgressRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

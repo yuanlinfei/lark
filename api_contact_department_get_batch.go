@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch
 func (r *ContactService) BatchGetDepartment(ctx context.Context, request *BatchGetDepartmentReq, options ...MethodOptionFunc) (*BatchGetDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchGetDepartment mock enable")
 		return r.cli.mock.mockContactBatchGetDepartment(ctx, request, options...)
 	}
 
@@ -111,7 +111,8 @@ type BatchGetDepartmentRespItemStatus struct {
 
 // batchGetDepartmentResp ...
 type batchGetDepartmentResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetDepartmentResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

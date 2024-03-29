@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-version/list
 func (r *DriveService) GetDriveFileVersionList(ctx context.Context, request *GetDriveFileVersionListReq, options ...MethodOptionFunc) (*GetDriveFileVersionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileVersionList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileVersionList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileVersionList mock enable")
 		return r.cli.mock.mockDriveGetDriveFileVersionList(ctx, request, options...)
 	}
 
@@ -89,7 +89,8 @@ type GetDriveFileVersionListRespItem struct {
 
 // getDriveFileVersionListResp ...
 type getDriveFileVersionListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileVersionListResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDriveFileVersionListResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

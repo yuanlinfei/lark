@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/delete
 func (r *VCService) DeleteVCRoom(ctx context.Context, request *DeleteVCRoomReq, options ...MethodOptionFunc) (*DeleteVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCDeleteVCRoom != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteVCRoom mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#DeleteVCRoom mock enable")
 		return r.cli.mock.mockVCDeleteVCRoom(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteVCRoomResp struct {
 
 // deleteVCRoomResp ...
 type deleteVCRoomResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteVCRoomResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteVCRoomResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

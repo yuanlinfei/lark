@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/get
 func (r *DriveService) GetDriveExportTask(ctx context.Context, request *GetDriveExportTaskReq, options ...MethodOptionFunc) (*GetDriveExportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveExportTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveExportTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveExportTask mock enable")
 		return r.cli.mock.mockDriveGetDriveExportTask(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type GetDriveExportTaskRespResult struct {
 
 // getDriveExportTaskResp ...
 type getDriveExportTaskResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveExportTaskResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDriveExportTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

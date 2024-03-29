@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/create
 func (r *CoreHRService) CreateCoreHRLeaveGrantingRecord(ctx context.Context, request *CreateCoreHRLeaveGrantingRecordReq, options ...MethodOptionFunc) (*CreateCoreHRLeaveGrantingRecordResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRLeaveGrantingRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLeaveGrantingRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLeaveGrantingRecord mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRLeaveGrantingRecord(ctx, request, options...)
 	}
 
@@ -106,7 +106,8 @@ type CreateCoreHRLeaveGrantingRecordRespLeaveGrantingRecordReason struct {
 
 // createCoreHRLeaveGrantingRecordResp ...
 type createCoreHRLeaveGrantingRecordResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHRLeaveGrantingRecordResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCoreHRLeaveGrantingRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

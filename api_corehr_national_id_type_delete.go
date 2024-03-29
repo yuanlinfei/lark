@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/delete
 func (r *CoreHRService) DeleteCoreHRNationalIDType(ctx context.Context, request *DeleteCoreHRNationalIDTypeReq, options ...MethodOptionFunc) (*DeleteCoreHRNationalIDTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRNationalIDType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRNationalIDType mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRNationalIDType mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRNationalIDType(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHRNationalIDTypeResp struct {
 
 // deleteCoreHRNationalIDTypeResp ...
 type deleteCoreHRNationalIDTypeResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHRNationalIDTypeResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRNationalIDTypeResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

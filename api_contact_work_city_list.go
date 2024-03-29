@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/work_city/list
 func (r *ContactService) GetContactWorkCityList(ctx context.Context, request *GetContactWorkCityListReq, options ...MethodOptionFunc) (*GetContactWorkCityListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactWorkCityList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactWorkCityList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactWorkCityList mock enable")
 		return r.cli.mock.mockContactGetContactWorkCityList(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type GetContactWorkCityListRespItemI18nName struct {
 
 // getContactWorkCityListResp ...
 type getContactWorkCityListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactWorkCityListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetContactWorkCityListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

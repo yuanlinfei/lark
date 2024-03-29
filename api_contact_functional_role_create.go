@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/create
 func (r *ContactService) CreateContactFunctionalRole(ctx context.Context, request *CreateContactFunctionalRoleReq, options ...MethodOptionFunc) (*CreateContactFunctionalRoleResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactFunctionalRole != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactFunctionalRole mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateContactFunctionalRole mock enable")
 		return r.cli.mock.mockContactCreateContactFunctionalRole(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type CreateContactFunctionalRoleResp struct {
 
 // createContactFunctionalRoleResp ...
 type createContactFunctionalRoleResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *CreateContactFunctionalRoleResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateContactFunctionalRoleResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list
 func (r *ContactService) GetEmployeeTypeEnumList(ctx context.Context, request *GetEmployeeTypeEnumListReq, options ...MethodOptionFunc) (*GetEmployeeTypeEnumListResp, *Response, error) {
 	if r.cli.mock.mockContactGetEmployeeTypeEnumList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetEmployeeTypeEnumList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetEmployeeTypeEnumList mock enable")
 		return r.cli.mock.mockContactGetEmployeeTypeEnumList(ctx, request, options...)
 	}
 
@@ -87,7 +87,8 @@ type GetEmployeeTypeEnumListRespItemI18nContent struct {
 
 // getEmployeeTypeEnumListResp ...
 type getEmployeeTypeEnumListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetEmployeeTypeEnumListResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetEmployeeTypeEnumListResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

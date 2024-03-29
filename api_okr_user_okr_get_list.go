@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/okr/list
 func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetUserOKRList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList mock enable")
 		return r.cli.mock.mockOKRGetUserOKRList(ctx, request, options...)
 	}
 
@@ -187,7 +187,8 @@ type GetUserOKRListRespOKRObjectiveProgressRecord struct {
 
 // getUserOKRListResp ...
 type getUserOKRListResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserOKRListResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetUserOKRListResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

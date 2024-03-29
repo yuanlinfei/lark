@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/create
 func (r *DriveService) CreateWikiNode(ctx context.Context, request *CreateWikiNodeReq, options ...MethodOptionFunc) (*CreateWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateWikiNode != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiNode mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiNode mock enable")
 		return r.cli.mock.mockDriveCreateWikiNode(ctx, request, options...)
 	}
 
@@ -97,7 +97,8 @@ type CreateWikiNodeRespNode struct {
 
 // createWikiNodeResp ...
 type createWikiNodeResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateWikiNodeResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateWikiNodeResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

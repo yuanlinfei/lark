@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/submit_approve
 func (r *HelpdeskService) SubmitApproveHelpdeskNotification(ctx context.Context, request *SubmitApproveHelpdeskNotificationReq, options ...MethodOptionFunc) (*SubmitApproveHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSubmitApproveHelpdeskNotification != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubmitApproveHelpdeskNotification mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#SubmitApproveHelpdeskNotification mock enable")
 		return r.cli.mock.mockHelpdeskSubmitApproveHelpdeskNotification(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type SubmitApproveHelpdeskNotificationResp struct {
 
 // submitApproveHelpdeskNotificationResp ...
 type submitApproveHelpdeskNotificationResp struct {
-	Code int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
-	Data *SubmitApproveHelpdeskNotificationResp `json:"data,omitempty"`
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *SubmitApproveHelpdeskNotificationResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

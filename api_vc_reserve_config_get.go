@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/reserve_scope
 func (r *VCService) GetVCReserveConfig(ctx context.Context, request *GetVCReserveConfigReq, options ...MethodOptionFunc) (*GetVCReserveConfigResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveConfig != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfig mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfig mock enable")
 		return r.cli.mock.mockVCGetVCReserveConfig(ctx, request, options...)
 	}
 
@@ -113,7 +113,8 @@ type GetVCReserveConfigRespTimeConfig struct {
 
 // getVCReserveConfigResp ...
 type getVCReserveConfigResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCReserveConfigResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVCReserveConfigResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

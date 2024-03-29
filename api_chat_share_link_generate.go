@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/link
 func (r *ChatService) GenChatShareLink(ctx context.Context, request *GenChatShareLinkReq, options ...MethodOptionFunc) (*GenChatShareLinkResp, *Response, error) {
 	if r.cli.mock.mockChatGenChatShareLink != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GenChatShareLink mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GenChatShareLink mock enable")
 		return r.cli.mock.mockChatGenChatShareLink(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GenChatShareLinkResp struct {
 
 // genChatShareLinkResp ...
 type genChatShareLinkResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GenChatShareLinkResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *GenChatShareLinkResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

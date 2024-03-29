@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/patch
 func (r *VCService) UpdateVCReserveConfig(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCReserveConfig != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserveConfig mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserveConfig mock enable")
 		return r.cli.mock.mockVCUpdateVCReserveConfig(ctx, request, options...)
 	}
 
@@ -115,7 +115,8 @@ type UpdateVCReserveConfigResp struct {
 
 // updateVCReserveConfigResp ...
 type updateVCReserveConfigResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateVCReserveConfigResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateVCReserveConfigResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

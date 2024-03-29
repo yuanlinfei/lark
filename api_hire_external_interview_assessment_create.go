@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create-4
 func (r *HireService) CreateHireExternalInterviewAssessment(ctx context.Context, request *CreateHireExternalInterviewAssessmentReq, options ...MethodOptionFunc) (*CreateHireExternalInterviewAssessmentResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireExternalInterviewAssessment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalInterviewAssessment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalInterviewAssessment mock enable")
 		return r.cli.mock.mockHireCreateHireExternalInterviewAssessment(ctx, request, options...)
 	}
 
@@ -105,7 +105,8 @@ type CreateHireExternalInterviewAssessmentRespExternalInterviewAssessmentAssessm
 
 // createHireExternalInterviewAssessmentResp ...
 type createHireExternalInterviewAssessmentResp struct {
-	Code int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireExternalInterviewAssessmentResp `json:"data,omitempty"`
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireExternalInterviewAssessmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

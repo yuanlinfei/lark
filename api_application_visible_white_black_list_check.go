@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/check_white_black_list
 func (r *ApplicationService) CheckApplicationVisibleWhiteBlackList(ctx context.Context, request *CheckApplicationVisibleWhiteBlackListReq, options ...MethodOptionFunc) (*CheckApplicationVisibleWhiteBlackListResp, *Response, error) {
 	if r.cli.mock.mockApplicationCheckApplicationVisibleWhiteBlackList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#CheckApplicationVisibleWhiteBlackList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#CheckApplicationVisibleWhiteBlackList mock enable")
 		return r.cli.mock.mockApplicationCheckApplicationVisibleWhiteBlackList(ctx, request, options...)
 	}
 
@@ -97,7 +97,8 @@ type CheckApplicationVisibleWhiteBlackListRespUserVisibility struct {
 
 // checkApplicationVisibleWhiteBlackListResp ...
 type checkApplicationVisibleWhiteBlackListResp struct {
-	Code int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                     `json:"msg,omitempty"`  // 错误描述
-	Data *CheckApplicationVisibleWhiteBlackListResp `json:"data,omitempty"`
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CheckApplicationVisibleWhiteBlackListResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/create
 func (r *PersonalSettingsService) CreatePersonalSettingsSystemStatus(ctx context.Context, request *CreatePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*CreatePersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsCreatePersonalSettingsSystemStatus != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#CreatePersonalSettingsSystemStatus mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] PersonalSettings#CreatePersonalSettingsSystemStatus mock enable")
 		return r.cli.mock.mockPersonalSettingsCreatePersonalSettingsSystemStatus(ctx, request, options...)
 	}
 
@@ -148,7 +148,8 @@ type CreatePersonalSettingsSystemStatusRespSystemStatusSyncSettingI18nTitle stru
 
 // createPersonalSettingsSystemStatusResp ...
 type createPersonalSettingsSystemStatusResp struct {
-	Code int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                  `json:"msg,omitempty"`  // 错误描述
-	Data *CreatePersonalSettingsSystemStatusResp `json:"data,omitempty"`
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *CreatePersonalSettingsSystemStatusResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }

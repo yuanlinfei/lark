@@ -23,13 +23,13 @@ import (
 
 // RecognizeSpeechFile 语音文件识别接口, 上传整段语音文件进行一次性识别。接口适合 60 秒以内音频识别。
 //
-// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
+// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流。免费版不支持调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
 // new doc: https://open.feishu.cn/document/server-docs/ai/speech_to_text-v1/file_recognize
 func (r *AIService) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeSpeechFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile mock enable")
 		return r.cli.mock.mockAIRecognizeSpeechFile(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type RecognizeSpeechFileResp struct {
 
 // recognizeSpeechFileResp ...
 type recognizeSpeechFileResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeSpeechFileResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *RecognizeSpeechFileResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

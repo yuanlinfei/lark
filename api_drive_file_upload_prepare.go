@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/upload/multipart-upload-file-/upload_prepare
 func (r *DriveService) PrepareUploadDriveFile(ctx context.Context, request *PrepareUploadDriveFileReq, options ...MethodOptionFunc) (*PrepareUploadDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDrivePrepareUploadDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrepareUploadDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#PrepareUploadDriveFile mock enable")
 		return r.cli.mock.mockDrivePrepareUploadDriveFile(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type PrepareUploadDriveFileResp struct {
 
 // prepareUploadDriveFileResp ...
 type prepareUploadDriveFileResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *PrepareUploadDriveFileResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *PrepareUploadDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

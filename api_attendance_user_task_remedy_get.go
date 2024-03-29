@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task_remedy/query
 func (r *AttendanceService) GetAttendanceUserTaskRemedy(ctx context.Context, request *GetAttendanceUserTaskRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedy != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedy mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedy mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedy(ctx, request, options...)
 	}
 
@@ -76,7 +76,7 @@ type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 	UserID     string `json:"user_id,omitempty"`     // 用户 ID
 	RemedyDate int64  `json:"remedy_date,omitempty"` // 补卡日期
 	PunchNo    int64  `json:"punch_no,omitempty"`    // 第几次上下班, 0: 第 1 次上下班, 1: 第 2 次上下班, 2: 第 3 次上下班, 自由班制填 0
-	WorkType   int64  `json:"work_type,omitempty"`   // 上班 / 下班, 1: 上班, 2: 下班, 自由班制填 0
+	WorkType   int64  `json:"work_type,omitempty"`   // 上班 / 下班, 1: 上班, 2: 下班, 自由班制为 1
 	ApprovalID string `json:"approval_id,omitempty"` // 审批 ID
 	RemedyTime string `json:"remedy_time,omitempty"` // 补卡时间, 时间格式为 yyyy-MM-dd HH:mm
 	Status     int64  `json:"status,omitempty"`      // 补卡状态（默认为审批中）, 可选值有: 0: 审批中, 1: 未通过, 2: 已通过, 3: 已取消, 4: 通过后撤回
@@ -89,7 +89,8 @@ type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 
 // getAttendanceUserTaskRemedyResp ...
 type getAttendanceUserTaskRemedyResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserTaskRemedyResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceUserTaskRemedyResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

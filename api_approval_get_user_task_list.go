@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/query
 func (r *ApprovalService) GetApprovalUserTaskList(ctx context.Context, request *GetApprovalUserTaskListReq, options ...MethodOptionFunc) (*GetApprovalUserTaskListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalUserTaskList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalUserTaskList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalUserTaskList mock enable")
 		return r.cli.mock.mockApprovalGetApprovalUserTaskList(ctx, request, options...)
 	}
 
@@ -111,7 +111,8 @@ type GetApprovalUserTaskListRespTaskURLs struct {
 
 // getApprovalUserTaskListResp ...
 type getApprovalUserTaskListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetApprovalUserTaskListResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApprovalUserTaskListResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

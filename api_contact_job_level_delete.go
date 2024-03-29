@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/delete
 func (r *ContactService) DeleteContactJobLevel(ctx context.Context, request *DeleteContactJobLevelReq, options ...MethodOptionFunc) (*DeleteContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactJobLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactJobLevel mock enable")
 		return r.cli.mock.mockContactDeleteContactJobLevel(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteContactJobLevelResp struct {
 
 // deleteContactJobLevelResp ...
 type deleteContactJobLevelResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteContactJobLevelResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteContactJobLevelResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

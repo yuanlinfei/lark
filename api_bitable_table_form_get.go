@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/get
 func (r *BitableService) GetBitableTableForm(ctx context.Context, request *GetBitableTableFormReq, options ...MethodOptionFunc) (*GetBitableTableFormResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableForm != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableForm mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableForm mock enable")
 		return r.cli.mock.mockBitableGetBitableTableForm(ctx, request, options...)
 	}
 
@@ -81,7 +81,8 @@ type GetBitableTableFormRespForm struct {
 
 // getBitableTableFormResp ...
 type getBitableTableFormResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableTableFormResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBitableTableFormResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

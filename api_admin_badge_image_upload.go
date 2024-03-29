@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/create
 func (r *AdminService) UploadAdminBadgeImage(ctx context.Context, request *UploadAdminBadgeImageReq, options ...MethodOptionFunc) (*UploadAdminBadgeImageResp, *Response, error) {
 	if r.cli.mock.mockAdminUploadAdminBadgeImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#UploadAdminBadgeImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#UploadAdminBadgeImage mock enable")
 		return r.cli.mock.mockAdminUploadAdminBadgeImage(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type UploadAdminBadgeImageResp struct {
 
 // uploadAdminBadgeImageResp ...
 type uploadAdminBadgeImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *UploadAdminBadgeImageResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *UploadAdminBadgeImageResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/list
 func (r *TaskService) GetTaskFollowerList(ctx context.Context, request *GetTaskFollowerListReq, options ...MethodOptionFunc) (*GetTaskFollowerListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskFollowerList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskFollowerList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskFollowerList mock enable")
 		return r.cli.mock.mockTaskGetTaskFollowerList(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GetTaskFollowerListRespItem struct {
 
 // getTaskFollowerListResp ...
 type getTaskFollowerListResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetTaskFollowerListResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskFollowerListResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

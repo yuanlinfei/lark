@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create
 func (r *HireService) CreateHireExternalApplication(ctx context.Context, request *CreateHireExternalApplicationReq, options ...MethodOptionFunc) (*CreateHireExternalApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireExternalApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalApplication mock enable")
 		return r.cli.mock.mockHireCreateHireExternalApplication(ctx, request, options...)
 	}
 
@@ -93,7 +93,8 @@ type CreateHireExternalApplicationRespExternalApplication struct {
 
 // createHireExternalApplicationResp ...
 type createHireExternalApplicationResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireExternalApplicationResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireExternalApplicationResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

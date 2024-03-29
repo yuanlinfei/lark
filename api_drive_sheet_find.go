@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/find
 func (r *DriveService) FindSheet(ctx context.Context, request *FindSheetReq, options ...MethodOptionFunc) (*FindSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveFindSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#FindSheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#FindSheet mock enable")
 		return r.cli.mock.mockDriveFindSheet(ctx, request, options...)
 	}
 
@@ -91,7 +91,8 @@ type FindSheetRespFindResult struct {
 
 // findSheetResp ...
 type findSheetResp struct {
-	Code int64          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *FindSheetResp `json:"data,omitempty"`
+	Code  int64          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string         `json:"msg,omitempty"`  // 错误描述
+	Data  *FindSheetResp `json:"data,omitempty"`
+	Error *ErrorDetail   `json:"error,omitempty"`
 }

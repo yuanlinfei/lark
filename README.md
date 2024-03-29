@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 959, Event Count: 133
+API Count: 1017, Event Count: 148
 
 <details>
   <summary>
@@ -46,15 +46,39 @@ API Count: 959, Event Count: 133
   </summary>
 
 - ACS
-  - GetACSAccessRecordPhoto
-  - GetACSAccessRecordList
-  - GetACSDeviceList
-  - GetACSUserFace
-  - UpdateACSUserFace
-  - GetACSUser
+  - DeleteACSVisitor
+  - CreateACSVisitor
+  - DeviceBindACSRuleExternal
+  - GetACSRuleExternal
+  - DeleteACSRuleExternal
+  - CreateACSRuleExternal
   - UpdateACSUser
+  - GetACSUser
   - GetACSUserList
+  - UpdateACSUserFace
+  - GetACSUserFace
+  - GetACSDeviceList
+  - GetACSAccessRecordList
+  - GetACSAccessRecordPhoto
 - AI
+  - ParseAIResume
+  - RecognizeAIVehicleInvoice
+  - RecognizeAIHealthCertificate
+  - RecognizeAIHkmMainlandTravelPermit
+  - RecognizeAITwMainlandTravelPermit
+  - RecognizeAIChinesePassport
+  - RecognizeAIBankCard
+  - RecognizeAIVehicleLicense
+  - RecognizeAITrainInvoice
+  - RecognizeAITaxiInvoice
+  - RecognizeAiidCard
+  - RecognizeAIFoodProduceLicense
+  - RecognizeAIFoodManageLicense
+  - RecognizeAIDrivingLicense
+  - RecognizeAIVatInvoice
+  - RecognizeAIBusinessLicense
+  - ExtractAIContractField
+  - RecognizeAIBusinessCard
   - RecognizeBasicImage
   - RecognizeSpeechStream
   - RecognizeSpeechFile
@@ -76,6 +100,7 @@ API Count: 959, Event Count: 133
   - GetAdminBadgeGrant
   - DeleteAdminBadgeGrant
 - AppLink
+  - OpenNativeApp
   - OpenLark
   - OpenScan
   - OpenWorkbench
@@ -111,6 +136,7 @@ API Count: 959, Event Count: 133
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
   - UpdateApplicationAppVisibilityV6
+  - UpdateApplicationAppManagement
   - GetApplicationAppAdminUserList
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
@@ -223,13 +249,14 @@ API Count: 959, Event Count: 133
   - GetBitableViewList
   - CreateBitableView
   - DeleteBitableView
-  - GetBitableRecordList
   - GetBitableRecord
+  - GetBitableRecordList
+  - SearchBitableRecord
   - CreateBitableRecord
-  - BatchCreateBitableRecord
   - UpdateBitableRecord
-  - BatchUpdateBitableRecord
   - DeleteBitableRecord
+  - BatchCreateBitableRecord
+  - BatchUpdateBitableRecord
   - BatchDeleteBitableRecord
   - GetBitableFieldList
   - CreateBitableField
@@ -286,19 +313,25 @@ API Count: 959, Event Count: 133
   - SearchCalendarEvent
   - SubscribeCalendarEvent
   - UnsubscribeCalendarEvent
+  - ReplyCalendarEvent
+  - GetCalendarEventInstanceList
+  - GetCalendarEventInstanceViewList
   - DeleteCalendarEventMeetingChat
   - CreateCalendarEventMeetingChat
-  - CreateCalendarEventAttendee
-  - GetCalendarEventAttendeeList
-  - DeleteCalendarEventAttendee
-  - GetCalendarEventAttendeeChatMemberList
-  - GetCalendarFreeBusyList
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
+  - BatchGetCalendarMeetingRoomSummary
+  - BatchGetCalendarMeetingRoomFreebusy
+  - ReplyCalendarMeetingRoomInstance
+  - CreateCalendarEventAttendee
+  - DeleteCalendarEventAttendee
+  - GetCalendarEventAttendeeList
+  - GetCalendarEventAttendeeChatMemberList
+  - GetCalendarFreeBusyList
   - GenerateCaldavConf
   - CreateCalendarExchangeBinding
-  - GetCalendarExchangeBinding
   - DeleteCalendarExchangeBinding
+  - GetCalendarExchangeBinding
 - Chat
   - CreateChat
   - GetChat
@@ -405,9 +438,16 @@ API Count: 959, Event Count: 133
   - GetContactUnitDepartmentList
   - GetContactScopeList
 - CoreHR
+  - SearchCoreHRNationality
+  - SearchCoreHRBank
+  - SearchCoreHRBankBranch
   - GetCoreHRCustomField
   - GetCoreHRCustomFieldList
   - GetCoreHRCustomFieldObjectApiNameList
+  - SearchCoreHRCountryRegion
+  - SearchCoreHRCountryRegionSubdivision
+  - SearchCoreHRCity
+  - SearchCoreHRDistrict
   - GetCoreHRCountryRegion
   - GetCoreHRCountryRegionList
   - GetCoreHRSubdivision
@@ -429,6 +469,7 @@ API Count: 959, Event Count: 133
   - UpdateCoreHRWorkingHoursType
   - GetCoreHRWorkingHoursType
   - GetCoreHRWorkingHoursTypeList
+  - SearchCoreHRCurrency
   - GetCoreHRCurrency
   - GetCoreHRCurrencyList
   - BatchGetCoreHREmployee
@@ -446,6 +487,7 @@ API Count: 959, Event Count: 133
   - DeleteCoreHRJobData
   - UpdateCoreHRJobData
   - GetCoreHRJobData
+  - QueryCoreHRJobData
   - BatchGetCoreHRJobData
   - GetCoreHRJobDataList
   - GetCoreHRDepartmentParentList
@@ -454,17 +496,26 @@ API Count: 959, Event Count: 133
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
   - GetCoreHRDepartment
+  - BatchGetCoreHRDepartment
   - GetCoreHRDepartmentList
   - BatchGetCoreHRLocation
   - CreateCoreHRLocation
   - DeleteCoreHRLocation
   - GetCoreHRLocation
   - GetCoreHRLocationList
-  - BatchGetCoreHRCompany
-  - CreateCoreHRCompany
-  - DeleteCoreHRCompany
   - GetCoreHRCompany
   - GetCoreHRCompanyList
+  - BatchGetCoreHRCompany
+  - CreateCoreHRCompany
+  - UpdateCoreHRCompany
+  - DeleteCoreHRCompany
+  - CreateCoreHRCostCenter
+  - ActiveCoreHRCostCenter
+  - DeleteCoreHRCostCenter
+  - SearchCoreHRCostCenter
+  - CreateCoreHRCostCenterVersion
+  - UpdateCoreHRCostCenterVersion
+  - DeleteCoreHRCostCenterVersion
   - BatchGetCoreHRJobLevel
   - CreateCoreHRJobLevel
   - DeleteCoreHRJobLevel
@@ -520,6 +571,8 @@ API Count: 959, Event Count: 133
   - GetCoreHRAuthorization
   - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
+  - GetCoreHRProcessList
+  - GetCoreHRProcess
   - GetCoreHRProcessFormVariableData
   - MatchCoreHRCompensationStandard
 - Drive
@@ -593,8 +646,8 @@ API Count: 959, Event Count: 133
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
-  - CreateDriveFileSubscription
   - GetDriveFileSubscription
+  - CreateDriveFileSubscription
   - UpdateDriveFileSubscription
   - CreateDriveDoc
   - GetDriveDocContent
@@ -685,27 +738,47 @@ API Count: 959, Event Count: 133
 - Event
   - GetEventOutboundIpList
 - EventCallback
-  - EventV2ApplicationApplicationAppVersionAuditV6
+  - EventV2ElearningCourseRegistrationCreatedV2
+  - EventV2ElearningCourseRegistrationUpdatedV2
+  - EventV2ElearningCourseRegistrationDeletedV2
+  - EventV2URLPreviewGet
+  - EventV2HireApplicationStageChangedV1
+  - EventV2HireApplicationDeletedV1
+  - EventV2CorehrJobCreatedV1
+  - EventV2CorehrJobUpdatedV1
+  - EventV2CorehrJobDeletedV1
+  - EventV2CorehrProcessUpdatedV2
+  - EventV2CorehrProcessNodeUpdatedV2
+  - EventV2CorehrProcessApproverUpdatedV2
+  - EventV2CorehrProcessCcUpdatedV2
+  - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2ApplicationApplicationCreatedV6
+  - EventV1AppOpen
+  - EventV1AppStatusChange
+  - EventV1OrderPaid
+  - EventV1AppTicket
+  - EventV1AppUninstalled
+  - EventV2ApplicationApplicationVisibilityAddedV6
   - EventV2ApplicationApplicationAppVersionPublishApplyV6
   - EventV2ApplicationApplicationAppVersionPublishRevokeV6
-  - EventV2ApplicationApplicationCreatedV6
-  - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2ApplicationApplicationAppVersionAuditV6
+  - EventV1OutApproval
+  - EventV1RemedyApproval
+  - EventV1ShiftApproval
+  - EventV1WorkApproval
+  - EventV1LeaveApprovalV2
+  - EventV1LeaveApprovalRevert
+  - EventV2DriveFileCreatedInFolderV1
+  - EventV2DriveFileBitableFieldChangedV1
   - EventV2DriveFileBitableRecordChangedV1
   - EventV2DriveFileTitleUpdatedV1
   - EventV2DriveFileReadV1
   - EventV2DriveFileEditV1
-  - EventV1AppOpen
-  - EventV1ShiftApproval
-  - EventV1LeaveApprovalV2
-  - EventV1LeaveApprovalRevert
-  - EventV1OutApproval
-  - EventV1WorkApproval
   - EventV2DriveFilePermissionMemberAddedV1
+  - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2DriveFileTrashedV1
   - EventV2DriveFileDeletedV1
-  - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2ApprovalApprovalUpdatedV4
-  - EventV1RemedyApproval
   - EventV1ThirdPartyMeetingRoomEventUpdated
   - EventV1ThirdPartyMeetingRoomEventDeleted
   - EventV2MeetingRoomMeetingRoomCreatedV1
@@ -713,11 +786,6 @@ API Count: 959, Event Count: 133
   - EventV2MeetingRoomMeetingRoomStatusChangedV1
   - EventV2MeetingRoomMeetingRoomDeletedV1
   - EventV1ThirdPartyMeetingRoomEventCreated
-  - EventV1OrderPaid
-  - EventV1AppTicket
-  - EventV1AppUninstalled
-  - EventV1AppStatusChange
-  - EventV2ApplicationApplicationVisibilityAddedV6
   - EventV2ApplicationApplicationFeedbackCreatedV6
   - EventV2ApplicationApplicationFeedbackUpdatedV6
   - EventV2TaskTaskUpdateTenantV1
@@ -782,7 +850,6 @@ API Count: 959, Event Count: 133
   - EventV2VCRoomCreatedV1
   - EventV2VCRoomDeletedV1
   - EventV2VCRoomUpdatedV1
-  - EventV2DriveFileBitableFieldChangedV1
   - EventV2VCMeetingAllMeetingStartedV1
   - EventV2VCMeetingAllMeetingEndedV1
   - EventV2VCRoomLevelCreatedV1
@@ -809,6 +876,7 @@ API Count: 959, Event Count: 133
   - EventV2CorehrEmploymentResignedV1
   - EventV2CorehrOrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
+  - EventV2HireEHRImportTaskImportedV1
   - EventV2CorehrProbationUpdatedV2
   - EventV2CorehrPreHireUpdatedV1
   - EventV2HireEcoAccountCreatedV1
@@ -881,6 +949,7 @@ API Count: 959, Event Count: 133
   - UpdateHireJobConfig
   - GetHireJob
   - GetHireJobManager
+  - QueryHireTalentObject
   - GetHireTalent
   - GetHireAttachment
   - GetHireAttachmentPreview
@@ -1018,14 +1087,15 @@ API Count: 959, Event Count: 133
   - SendUrgentAppMessage
   - SendUrgentSmsMessage
   - SendUrgentPhoneMessage
-  - SendRawMessage
   - SendRawMessageOld
   - BatchSendOldRawMessage
+  - SendRawMessage
   - ReplyRawMessage
   - UpdateMessageEdit
   - DeleteMessage
   - ForwardMessage
   - MergeForwardMessage
+  - ForwardThreadMessage
   - BatchDeleteMessage
   - UpdateMessage
   - UpdateMessageDelay
@@ -1050,7 +1120,10 @@ API Count: 959, Event Count: 133
   - GetMinutesStatistics
   - GetMinutesMinute
 - OKR
+  - CreateOKRPeriod
+  - UpdateOKRPeriod
   - GetOKRPeriodList
+  - GetOKRPeriodRuleList
   - BatchGetOKR
   - GetUserOKRList
   - DeleteOKRProgressRecord

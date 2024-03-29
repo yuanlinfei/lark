@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_daily_shift/query
 func (r *AttendanceService) GetAttendanceUserDailyShift(ctx context.Context, request *GetAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*GetAttendanceUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserDailyShift != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserDailyShift mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserDailyShift(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type GetAttendanceUserDailyShiftRespUserDailyShift struct {
 
 // getAttendanceUserDailyShiftResp ...
 type getAttendanceUserDailyShiftResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserDailyShiftResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAttendanceUserDailyShiftResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/user_mailbox-alias/list
 func (r *MailService) GetMailUserMailboxAliasList(ctx context.Context, request *GetMailUserMailboxAliasListReq, options ...MethodOptionFunc) (*GetMailUserMailboxAliasListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailUserMailboxAliasList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxAliasList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxAliasList mock enable")
 		return r.cli.mock.mockMailGetMailUserMailboxAliasList(ctx, request, options...)
 	}
 
@@ -78,7 +78,8 @@ type GetMailUserMailboxAliasListRespItem struct {
 
 // getMailUserMailboxAliasListResp ...
 type getMailUserMailboxAliasListResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailUserMailboxAliasListResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMailUserMailboxAliasListResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

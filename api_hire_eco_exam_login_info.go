@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/login_info
 func (r *HireService) CreateHireEcoExamLoginInfo(ctx context.Context, request *CreateHireEcoExamLoginInfoReq, options ...MethodOptionFunc) (*CreateHireEcoExamLoginInfoResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireEcoExamLoginInfo != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoExamLoginInfo mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoExamLoginInfo mock enable")
 		return r.cli.mock.mockHireCreateHireEcoExamLoginInfo(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type CreateHireEcoExamLoginInfoResp struct {
 
 // createHireEcoExamLoginInfoResp ...
 type createHireEcoExamLoginInfoResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireEcoExamLoginInfoResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireEcoExamLoginInfoResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

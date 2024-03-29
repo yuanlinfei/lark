@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs-assistant/file-subscription/patch
 func (r *DriveService) UpdateDriveFileSubscription(ctx context.Context, request *UpdateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*UpdateDriveFileSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveFileSubscription != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveFileSubscription mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveFileSubscription mock enable")
 		return r.cli.mock.mockDriveUpdateDriveFileSubscription(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type UpdateDriveFileSubscriptionResp struct {
 
 // updateDriveFileSubscriptionResp ...
 type updateDriveFileSubscriptionResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDriveFileSubscriptionResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateDriveFileSubscriptionResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

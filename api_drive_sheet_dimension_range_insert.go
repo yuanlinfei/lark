@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/insert-rows-or-columns
 func (r *DriveService) InsertSheetDimensionRange(ctx context.Context, request *InsertSheetDimensionRangeReq, options ...MethodOptionFunc) (*InsertSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveInsertSheetDimensionRange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#InsertSheetDimensionRange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#InsertSheetDimensionRange mock enable")
 		return r.cli.mock.mockDriveInsertSheetDimensionRange(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type InsertSheetDimensionRangeResp struct {
 
 // insertSheetDimensionRangeResp ...
 type insertSheetDimensionRangeResp struct {
-	Code int64                          `json:"code,omitempty"`
-	Msg  string                         `json:"msg,omitempty"`
-	Data *InsertSheetDimensionRangeResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"`
+	Msg   string                         `json:"msg,omitempty"`
+	Data  *InsertSheetDimensionRangeResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

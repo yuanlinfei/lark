@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/deactivate
 func (r *HireService) DeactivateHireReferralAccount(ctx context.Context, request *DeactivateHireReferralAccountReq, options ...MethodOptionFunc) (*DeactivateHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireDeactivateHireReferralAccount != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#DeactivateHireReferralAccount mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeactivateHireReferralAccount mock enable")
 		return r.cli.mock.mockHireDeactivateHireReferralAccount(ctx, request, options...)
 	}
 
@@ -84,7 +84,8 @@ type DeactivateHireReferralAccountRespAccountAssetsConfirmedBonus struct {
 
 // deactivateHireReferralAccountResp ...
 type deactivateHireReferralAccountResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *DeactivateHireReferralAccountResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *DeactivateHireReferralAccountResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

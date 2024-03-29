@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/search
 func (r *VCService) SearchVCRoom(ctx context.Context, request *SearchVCRoomReq, options ...MethodOptionFunc) (*SearchVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCSearchVCRoom != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SearchVCRoom mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SearchVCRoom mock enable")
 		return r.cli.mock.mockVCSearchVCRoom(ctx, request, options...)
 	}
 
@@ -107,7 +107,8 @@ type SearchVCRoomRespRoomRoomStatus struct {
 
 // searchVCRoomResp ...
 type searchVCRoomResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *SearchVCRoomResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchVCRoomResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

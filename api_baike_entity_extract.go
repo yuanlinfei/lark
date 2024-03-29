@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) ExtractBaikeEntity(ctx context.Context, request *ExtractBaikeEntityReq, options ...MethodOptionFunc) (*ExtractBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeExtractBaikeEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#ExtractBaikeEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#ExtractBaikeEntity mock enable")
 		return r.cli.mock.mockBaikeExtractBaikeEntity(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type ExtractBaikeEntityRespEntityWord struct {
 
 // extractBaikeEntityResp ...
 type extractBaikeEntityResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *ExtractBaikeEntityResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *ExtractBaikeEntityResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

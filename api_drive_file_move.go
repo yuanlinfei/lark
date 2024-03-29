@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/move
 func (r *DriveService) MoveDriveFile(ctx context.Context, request *MoveDriveFileReq, options ...MethodOptionFunc) (*MoveDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#MoveDriveFile mock enable")
 		return r.cli.mock.mockDriveMoveDriveFile(ctx, request, options...)
 	}
 
@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveMoveDriveFile() {
 // MoveDriveFileReq ...
 type MoveDriveFileReq struct {
 	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
-	Type        *string `json:"type,omitempty"`         // 文件类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: file: 普通文件类型, docx: 新版文档类型, bitable: 多维表格类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, folder: 文件夹类型
+	Type        *string `json:"type,omitempty"`         // 文件类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: file: 普通文件类型, docx: 新版文档类型, bitable: 多维表格类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, folder: 文件夹类型, slides: 幻灯片类型
 	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
@@ -71,7 +71,8 @@ type MoveDriveFileResp struct {
 
 // moveDriveFileResp ...
 type moveDriveFileResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *MoveDriveFileResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *MoveDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

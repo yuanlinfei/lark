@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/add_to_folder
 func (r *HireService) AddHireTalentToFolder(ctx context.Context, request *AddHireTalentToFolderReq, options ...MethodOptionFunc) (*AddHireTalentToFolderResp, *Response, error) {
 	if r.cli.mock.mockHireAddHireTalentToFolder != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#AddHireTalentToFolder mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#AddHireTalentToFolder mock enable")
 		return r.cli.mock.mockHireAddHireTalentToFolder(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type AddHireTalentToFolderResp struct {
 
 // addHireTalentToFolderResp ...
 type addHireTalentToFolderResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *AddHireTalentToFolderResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *AddHireTalentToFolderResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

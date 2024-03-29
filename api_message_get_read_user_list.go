@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/read_users
 func (r *MessageService) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageReadUserList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageReadUserList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessageReadUserList mock enable")
 		return r.cli.mock.mockMessageGetMessageReadUserList(ctx, request, options...)
 	}
 
@@ -87,7 +87,8 @@ type GetMessageReadUserListRespItem struct {
 
 // getMessageReadUserListResp ...
 type getMessageReadUserListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageReadUserListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMessageReadUserListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

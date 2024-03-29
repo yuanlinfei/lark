@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) CreateBaikeUpdate(ctx context.Context, request *CreateBaikeUpdateReq, options ...MethodOptionFunc) (*CreateBaikeUpdateResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeUpdate != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeUpdate mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeUpdate mock enable")
 		return r.cli.mock.mockBaikeCreateBaikeUpdate(ctx, request, options...)
 	}
 
@@ -278,7 +278,8 @@ type CreateBaikeUpdateRespDraftEntityStatistics struct {
 
 // createBaikeUpdateResp ...
 type createBaikeUpdateResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateBaikeUpdateResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateBaikeUpdateResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/message/send-bot-messages
 func (r *ApprovalService) SendApprovalMessage(ctx context.Context, request *SendApprovalMessageReq, options ...MethodOptionFunc) (*SendApprovalMessageResp, *Response, error) {
 	if r.cli.mock.mockApprovalSendApprovalMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SendApprovalMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#SendApprovalMessage mock enable")
 		return r.cli.mock.mockApprovalSendApprovalMessage(ctx, request, options...)
 	}
 
@@ -35,7 +35,7 @@ func (r *ApprovalService) SendApprovalMessage(ctx context.Context, request *Send
 		Scope:                 "Approval",
 		API:                   "SendApprovalMessage",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v1/message/send",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v1/message/send",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -67,7 +67,8 @@ type SendApprovalMessageResp struct {
 
 // sendApprovalMessageResp ...
 type sendApprovalMessageResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 返回码的描述
-	Data *SendApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 返回码的描述
+	Data  *SendApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

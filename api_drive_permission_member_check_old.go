@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *DriveService) CheckDriveMemberPermissionOld(ctx context.Context, request *CheckDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveCheckDriveMemberPermissionOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermissionOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermissionOld mock enable")
 		return r.cli.mock.mockDriveCheckDriveMemberPermissionOld(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type CheckDriveMemberPermissionOldResp struct {
 
 // checkDriveMemberPermissionOldResp ...
 type checkDriveMemberPermissionOldResp struct {
-	Code int64                              `json:"code,omitempty"`
-	Msg  string                             `json:"msg,omitempty"`
-	Data *CheckDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *CheckDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

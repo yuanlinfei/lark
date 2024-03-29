@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/create
 func (r *ContactService) CreateContactJobLevel(ctx context.Context, request *CreateContactJobLevelReq, options ...MethodOptionFunc) (*CreateContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactJobLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateContactJobLevel mock enable")
 		return r.cli.mock.mockContactCreateContactJobLevel(ctx, request, options...)
 	}
 
@@ -108,7 +108,8 @@ type CreateContactJobLevelRespJobLevelI18nName struct {
 
 // createContactJobLevelResp ...
 type createContactJobLevelResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateContactJobLevelResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateContactJobLevelResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

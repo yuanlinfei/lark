@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *HireService) GetHireApplicationInterviewList(ctx context.Context, request *GetHireApplicationInterviewListReq, options ...MethodOptionFunc) (*GetHireApplicationInterviewListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireApplicationInterviewList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationInterviewList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationInterviewList mock enable")
 		return r.cli.mock.mockHireGetHireApplicationInterviewList(ctx, request, options...)
 	}
 
@@ -107,7 +107,8 @@ type GetHireApplicationInterviewListRespItemInterviewRecordInterviewScore struct
 
 // getHireApplicationInterviewListResp ...
 type getHireApplicationInterviewListResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireApplicationInterviewListResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireApplicationInterviewListResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

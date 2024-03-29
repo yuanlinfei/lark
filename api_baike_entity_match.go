@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) MatchBaikeEntity(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeMatchBaikeEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#MatchBaikeEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#MatchBaikeEntity mock enable")
 		return r.cli.mock.mockBaikeMatchBaikeEntity(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type MatchBaikeEntityRespResult struct {
 
 // matchBaikeEntityResp ...
 type matchBaikeEntityResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *MatchBaikeEntityResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *MatchBaikeEntityResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

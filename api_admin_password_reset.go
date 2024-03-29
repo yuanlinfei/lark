@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/password/reset
 func (r *AdminService) AdminResetPassword(ctx context.Context, request *AdminResetPasswordReq, options ...MethodOptionFunc) (*AdminResetPasswordResp, *Response, error) {
 	if r.cli.mock.mockAdminAdminResetPassword != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#AdminResetPassword mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#AdminResetPassword mock enable")
 		return r.cli.mock.mockAdminAdminResetPassword(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type AdminResetPasswordResp struct {
 
 // adminResetPasswordResp ...
 type adminResetPasswordResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *AdminResetPasswordResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *AdminResetPasswordResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

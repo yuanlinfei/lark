@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/delete
 func (r *AttendanceService) DeleteAttendanceShift(ctx context.Context, request *DeleteAttendanceShiftReq, options ...MethodOptionFunc) (*DeleteAttendanceShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceShift != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceShift mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceShift mock enable")
 		return r.cli.mock.mockAttendanceDeleteAttendanceShift(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteAttendanceShiftResp struct {
 
 // deleteAttendanceShiftResp ...
 type deleteAttendanceShiftResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteAttendanceShiftResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAttendanceShiftResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

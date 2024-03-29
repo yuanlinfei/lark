@@ -31,7 +31,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/draft/create
 func (r *LingoService) CreateLingoDraft(ctx context.Context, request *CreateLingoDraftReq, options ...MethodOptionFunc) (*CreateLingoDraftResp, *Response, error) {
 	if r.cli.mock.mockLingoCreateLingoDraft != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#CreateLingoDraft mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#CreateLingoDraft mock enable")
 		return r.cli.mock.mockLingoCreateLingoDraft(ctx, request, options...)
 	}
 
@@ -303,7 +303,8 @@ type CreateLingoDraftRespDraftEntityStatistics struct {
 
 // createLingoDraftResp ...
 type createLingoDraftResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *CreateLingoDraftResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateLingoDraftResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

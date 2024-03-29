@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMyUjL1MjM14SNzITN
 func (r *ContactService) BatchGetUserByIDOld(ctx context.Context, request *BatchGetUserByIDOldReq, options ...MethodOptionFunc) (*BatchGetUserByIDOldResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByIDOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByIDOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByIDOld mock enable")
 		return r.cli.mock.mockContactBatchGetUserByIDOld(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type BatchGetUserByIDOldRespEmailUser struct {
 
 // batchGetUserByIDOldResp ...
 type batchGetUserByIDOldResp struct {
-	Code int64                    `json:"code,omitempty"` // 返回码, 非 0 表示失败。
-	Msg  string                   `json:"msg,omitempty"`  // 对返回码的文本描述。
-	Data *BatchGetUserByIDOldResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 返回码, 非 0 表示失败。
+	Msg   string                   `json:"msg,omitempty"`  // 对返回码的文本描述。
+	Data  *BatchGetUserByIDOldResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

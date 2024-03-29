@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetChatListOfSelf 根据使用的 access_token 获取用户或者机器人所在群列表。
+// GetChatListOfSelf 获取 [access_token](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-choose-which-type-of-token-to-use) 所代表的用户或者机器人所在的群列表。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/list
 func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatListOfSelf != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatListOfSelf mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatListOfSelf mock enable")
 		return r.cli.mock.mockChatGetChatListOfSelf(ctx, request, options...)
 	}
 
@@ -91,7 +91,8 @@ type GetChatListOfSelfRespItem struct {
 
 // getChatListOfSelfResp ...
 type getChatListOfSelfResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetChatListOfSelfResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetChatListOfSelfResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

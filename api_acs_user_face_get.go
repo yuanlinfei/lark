@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/get-2
 func (r *ACSService) GetACSUserFace(ctx context.Context, request *GetACSUserFaceReq, options ...MethodOptionFunc) (*GetACSUserFaceResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSUserFace != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSUserFace mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#GetACSUserFace mock enable")
 		return r.cli.mock.mockACSGetACSUserFace(ctx, request, options...)
 	}
 
@@ -66,9 +66,10 @@ type GetACSUserFaceReq struct {
 
 // getACSUserFaceResp ...
 type getACSUserFaceResp struct {
-	Code int64               `json:"code,omitempty"`
-	Msg  string              `json:"msg,omitempty"`
-	Data *GetACSUserFaceResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"`
+	Msg   string              `json:"msg,omitempty"`
+	Data  *GetACSUserFaceResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }
 
 func (r *getACSUserFaceResp) SetReader(file io.Reader) {

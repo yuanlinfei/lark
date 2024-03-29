@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/cancel_send
 func (r *HelpdeskService) CancelSendHelpdeskNotification(ctx context.Context, request *CancelSendHelpdeskNotificationReq, options ...MethodOptionFunc) (*CancelSendHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCancelSendHelpdeskNotification != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CancelSendHelpdeskNotification mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#CancelSendHelpdeskNotification mock enable")
 		return r.cli.mock.mockHelpdeskCancelSendHelpdeskNotification(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type CancelSendHelpdeskNotificationResp struct {
 
 // cancelSendHelpdeskNotificationResp ...
 type cancelSendHelpdeskNotificationResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *CancelSendHelpdeskNotificationResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *CancelSendHelpdeskNotificationResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

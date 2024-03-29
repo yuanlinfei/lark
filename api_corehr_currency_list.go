@@ -25,9 +25,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/currency/list
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRCurrencyList(ctx context.Context, request *GetCoreHRCurrencyListReq, options ...MethodOptionFunc) (*GetCoreHRCurrencyListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCurrencyList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCurrencyList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCurrencyList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRCurrencyList(ctx, request, options...)
 	}
 
@@ -86,7 +88,8 @@ type GetCoreHRCurrencyListRespItemCurrencyName struct {
 
 // getCoreHRCurrencyListResp ...
 type getCoreHRCurrencyListResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRCurrencyListResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRCurrencyListResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

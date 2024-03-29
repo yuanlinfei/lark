@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/update
 func (r *VCService) UpdateVCReserve(ctx context.Context, request *UpdateVCReserveReq, options ...MethodOptionFunc) (*UpdateVCReserveResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCReserve != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserve mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserve mock enable")
 		return r.cli.mock.mockVCUpdateVCReserve(ctx, request, options...)
 	}
 
@@ -137,7 +137,8 @@ type UpdateVCReserveRespReserveCorrectionCheckInfo struct {
 
 // updateVCReserveResp ...
 type updateVCReserveResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateVCReserveResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateVCReserveResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

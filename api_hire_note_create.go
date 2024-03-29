@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/note/create
 func (r *HireService) CreateHireNote(ctx context.Context, request *CreateHireNoteReq, options ...MethodOptionFunc) (*CreateHireNoteResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireNote != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireNote mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireNote mock enable")
 		return r.cli.mock.mockHireCreateHireNote(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type CreateHireNoteRespNote struct {
 
 // createHireNoteResp ...
 type createHireNoteResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireNoteResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireNoteResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *BotService) AddBotToChat(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error) {
 	if r.cli.mock.mockBotAddBotToChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bot#AddBotToChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bot#AddBotToChat mock enable")
 		return r.cli.mock.mockBotAddBotToChat(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type AddBotToChatResp struct {
 
 // addBotToChatResp ...
 type addBotToChatResp struct {
-	Code int64             `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 返回码描述
-	Data *AddBotToChatResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 返回码描述
+	Data  *AddBotToChatResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

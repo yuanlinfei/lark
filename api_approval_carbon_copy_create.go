@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/cc
 func (r *ApprovalService) CreateApprovalCarbonCopy(ctx context.Context, request *CreateApprovalCarbonCopyReq, options ...MethodOptionFunc) (*CreateApprovalCarbonCopyResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalCarbonCopy != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalCarbonCopy mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalCarbonCopy mock enable")
 		return r.cli.mock.mockApprovalCreateApprovalCarbonCopy(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type CreateApprovalCarbonCopyResp struct {
 
 // createApprovalCarbonCopyResp ...
 type createApprovalCarbonCopyResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *CreateApprovalCarbonCopyResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApprovalCarbonCopyResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

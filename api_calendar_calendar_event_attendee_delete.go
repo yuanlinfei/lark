@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete
 func (r *CalendarService) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEventAttendee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventAttendee mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEventAttendee(ctx, request, options...)
 	}
 
@@ -87,7 +87,8 @@ type DeleteCalendarEventAttendeeResp struct {
 
 // deleteCalendarEventAttendeeResp ...
 type deleteCalendarEventAttendeeResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarEventAttendeeResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCalendarEventAttendeeResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

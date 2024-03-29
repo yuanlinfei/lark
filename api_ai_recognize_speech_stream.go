@@ -23,13 +23,13 @@ import (
 
 // RecognizeSpeechStream 语音流式接口, 将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms。
 //
-// 单租户限流: 20 路（一个 stream_id 称为一路会话）, 同租户下的应用没有限流, 共享本租户的 20路限流
+// 单租户限流: 20 路（一个 stream_id 称为一路会话）, 同租户下的应用没有限流, 共享本租户的 20路限流。免费版不支持调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize
 // new doc: https://open.feishu.cn/document/server-docs/ai/speech_to_text-v1/stream_recognize
 func (r *AIService) RecognizeSpeechStream(ctx context.Context, request *RecognizeSpeechStreamReq, options ...MethodOptionFunc) (*RecognizeSpeechStreamResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeSpeechStream != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechStream mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechStream mock enable")
 		return r.cli.mock.mockAIRecognizeSpeechStream(ctx, request, options...)
 	}
 
@@ -87,7 +87,8 @@ type RecognizeSpeechStreamResp struct {
 
 // recognizeSpeechStreamResp ...
 type recognizeSpeechStreamResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeSpeechStreamResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *RecognizeSpeechStreamResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

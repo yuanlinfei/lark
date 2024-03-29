@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/user_mailbox-alias/delete
 func (r *MailService) DeleteMailUserMailbox(ctx context.Context, request *DeleteMailUserMailboxReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailUserMailbox != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailbox mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailbox mock enable")
 		return r.cli.mock.mockMailDeleteMailUserMailbox(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteMailUserMailboxResp struct {
 
 // deleteMailUserMailboxResp ...
 type deleteMailUserMailboxResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMailUserMailboxResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteMailUserMailboxResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

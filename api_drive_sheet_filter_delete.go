@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/delete
 func (r *DriveService) DeleteSheetFilter(ctx context.Context, request *DeleteSheetFilterReq, options ...MethodOptionFunc) (*DeleteSheetFilterResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetFilter != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFilter mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFilter mock enable")
 		return r.cli.mock.mockDriveDeleteSheetFilter(ctx, request, options...)
 	}
 
@@ -69,7 +69,8 @@ type DeleteSheetFilterResp struct {
 
 // deleteSheetFilterResp ...
 type deleteSheetFilterResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSheetFilterResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteSheetFilterResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

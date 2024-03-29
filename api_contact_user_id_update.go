@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update_user_id
 func (r *ContactService) UpdateUserID(ctx context.Context, request *UpdateUserIDReq, options ...MethodOptionFunc) (*UpdateUserIDResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUserID != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserID mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserID mock enable")
 		return r.cli.mock.mockContactUpdateUserID(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type UpdateUserIDResp struct {
 
 // updateUserIDResp ...
 type updateUserIDResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateUserIDResp `json:"data,omitempty"`
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateUserIDResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

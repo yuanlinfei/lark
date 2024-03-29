@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/event-subscription-guide/list
 func (r *EventService) GetEventOutboundIpList(ctx context.Context, request *GetEventOutboundIpListReq, options ...MethodOptionFunc) (*GetEventOutboundIpListResp, *Response, error) {
 	if r.cli.mock.mockEventGetEventOutboundIpList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Event#GetEventOutboundIpList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Event#GetEventOutboundIpList mock enable")
 		return r.cli.mock.mockEventGetEventOutboundIpList(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type GetEventOutboundIpListResp struct {
 
 // getEventOutboundIpListResp ...
 type getEventOutboundIpListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetEventOutboundIpListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetEventOutboundIpListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

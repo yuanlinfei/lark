@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/delete
 func (r *ContactService) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteDepartment mock enable")
 		return r.cli.mock.mockContactDeleteDepartment(ctx, request, options...)
 	}
 
@@ -70,7 +70,8 @@ type DeleteDepartmentResp struct {
 
 // deleteDepartmentResp ...
 type deleteDepartmentResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteDepartmentResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

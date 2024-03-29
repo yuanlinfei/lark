@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) HighlightBaikeEntity(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeHighlightBaikeEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#HighlightBaikeEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#HighlightBaikeEntity mock enable")
 		return r.cli.mock.mockBaikeHighlightBaikeEntity(ctx, request, options...)
 	}
 
@@ -86,7 +86,8 @@ type HighlightBaikeEntityRespPhraseSpan struct {
 
 // highlightBaikeEntityResp ...
 type highlightBaikeEntityResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *HighlightBaikeEntityResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *HighlightBaikeEntityResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/create
 func (r *MessageService) CreateMessageReaction(ctx context.Context, request *CreateMessageReactionReq, options ...MethodOptionFunc) (*CreateMessageReactionResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateMessageReaction != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#CreateMessageReaction mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#CreateMessageReaction mock enable")
 		return r.cli.mock.mockMessageCreateMessageReaction(ctx, request, options...)
 	}
 
@@ -94,7 +94,8 @@ type CreateMessageReactionRespReactionType struct {
 
 // createMessageReactionResp ...
 type createMessageReactionResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateMessageReactionResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateMessageReactionResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

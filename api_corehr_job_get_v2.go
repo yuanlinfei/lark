@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get
 func (r *CoreHRService) GetCoreHRJobV2(ctx context.Context, request *GetCoreHRJobV2Req, options ...MethodOptionFunc) (*GetCoreHRJobV2Resp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRJobV2 != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobV2 mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobV2 mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRJobV2(ctx, request, options...)
 	}
 
@@ -107,7 +107,8 @@ type GetCoreHRJobV2RespJobName struct {
 
 // getCoreHRJobV2Resp ...
 type getCoreHRJobV2Resp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRJobV2Resp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRJobV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

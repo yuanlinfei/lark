@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/verification-v1/get
 func (r *VerificationService) GetVerification(ctx context.Context, request *GetVerificationReq, options ...MethodOptionFunc) (*GetVerificationResp, *Response, error) {
 	if r.cli.mock.mockVerificationGetVerification != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Verification#GetVerification mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Verification#GetVerification mock enable")
 		return r.cli.mock.mockVerificationGetVerification(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type GetVerificationRespVerification struct {
 
 // getVerificationResp ...
 type getVerificationResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetVerificationResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetVerificationResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/get_progress
 func (r *MessageService) GetBatchSentMessageProgress(ctx context.Context, request *GetBatchSentMessageProgressReq, options ...MethodOptionFunc) (*GetBatchSentMessageProgressResp, *Response, error) {
 	if r.cli.mock.mockMessageGetBatchSentMessageProgress != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageProgress mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageProgress mock enable")
 		return r.cli.mock.mockMessageGetBatchSentMessageProgress(ctx, request, options...)
 	}
 
@@ -86,7 +86,8 @@ type GetBatchSentMessageProgressRespBatchMessageSendProgres struct {
 
 // getBatchSentMessageProgressResp ...
 type getBatchSentMessageProgressResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetBatchSentMessageProgressResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBatchSentMessageProgressResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

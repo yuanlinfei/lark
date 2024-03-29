@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role/create
 func (r *BitableService) CreateBitableAppRole(ctx context.Context, request *CreateBitableAppRoleReq, options ...MethodOptionFunc) (*CreateBitableAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableAppRole != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableAppRole mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableAppRole mock enable")
 		return r.cli.mock.mockBitableCreateBitableAppRole(ctx, request, options...)
 	}
 
@@ -144,7 +144,8 @@ type CreateBitableAppRoleRespRoleTableRoleRecRuleCondition struct {
 
 // createBitableAppRoleResp ...
 type createBitableAppRoleResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *CreateBitableAppRoleResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateBitableAppRoleResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

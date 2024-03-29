@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-app-availability-in-an-organization
 func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppVisibility != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppVisibility mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppVisibility mock enable")
 		return r.cli.mock.mockApplicationGetApplicationAppVisibility(ctx, request, options...)
 	}
 
@@ -105,7 +105,8 @@ type GetApplicationAppVisibilityRespUser struct {
 
 // getApplicationAppVisibilityResp ...
 type getApplicationAppVisibilityResp struct {
-	Code int64                            `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
+	Code  int64                            `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 返回码的描述
+	Data  *GetApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

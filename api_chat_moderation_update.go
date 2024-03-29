@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/update
 func (r *ChatService) UpdateChatModeration(ctx context.Context, request *UpdateChatModerationReq, options ...MethodOptionFunc) (*UpdateChatModerationResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatModeration != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatModeration mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatModeration mock enable")
 		return r.cli.mock.mockChatUpdateChatModeration(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type UpdateChatModerationResp struct {
 
 // updateChatModerationResp ...
 type updateChatModerationResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateChatModerationResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateChatModerationResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

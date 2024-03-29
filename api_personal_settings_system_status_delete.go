@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/delete
 func (r *PersonalSettingsService) DeletePersonalSettingsSystemStatus(ctx context.Context, request *DeletePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*DeletePersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsDeletePersonalSettingsSystemStatus != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#DeletePersonalSettingsSystemStatus mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] PersonalSettings#DeletePersonalSettingsSystemStatus mock enable")
 		return r.cli.mock.mockPersonalSettingsDeletePersonalSettingsSystemStatus(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type DeletePersonalSettingsSystemStatusResp struct {
 
 // deletePersonalSettingsSystemStatusResp ...
 type deletePersonalSettingsSystemStatusResp struct {
-	Code int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeletePersonalSettingsSystemStatusResp `json:"data,omitempty"`
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *DeletePersonalSettingsSystemStatusResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }

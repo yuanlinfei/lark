@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/app-usage/department_overview
 func (r *ApplicationService) GetApplicationUsageDepartmentOverview(ctx context.Context, request *GetApplicationUsageDepartmentOverviewReq, options ...MethodOptionFunc) (*GetApplicationUsageDepartmentOverviewResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUsageDepartmentOverview != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageDepartmentOverview mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageDepartmentOverview mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUsageDepartmentOverview(ctx, request, options...)
 	}
 
@@ -118,7 +118,8 @@ type GetApplicationUsageDepartmentOverviewRespItemWebapp struct {
 
 // getApplicationUsageDepartmentOverviewResp ...
 type getApplicationUsageDepartmentOverviewResp struct {
-	Code int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetApplicationUsageDepartmentOverviewResp `json:"data,omitempty"`
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApplicationUsageDepartmentOverviewResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

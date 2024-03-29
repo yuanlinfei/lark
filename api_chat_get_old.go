@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *ChatService) GetChatOld(ctx context.Context, request *GetChatOldReq, options ...MethodOptionFunc) (*GetChatOldResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatOld mock enable")
 		return r.cli.mock.mockChatGetChatOld(ctx, request, options...)
 	}
 
@@ -96,7 +96,8 @@ type GetChatOldRespMember struct {
 
 // getChatOldResp ...
 type getChatOldResp struct {
-	Code int64           `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 返回码描述
-	Data *GetChatOldResp `json:"data,omitempty"`
+	Code  int64           `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 返回码描述
+	Data  *GetChatOldResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

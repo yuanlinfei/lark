@@ -25,12 +25,13 @@ import (
 //
 // - 本接口会按照「员工资源」权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限
 // - 每次最多传 100 个员工 ID, 若需单次查询全量员工, 可使用接口[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)；
+// - 人员全数据关联业务数据, 计算数据等较多, 更新后存在2-5s短暂延时, 建议数据更新动作完成后稍等几秒进行最新数据查询请求。
 // - 接口已升级, 推荐使用, 性能更优。如需继续使用旧版本接口, 可点击[批量查询雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/list)[批量查询个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/list)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get
 func (r *CoreHRService) BatchGetCoreHREmployee(ctx context.Context, request *BatchGetCoreHREmployeeReq, options ...MethodOptionFunc) (*BatchGetCoreHREmployeeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHREmployee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHREmployee mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHREmployee mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHREmployee(ctx, request, options...)
 	}
 
@@ -83,7 +84,7 @@ type BatchGetCoreHREmployeeRespItem struct {
 	EmployeeTypeID           string                                              `json:"employee_type_id,omitempty"`            // 人员类型 ID, 详细信息可通过【查询单个人员类型】接口获得
 	DepartmentID             string                                              `json:"department_id,omitempty"`               // 部门 ID, 详细信息可通过【查询单个部门】接口获得
 	JobLevelID               string                                              `json:"job_level_id,omitempty"`                // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
-	JobGradeID               string                                              `json:"job_grade_id,omitempty"`                // 职等 ID, 字段权限要求（满足任一）: 读取职等信息, 职等信息
+	JobGradeID               string                                              `json:"job_grade_id,omitempty"`                // 职等 ID, 字段权限要求（满足任一）: 获取职等信息, 读写职等信息
 	WorkLocationID           string                                              `json:"work_location_id,omitempty"`            // 工作地点 ID, 详细信息可通过【查询单个地点】接口获得
 	JobFamilyID              string                                              `json:"job_family_id,omitempty"`               // 序列 ID, 详细信息可通过【查询单个职务序列】接口获得
 	JobID                    string                                              `json:"job_id,omitempty"`                      // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求（满足任一）: 获取员工的职务信息, 获取职务级别信息, 读写员工的职务级别信息
@@ -120,7 +121,7 @@ type BatchGetCoreHREmployeeRespItem struct {
 	ContractStartDate        string                                              `json:"contract_start_date,omitempty"`         // 主合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
 	ContractEndDate          string                                              `json:"contract_end_date,omitempty"`           // 主合同到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
 	ContractExpectedEndDate  string                                              `json:"contract_expected_end_date,omitempty"`  // 主合同预计到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	PayGroupID               string                                              `json:"pay_group_id,omitempty"`                // 所属薪资组 ID, 字段权限要求: 获取员工薪资组信息
+	PayGroupID               string                                              `json:"pay_group_id,omitempty"`                // 所属薪资组 ID, 字段权限要求: 获取薪资组信息
 	InternationalAssignment  bool                                                `json:"international_assignment,omitempty"`    // 是否外派
 	WorkCalendarID           string                                              `json:"work_calendar_id,omitempty"`            // 工作日历 ID
 	Department               *BatchGetCoreHREmployeeRespItemDepartment           `json:"department,omitempty"`                  // 部门基本信息
@@ -240,6 +241,7 @@ type BatchGetCoreHREmployeeRespItemPersonInfo struct {
 	NameList                 []*BatchGetCoreHREmployeeRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
 	Gender                   *BatchGetCoreHREmployeeRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // -| 性别, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: gender - object_api_name: person, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                            `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
+	NationalityIDV2          string                                                            `json:"nationality_id_v2,omitempty"`           // 国籍 ID, 可通过[【查询国籍信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search)查询, 字段权限要求（满足任一）: 获取国籍信息, 读写国籍信息
 	Race                     *BatchGetCoreHREmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // -| 民族 / 种族, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: ethnicity_race - object_api_name: person, 字段权限要求: 获取民族/种族信息
 	MaritalStatus            *BatchGetCoreHREmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // -| 婚姻状况, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: marital_status - object_api_name: person, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
 	PhoneList                []*BatchGetCoreHREmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
@@ -273,8 +275,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfo struct {
 	MartyrCardNumber         string                                                            `json:"martyr_card_number,omitempty"`          // 烈属证号, 字段权限要求（满足任一）: 获取烈属信息, 读写烈属信息
 	IsOldAlone               bool                                                              `json:"is_old_alone,omitempty"`                // 是否孤老, 字段权限要求（满足任一）: 获取孤老信息, 读写孤老信息
 	ResidentTaxes            []*BatchGetCoreHREmployeeRespItemPersonInfoResidentTaxe           `json:"resident_taxes,omitempty"`              // 居民身份信息, 字段权限要求（满足任一）: 获取居民身份信息, 读写居民身份信息
-	FirstEntryTime           string                                                            `json:"first_entry_time,omitempty"`            // 首次入境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
-	LeaveTime                string                                                            `json:"leave_time,omitempty"`                  // 预计离境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
+	FirstEntryTime           string                                                            `json:"first_entry_time,omitempty"`            // 首次入境日期, 字段权限要求（满足任一）: 获取出入境日期信息, 读写出入境日期信息
+	LeaveTime                string                                                            `json:"leave_time,omitempty"`                  // 预计离境日期, 字段权限要求（满足任一）: 获取出入境日期信息, 读写出入境日期信息
 }
 
 // BatchGetCoreHREmployeeRespItemPersonInfoAddress ...
@@ -284,6 +286,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfoAddress struct {
 	AddressID                string                                                        `json:"address_id,omitempty"`                  // 地址 ID
 	CountryRegionID          string                                                        `json:"country_region_id,omitempty"`           // 国家 / 地区
 	RegionID                 string                                                        `json:"region_id,omitempty"`                   // 主要行政区
+	CityIDV2                 string                                                        `json:"city_id_v2,omitempty"`                  // 城市
+	DistrictIDV2             string                                                        `json:"district_id_v2,omitempty"`              // 区/县
 	LocalAddressLine1        string                                                        `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                        `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                        `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -328,14 +332,16 @@ type BatchGetCoreHREmployeeRespItemPersonInfoAddressCustomFieldName struct {
 
 // BatchGetCoreHREmployeeRespItemPersonInfoBankAccount ...
 type BatchGetCoreHREmployeeRespItemPersonInfoBankAccount struct {
-	BankName          string                                                                 `json:"bank_name,omitempty"`           // 银行名称
+	BankName          string                                                                 `json:"bank_name,omitempty"`           // 银行名称。当在飞书人事找不到银行下拉选项, 手动填写文本时, 请通过此字段获取结果
 	BankAccountNumber string                                                                 `json:"bank_account_number,omitempty"` // 银行账号
 	AccountHolder     string                                                                 `json:"account_holder,omitempty"`      // 开户人姓名
-	BranchName        string                                                                 `json:"branch_name,omitempty"`         // 支行名称
-	CountryRegionID   string                                                                 `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
+	BranchName        string                                                                 `json:"branch_name,omitempty"`         // 支行名称。当在飞书人事找不到支行下拉选项, 手动填写文本时, 请通过此字段获取结果
+	BankIDV2          string                                                                 `json:"bank_id_v2,omitempty"`          // 银行 ID, 详细信息可通过[【查询银行信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search)查询。当在飞书人事选择具体银行下拉选项时, 请通过此字段获取结果
+	BranchIDV2        string                                                                 `json:"branch_id_v2,omitempty"`        // 支行 ID, 要求必须为填入银行的支行, 详细信息可通过[【查询支行信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank_branch/search)查询。当在飞书人事选择具体支行下拉选项时, 请通过此字段获取结果
+	CountryRegionID   string                                                                 `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过[【查询国家/地区信息v2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询
 	BankAccountUsage  []*BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                                 `json:"currency_id,omitempty"`         // 货币id
+	CurrencyID        string                                                                 `json:"currency_id,omitempty"`         // 货币id, 可通过[【查询货币信息v2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询
 	IBAN              string                                                                 `json:"IBAN,omitempty"`                // 国际银行账号
 	CustomFields      []*BatchGetCoreHREmployeeRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -398,6 +404,7 @@ type BatchGetCoreHREmployeeRespItemPersonInfoDependent struct {
 	Relationship                         *BatchGetCoreHREmployeeRespItemPersonInfoDependentRelationship            `json:"relationship,omitempty"`                               // 关系
 	Gender                               *BatchGetCoreHREmployeeRespItemPersonInfoDependentGender                  `json:"gender,omitempty"`                                     // 性别
 	DateOfBirth                          string                                                                    `json:"date_of_birth,omitempty"`                              // 生日
+	NationalityIDV2                      string                                                                    `json:"nationality_id_v2,omitempty"`                          // 国籍 ID, 可通过[【查询国籍信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search)查询
 	NationalIDList                       []*BatchGetCoreHREmployeeRespItemPersonInfoDependentNationalID            `json:"national_id_list,omitempty"`                           // 证件号码
 	SpousesWorkingStatus                 *BatchGetCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
 	IsThisPersonCoveredByHealthInsurance bool                                                                      `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
@@ -418,6 +425,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfoDependentAddress struct {
 	AddressID                string                                                                 `json:"address_id,omitempty"`                  // 地址 ID
 	CountryRegionID          string                                                                 `json:"country_region_id,omitempty"`           // 国家 / 地区
 	RegionID                 string                                                                 `json:"region_id,omitempty"`                   // 主要行政区
+	CityIDV2                 string                                                                 `json:"city_id_v2,omitempty"`                  // 城市
+	DistrictIDV2             string                                                                 `json:"district_id_v2,omitempty"`              // 区/县
 	LocalAddressLine1        string                                                                 `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                                 `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                                 `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -1456,7 +1465,8 @@ type BatchGetCoreHREmployeeRespItemWorkEmailEmailUsageDisplay struct {
 
 // batchGetCoreHREmployeeResp ...
 type batchGetCoreHREmployeeResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetCoreHREmployeeResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetCoreHREmployeeResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

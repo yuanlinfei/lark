@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/list
 func (r *CoreHRService) GetCoreHREmployeeTypeList(ctx context.Context, request *GetCoreHREmployeeTypeListReq, options ...MethodOptionFunc) (*GetCoreHREmployeeTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHREmployeeTypeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHREmployeeTypeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHREmployeeTypeList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHREmployeeTypeList(ctx, request, options...)
 	}
 
@@ -93,7 +93,8 @@ type GetCoreHREmployeeTypeListRespItemName struct {
 
 // getCoreHREmployeeTypeListResp ...
 type getCoreHREmployeeTypeListResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHREmployeeTypeListResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHREmployeeTypeListResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

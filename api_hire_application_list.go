@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/list
 func (r *HireService) GetHireApplicationList(ctx context.Context, request *GetHireApplicationListReq, options ...MethodOptionFunc) (*GetHireApplicationListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireApplicationList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationList mock enable")
 		return r.cli.mock.mockHireGetHireApplicationList(ctx, request, options...)
 	}
 
@@ -71,14 +71,15 @@ type GetHireApplicationListReq struct {
 
 // GetHireApplicationListResp ...
 type GetHireApplicationListResp struct {
-	Items     []string `json:"items,omitempty"`      // 投递数据列表
+	Items     []string `json:"items,omitempty"`      // 投递ID列表
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // getHireApplicationListResp ...
 type getHireApplicationListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireApplicationListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireApplicationListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

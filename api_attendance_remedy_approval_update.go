@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/process
 func (r *AttendanceService) UpdateAttendanceRemedyApproval(ctx context.Context, request *UpdateAttendanceRemedyApprovalReq, options ...MethodOptionFunc) (*UpdateAttendanceRemedyApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceRemedyApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceRemedyApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceRemedyApproval mock enable")
 		return r.cli.mock.mockAttendanceUpdateAttendanceRemedyApproval(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type UpdateAttendanceRemedyApprovalRespApprovalInfo struct {
 
 // updateAttendanceRemedyApprovalResp ...
 type updateAttendanceRemedyApprovalResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateAttendanceRemedyApprovalResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateAttendanceRemedyApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

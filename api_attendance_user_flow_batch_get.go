@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task/query-2
 func (r *AttendanceService) BatchGetAttendanceUserFlow(ctx context.Context, request *BatchGetAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchGetAttendanceUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchGetAttendanceUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetAttendanceUserFlow mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetAttendanceUserFlow mock enable")
 		return r.cli.mock.mockAttendanceBatchGetAttendanceUserFlow(ctx, request, options...)
 	}
 
@@ -91,7 +91,8 @@ type BatchGetAttendanceUserFlowRespUserFlowResult struct {
 
 // batchGetAttendanceUserFlowResp ...
 type batchGetAttendanceUserFlowResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetAttendanceUserFlowResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetAttendanceUserFlowResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

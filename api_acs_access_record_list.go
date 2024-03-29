@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/access_record/list
 func (r *ACSService) GetACSAccessRecordList(ctx context.Context, request *GetACSAccessRecordListReq, options ...MethodOptionFunc) (*GetACSAccessRecordListResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSAccessRecordList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSAccessRecordList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#GetACSAccessRecordList mock enable")
 		return r.cli.mock.mockACSGetACSAccessRecordList(ctx, request, options...)
 	}
 
@@ -89,7 +89,8 @@ type GetACSAccessRecordListRespItem struct {
 
 // getACSAccessRecordListResp ...
 type getACSAccessRecordListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetACSAccessRecordListResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetACSAccessRecordListResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

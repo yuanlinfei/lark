@@ -457,6 +457,7 @@ func (r *MessageContentCardElementOverflow) SetConfirm(val *MessageContentCardOb
 //
 // https://open.feishu.cn/document/ukTMukTMukTM/uIzNwUjLycDM14iM3ATN
 type MessageContentCardElementSelectMenu struct {
+	Name          string                            `json:"name,omitempty"`           // 组件唯一标识, 默认为空。 当 input 组件嵌套在 Form 容器中时必填。指当前交互组件的唯一标识。帮助开发者在交互的回传事件中识别用户用户提交的具体是哪个交互组件。
 	Tag           MessageContentCardElementTag      `json:"tag,omitempty"`            // select_static, select_person
 	Placeholder   *MessageContentCardObjectText     `json:"placeholder,omitempty"`    // 占位符，无默认选项时必须有
 	InitialOption string                            `json:"initial_option,omitempty"` // 默认选项的value字段值
@@ -467,6 +468,11 @@ type MessageContentCardElementSelectMenu struct {
 
 // IsMessageContentCardElement ...
 func (r MessageContentCardElementSelectMenu) IsMessageContentCardElement() {}
+
+func (r *MessageContentCardElementSelectMenu) SetName(val string) *MessageContentCardElementSelectMenu {
+	r.Name = val
+	return r
+}
 
 func (r *MessageContentCardElementSelectMenu) SetPlaceholder(val *MessageContentCardObjectText) *MessageContentCardElementSelectMenu {
 	r.Placeholder = val
@@ -821,6 +827,8 @@ func (r *MessageContentCardModuleColumn) SetBottomVerticalAlign() *MessageConten
 // === MessageContentCardModuleForm ===
 
 // MessageContentCardModuleForm 表单容器
+//
+// https://bytedance.larkoffice.com/wiki/O7oxw4i6hify1mkp1DncJNBknth
 type MessageContentCardModuleForm struct {
 	Name     string                      `json:"name"`
 	Elements []MessageContentCardElement `json:"elements"` // Form 表单的叶子节点 可内嵌布局容器、呈现组件、交互组件
@@ -1145,4 +1153,20 @@ type I18NText struct {
 	ZhCn string `json:"zh_cn"`
 	EnUs string `json:"en_us"`
 	JaJp string `json:"ja_jp"`
+}
+
+// MessageContentCardTemplate ...
+//
+// docs: https://open.feishu.cn/document/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/send-message-card/send-message-using-card-id
+type MessageContentCardTemplate struct {
+	TemplateID       string                 `json:"template_id"`
+	TemplateVariable map[string]interface{} `json:"template_variable"`
+}
+
+// String ...
+func (r MessageContentCardTemplate) String() string {
+	return jsonString(map[string]interface{}{
+		"type": "template",
+		"data": r,
+	})
 }

@@ -23,13 +23,13 @@ import (
 
 // GetUser 该接口用于获取通讯录中单个用户的信息。
 //
-// - 当使用`tenant_access_token`时, 结果中部门路径字段不会被返回。
+// 当使用`tenant_access_token`时, 结果中部门路径字段不会被返回。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/get
 func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
 	if r.cli.mock.mockContactGetUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetUser mock enable")
 		return r.cli.mock.mockContactGetUser(ctx, request, options...)
 	}
 
@@ -82,7 +82,7 @@ type GetUserRespUser struct {
 	Email                   string                           `json:"email,omitempty"`                       // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
 	Mobile                  string                           `json:"mobile,omitempty"`                      // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	MobileVisible           bool                             `json:"mobile_visible,omitempty"`              // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
-	Gender                  int64                            `json:"gender,omitempty"`                      // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
+	Gender                  int64                            `json:"gender,omitempty"`                      // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 3: 其他, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	Avatar                  *GetUserRespUserAvatar           `json:"avatar,omitempty"`                      // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Status                  *GetUserRespUserStatus           `json:"status,omitempty"`                      // 用户状态, 枚举类型, 包括is_frozen、is_resigned、is_activated、is_exited, 用户状态转移参见: [用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentIDs           []string                         `json:"department_ids,omitempty"`              // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
@@ -133,7 +133,7 @@ type GetUserRespUserAvatar struct {
 
 // GetUserRespUserCustomAttr ...
 type GetUserRespUserCustomAttr struct {
-	Type  string                          `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, 具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	Type  string                          `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, 具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/server-docs/contact-v3/faqs#4ae8f490)
 	ID    string                          `json:"id,omitempty"`    // 自定义字段ID
 	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -213,7 +213,8 @@ type GetUserRespUserStatus struct {
 
 // getUserResp ...
 type getUserResp struct {
-	Code int64        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserResp `json:"data,omitempty"`
+	Code  int64        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetUserResp `json:"data,omitempty"`
+	Error *ErrorDetail `json:"error,omitempty"`
 }

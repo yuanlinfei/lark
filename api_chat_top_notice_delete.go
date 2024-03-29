@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/delete_top_notice
 func (r *ChatService) DeleteChatTopNotice(ctx context.Context, request *DeleteChatTopNoticeReq, options ...MethodOptionFunc) (*DeleteChatTopNoticeResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatTopNotice != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatTopNotice mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatTopNotice mock enable")
 		return r.cli.mock.mockChatDeleteChatTopNotice(ctx, request, options...)
 	}
 
@@ -73,7 +73,8 @@ type DeleteChatTopNoticeResp struct {
 
 // deleteChatTopNoticeResp ...
 type deleteChatTopNoticeResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteChatTopNoticeResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteChatTopNoticeResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

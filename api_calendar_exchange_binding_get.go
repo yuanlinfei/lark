@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/exchange_binding/get
 func (r *CalendarService) GetCalendarExchangeBinding(ctx context.Context, request *GetCalendarExchangeBindingReq, options ...MethodOptionFunc) (*GetCalendarExchangeBindingResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarExchangeBinding != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarExchangeBinding mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarExchangeBinding mock enable")
 		return r.cli.mock.mockCalendarGetCalendarExchangeBinding(ctx, request, options...)
 	}
 
@@ -76,7 +76,8 @@ type GetCalendarExchangeBindingResp struct {
 
 // getCalendarExchangeBindingResp ...
 type getCalendarExchangeBindingResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetCalendarExchangeBindingResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCalendarExchangeBindingResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

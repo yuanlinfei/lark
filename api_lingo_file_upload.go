@@ -27,7 +27,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/file/upload
 func (r *LingoService) UploadLingoFile(ctx context.Context, request *UploadLingoFileReq, options ...MethodOptionFunc) (*UploadLingoFileResp, *Response, error) {
 	if r.cli.mock.mockLingoUploadLingoFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#UploadLingoFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#UploadLingoFile mock enable")
 		return r.cli.mock.mockLingoUploadLingoFile(ctx, request, options...)
 	}
 
@@ -71,7 +71,8 @@ type UploadLingoFileResp struct {
 
 // uploadLingoFileResp ...
 type uploadLingoFileResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *UploadLingoFileResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *UploadLingoFileResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation-assessment/patch
 func (r *CoreHRService) UpdateCoreHRProbationAssessment(ctx context.Context, request *UpdateCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*UpdateCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRProbationAssessment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRProbationAssessment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRProbationAssessment mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRProbationAssessment(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type UpdateCoreHRProbationAssessmentResp struct {
 
 // updateCoreHRProbationAssessmentResp ...
 type updateCoreHRProbationAssessmentResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHRProbationAssessmentResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateCoreHRProbationAssessmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

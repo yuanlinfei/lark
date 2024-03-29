@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-alias/delete
 func (r *MailService) DeleteMailGroupAlias(ctx context.Context, request *DeleteMailGroupAliasReq, options ...MethodOptionFunc) (*DeleteMailGroupAliasResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroupAlias != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupAlias mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupAlias mock enable")
 		return r.cli.mock.mockMailDeleteMailGroupAlias(ctx, request, options...)
 	}
 
@@ -68,7 +68,8 @@ type DeleteMailGroupAliasResp struct {
 
 // deleteMailGroupAliasResp ...
 type deleteMailGroupAliasResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMailGroupAliasResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteMailGroupAliasResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

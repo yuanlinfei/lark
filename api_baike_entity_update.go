@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *BaikeService) UpdateBaikeEntity(ctx context.Context, request *UpdateBaikeEntityReq, options ...MethodOptionFunc) (*UpdateBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeUpdateBaikeEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#UpdateBaikeEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#UpdateBaikeEntity mock enable")
 		return r.cli.mock.mockBaikeUpdateBaikeEntity(ctx, request, options...)
 	}
 
@@ -279,7 +279,8 @@ type UpdateBaikeEntityRespEntityStatistics struct {
 
 // updateBaikeEntityResp ...
 type updateBaikeEntityResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateBaikeEntityResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateBaikeEntityResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

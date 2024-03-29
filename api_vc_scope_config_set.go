@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/create
 func (r *VCService) SetVCScopeConfig(ctx context.Context, request *SetVCScopeConfigReq, options ...MethodOptionFunc) (*SetVCScopeConfigResp, *Response, error) {
 	if r.cli.mock.mockVCSetVCScopeConfig != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetVCScopeConfig mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SetVCScopeConfig mock enable")
 		return r.cli.mock.mockVCSetVCScopeConfig(ctx, request, options...)
 	}
 
@@ -123,7 +123,7 @@ type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial struct {
 // SetVCScopeConfigReqScopeConfigRoomStatus ...
 type SetVCScopeConfigReqScopeConfigRoomStatus struct {
 	Status           bool     `json:"status,omitempty"`             // 是否启用会议室, 示例值: true
-	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用, 示例值: true
+	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用（请忽略, 该字段用于查询接口的返回值）, 示例值: true
 	DisableStartTime *string  `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间, 单位sec）, 示例值: "1652356050"
 	DisableEndTime   *string  `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间, 单位sec, 数值0表示永久禁用）, 示例值: "1652442450"
 	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因, 示例值: "测试占用"
@@ -138,7 +138,8 @@ type SetVCScopeConfigResp struct {
 
 // setVCScopeConfigResp ...
 type setVCScopeConfigResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *SetVCScopeConfigResp `json:"data,omitempty"`
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *SetVCScopeConfigResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

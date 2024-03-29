@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzNzUjLzczM14yM3MTN
 func (r *DriveService) CreateDriveMemberPermissionOld(ctx context.Context, request *CreateDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveMemberPermissionOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermissionOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermissionOld mock enable")
 		return r.cli.mock.mockDriveCreateDriveMemberPermissionOld(ctx, request, options...)
 	}
 
@@ -86,7 +86,8 @@ type CreateDriveMemberPermissionOldRespFailMember struct {
 
 // createDriveMemberPermissionOldResp ...
 type createDriveMemberPermissionOldResp struct {
-	Code int64                               `json:"code,omitempty"`
-	Msg  string                              `json:"msg,omitempty"`
-	Data *CreateDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *CreateDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

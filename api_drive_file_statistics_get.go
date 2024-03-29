@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/get
 func (r *DriveService) GetDriveFileStatistics(ctx context.Context, request *GetDriveFileStatisticsReq, options ...MethodOptionFunc) (*GetDriveFileStatisticsResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileStatistics != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileStatistics mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileStatistics mock enable")
 		return r.cli.mock.mockDriveGetDriveFileStatistics(ctx, request, options...)
 	}
 
@@ -72,15 +72,19 @@ type GetDriveFileStatisticsResp struct {
 
 // GetDriveFileStatisticsRespStatistics ...
 type GetDriveFileStatisticsRespStatistics struct {
-	Uv        int64 `json:"uv,omitempty"`         // 文档历史访问人数, 同一用户（user_id）多次访问按一次计算。
-	Pv        int64 `json:"pv,omitempty"`         // 文档历史访问次数, 同一用户（user_id）多次访问按多次计算。（注: 同一用户相邻两次访问间隔在半小时内视为一次访问）
-	LikeCount int64 `json:"like_count,omitempty"` // 文档历史点赞总数, 若对应的文档类型不支持点赞, 返回 -1
-	Timestamp int64 `json:"timestamp,omitempty"`  // 时间戳（秒）
+	Uv             int64 `json:"uv,omitempty"`               // 文档历史访问人数, 同一用户（user_id）多次访问按一次计算。
+	Pv             int64 `json:"pv,omitempty"`               // 文档历史访问次数, 同一用户（user_id）多次访问按多次计算。（注: 同一用户相邻两次访问间隔在半小时内视为一次访问）
+	LikeCount      int64 `json:"like_count,omitempty"`       // 文档历史点赞总数, 若对应的文档类型不支持点赞, 返回 -1
+	Timestamp      int64 `json:"timestamp,omitempty"`        // 时间戳（秒）
+	UvToday        int64 `json:"uv_today,omitempty"`         // 今日新增文档访问人数
+	PvToday        int64 `json:"pv_today,omitempty"`         // 今日新增文档访问次数
+	LikeCountToday int64 `json:"like_count_today,omitempty"` // 今日新增文档点赞数
 }
 
 // getDriveFileStatisticsResp ...
 type getDriveFileStatisticsResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileStatisticsResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDriveFileStatisticsResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

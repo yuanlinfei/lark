@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_package/batch_update
 func (r *HireService) BatchUpdateHireEcoBackgroundCheckPackage(ctx context.Context, request *BatchUpdateHireEcoBackgroundCheckPackageReq, options ...MethodOptionFunc) (*BatchUpdateHireEcoBackgroundCheckPackageResp, *Response, error) {
 	if r.cli.mock.mockHireBatchUpdateHireEcoBackgroundCheckPackage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoBackgroundCheckPackage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoBackgroundCheckPackage mock enable")
 		return r.cli.mock.mockHireBatchUpdateHireEcoBackgroundCheckPackage(ctx, request, options...)
 	}
 
@@ -83,7 +83,8 @@ type BatchUpdateHireEcoBackgroundCheckPackageResp struct {
 
 // batchUpdateHireEcoBackgroundCheckPackageResp ...
 type batchUpdateHireEcoBackgroundCheckPackageResp struct {
-	Code int64                                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                        `json:"msg,omitempty"`  // 错误描述
-	Data *BatchUpdateHireEcoBackgroundCheckPackageResp `json:"data,omitempty"`
+	Code  int64                                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                        `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchUpdateHireEcoBackgroundCheckPackageResp `json:"data,omitempty"`
+	Error *ErrorDetail                                  `json:"error,omitempty"`
 }

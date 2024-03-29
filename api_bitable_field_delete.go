@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/delete
 func (r *BitableService) DeleteBitableField(ctx context.Context, request *DeleteBitableFieldReq, options ...MethodOptionFunc) (*DeleteBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField mock enable")
 		return r.cli.mock.mockBitableDeleteBitableField(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type DeleteBitableFieldResp struct {
 
 // deleteBitableFieldResp ...
 type deleteBitableFieldResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteBitableFieldResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteBitableFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get
 func (r *CoreHRService) BatchGetCoreHRJobFamily(ctx context.Context, request *BatchGetCoreHRJobFamilyReq, options ...MethodOptionFunc) (*BatchGetCoreHRJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHRJobFamily != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobFamily mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobFamily mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHRJobFamily(ctx, request, options...)
 	}
 
@@ -99,7 +99,8 @@ type BatchGetCoreHRJobFamilyRespItemName struct {
 
 // batchGetCoreHRJobFamilyResp ...
 type batchGetCoreHRJobFamilyResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetCoreHRJobFamilyResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetCoreHRJobFamilyResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

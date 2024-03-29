@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-contacts_range/patch
 func (r *ApplicationService) UpdateApplicationContactsRangeConfiguration(ctx context.Context, request *UpdateApplicationContactsRangeConfigurationReq, options ...MethodOptionFunc) (*UpdateApplicationContactsRangeConfigurationResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationContactsRangeConfiguration != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationContactsRangeConfiguration mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationContactsRangeConfiguration mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationContactsRangeConfiguration(ctx, request, options...)
 	}
 
@@ -87,7 +87,8 @@ type UpdateApplicationContactsRangeConfigurationResp struct {
 
 // updateApplicationContactsRangeConfigurationResp ...
 type updateApplicationContactsRangeConfigurationResp struct {
-	Code int64                                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationContactsRangeConfigurationResp `json:"data,omitempty"`
+	Code  int64                                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                           `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateApplicationContactsRangeConfigurationResp `json:"data,omitempty"`
+	Error *ErrorDetail                                     `json:"error,omitempty"`
 }

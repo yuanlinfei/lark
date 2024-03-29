@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/delete
 func (r *CoreHRService) DeleteCoreHREmployeeType(ctx context.Context, request *DeleteCoreHREmployeeTypeReq, options ...MethodOptionFunc) (*DeleteCoreHREmployeeTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHREmployeeType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHREmployeeType mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHREmployeeType mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHREmployeeType(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteCoreHREmployeeTypeResp struct {
 
 // deleteCoreHREmployeeTypeResp ...
 type deleteCoreHREmployeeTypeResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHREmployeeTypeResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHREmployeeTypeResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

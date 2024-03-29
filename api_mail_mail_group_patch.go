@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup/patch
 func (r *MailService) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailGroupPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroupPatch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroupPatch mock enable")
 		return r.cli.mock.mockMailUpdateMailGroupPatch(ctx, request, options...)
 	}
 
@@ -79,7 +79,8 @@ type UpdateMailGroupPatchResp struct {
 
 // updateMailGroupPatchResp ...
 type updateMailGroupPatchResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateMailGroupPatchResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateMailGroupPatchResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

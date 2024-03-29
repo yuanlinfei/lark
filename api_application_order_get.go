@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/appstore-paid-info/query-order-information
 func (r *ApplicationService) GetApplicationOrder(ctx context.Context, request *GetApplicationOrderReq, options ...MethodOptionFunc) (*GetApplicationOrderResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationOrder != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationOrder mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationOrder mock enable")
 		return r.cli.mock.mockApplicationGetApplicationOrder(ctx, request, options...)
 	}
 
@@ -85,7 +85,8 @@ type GetApplicationOrderRespOrder struct {
 
 // getApplicationOrderResp ...
 type getApplicationOrderResp struct {
-	Code int64                    `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationOrderResp `json:"data,omitempty"` // 返回的业务信息
+	Code  int64                    `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 返回码的描述
+	Data  *GetApplicationOrderResp `json:"data,omitempty"` // 返回的业务信息
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

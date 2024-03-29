@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/server-docs/corehr-v1/compensation_standard/match
 func (r *CoreHRService) MatchCoreHRCompensationStandard(ctx context.Context, request *MatchCoreHRCompensationStandardReq, options ...MethodOptionFunc) (*MatchCoreHRCompensationStandardResp, *Response, error) {
 	if r.cli.mock.mockCoreHRMatchCoreHRCompensationStandard != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#MatchCoreHRCompensationStandard mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#MatchCoreHRCompensationStandard mock enable")
 		return r.cli.mock.mockCoreHRMatchCoreHRCompensationStandard(ctx, request, options...)
 	}
 
@@ -137,7 +137,8 @@ type MatchCoreHRCompensationStandardRespGradeGradeStandardValueStandardType stru
 
 // matchCoreHRCompensationStandardResp ...
 type matchCoreHRCompensationStandardResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *MatchCoreHRCompensationStandardResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *MatchCoreHRCompensationStandardResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

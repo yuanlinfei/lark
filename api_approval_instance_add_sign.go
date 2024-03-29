@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/approval-task-addsign
 func (r *ApprovalService) AddApprovalInstanceSign(ctx context.Context, request *AddApprovalInstanceSignReq, options ...MethodOptionFunc) (*AddApprovalInstanceSignResp, *Response, error) {
 	if r.cli.mock.mockApprovalAddApprovalInstanceSign != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#AddApprovalInstanceSign mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#AddApprovalInstanceSign mock enable")
 		return r.cli.mock.mockApprovalAddApprovalInstanceSign(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type AddApprovalInstanceSignResp struct {
 
 // addApprovalInstanceSignResp ...
 type addApprovalInstanceSignResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
-	Data *AddApprovalInstanceSignResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 返回码的描述
+	Data  *AddApprovalInstanceSignResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

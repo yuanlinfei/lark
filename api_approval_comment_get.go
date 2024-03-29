@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/list
 func (r *ApprovalService) GetApprovalComment(ctx context.Context, request *GetApprovalCommentReq, options ...MethodOptionFunc) (*GetApprovalCommentResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalComment mock enable")
 		return r.cli.mock.mockApprovalGetApprovalComment(ctx, request, options...)
 	}
 
@@ -111,7 +111,8 @@ type GetApprovalCommentRespCommentReplieAtInfo struct {
 
 // getApprovalCommentResp ...
 type getApprovalCommentResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetApprovalCommentResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApprovalCommentResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/query
 func (r *DriveService) QuerySheetFilterView(ctx context.Context, request *QuerySheetFilterViewReq, options ...MethodOptionFunc) (*QuerySheetFilterViewResp, *Response, error) {
 	if r.cli.mock.mockDriveQuerySheetFilterView != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFilterView mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFilterView mock enable")
 		return r.cli.mock.mockDriveQuerySheetFilterView(ctx, request, options...)
 	}
 
@@ -77,7 +77,8 @@ type QuerySheetFilterViewRespItem struct {
 
 // querySheetFilterViewResp ...
 type querySheetFilterViewResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *QuerySheetFilterViewResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *QuerySheetFilterViewResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

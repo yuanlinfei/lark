@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/list
 func (r *BitableService) GetBitableAppRoleMemberList(ctx context.Context, request *GetBitableAppRoleMemberListReq, options ...MethodOptionFunc) (*GetBitableAppRoleMemberListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableAppRoleMemberList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableAppRoleMemberList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableAppRoleMemberList mock enable")
 		return r.cli.mock.mockBitableGetBitableAppRoleMemberList(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type GetBitableAppRoleMemberListRespItem struct {
 
 // getBitableAppRoleMemberListResp ...
 type getBitableAppRoleMemberListResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableAppRoleMemberListResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBitableAppRoleMemberListResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

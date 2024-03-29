@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account_custom_field/batch_update
 func (r *HireService) BatchUpdateHireEcoAccountCustomField(ctx context.Context, request *BatchUpdateHireEcoAccountCustomFieldReq, options ...MethodOptionFunc) (*BatchUpdateHireEcoAccountCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockHireBatchUpdateHireEcoAccountCustomField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoAccountCustomField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoAccountCustomField mock enable")
 		return r.cli.mock.mockHireBatchUpdateHireEcoAccountCustomField(ctx, request, options...)
 	}
 
@@ -88,7 +88,8 @@ type BatchUpdateHireEcoAccountCustomFieldResp struct {
 
 // batchUpdateHireEcoAccountCustomFieldResp ...
 type batchUpdateHireEcoAccountCustomFieldResp struct {
-	Code int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                    `json:"msg,omitempty"`  // 错误描述
-	Data *BatchUpdateHireEcoAccountCustomFieldResp `json:"data,omitempty"`
+	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchUpdateHireEcoAccountCustomFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }

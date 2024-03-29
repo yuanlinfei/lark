@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/evaluation/list
 func (r *HireService) GetHireEvaluationList(ctx context.Context, request *GetHireEvaluationListReq, options ...MethodOptionFunc) (*GetHireEvaluationListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireEvaluationList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireEvaluationList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireEvaluationList mock enable")
 		return r.cli.mock.mockHireGetHireEvaluationList(ctx, request, options...)
 	}
 
@@ -89,7 +89,8 @@ type GetHireEvaluationListRespItem struct {
 
 // getHireEvaluationListResp ...
 type getHireEvaluationListResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireEvaluationListResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireEvaluationListResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

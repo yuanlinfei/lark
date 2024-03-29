@@ -36,7 +36,7 @@ import (
 // Deprecated
 func (r *ContactService) GetUserListOld(ctx context.Context, request *GetUserListOldReq, options ...MethodOptionFunc) (*GetUserListOldResp, *Response, error) {
 	if r.cli.mock.mockContactGetUserListOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUserListOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetUserListOld mock enable")
 		return r.cli.mock.mockContactGetUserListOld(ctx, request, options...)
 	}
 
@@ -158,7 +158,8 @@ type GetUserListOldRespItemStatus struct {
 
 // getUserListOldResp ...
 type getUserListOldResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserListOldResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetUserListOldResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/delete
 func (r *ContactService) DeleteContactFunctionalRole(ctx context.Context, request *DeleteContactFunctionalRoleReq, options ...MethodOptionFunc) (*DeleteContactFunctionalRoleResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactFunctionalRole != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactFunctionalRole mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactFunctionalRole mock enable")
 		return r.cli.mock.mockContactDeleteContactFunctionalRole(ctx, request, options...)
 	}
 
@@ -67,7 +67,8 @@ type DeleteContactFunctionalRoleResp struct {
 
 // deleteContactFunctionalRoleResp ...
 type deleteContactFunctionalRoleResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteContactFunctionalRoleResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteContactFunctionalRoleResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

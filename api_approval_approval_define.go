@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/create
 func (r *ApprovalService) CreateApproval(ctx context.Context, request *CreateApprovalReq, options ...MethodOptionFunc) (*CreateApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#CreateApproval mock enable")
 		return r.cli.mock.mockApprovalCreateApproval(ctx, request, options...)
 	}
 
@@ -65,14 +65,14 @@ type CreateApprovalReq struct {
 	ApprovalName      string                           `json:"approval_name,omitempty"`       // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
 	ApprovalCode      *string                          `json:"approval_code,omitempty"`       // 审批定义 Code。不传值表示新建；传入指定 Code 表示覆盖原定义内容进行全量更新, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 	Description       *string                          `json:"description,omitempty"`         // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
-	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 viewer_type 为 USER, 需要填写viewer_user_id；, 2. 当 viewer_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 viewer_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
+	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批（列表最大支持长度200）, 1. 当 viewer_type 为 USER, 需要填写viewer_user_id；, 2. 当 viewer_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 viewer_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
 	Form              *CreateApprovalReqForm           `json:"form,omitempty"`                // 审批定义表单
 	NodeList          []*CreateApprovalReqNode         `json:"node_list,omitempty"`           // 审批定义节点, 需要将开始节点作为 list 第一个元素, 结束节点作为最后一个元素
 	Settings          *CreateApprovalReqSettings       `json:"settings,omitempty"`            // 审批定义其他设置
 	Config            *CreateApprovalReqConfig         `json:"config,omitempty"`              // 审批定义配置项, 用于配置对应审批定义是否可以由用户在审批后台进行修改
 	Icon              *int64                           `json:"icon,omitempty"`                // 审批图标枚举, 详见下方说明, 默认为 0, 示例值: 0, 默认值: `0`
 	I18nResources     []*CreateApprovalReqI18nResource `json:"i18n_resources,omitempty"`      // 国际化文案
-	ProcessManagerIDs []string                         `json:"process_manager_ids,omitempty"` // 根据user_id_type填写流程管理员的用户id, 示例值: ["1c5ea995"]
+	ProcessManagerIDs []string                         `json:"process_manager_ids,omitempty"` // 根据user_id_type填写流程管理员的用户id（列表最大支持长度200）, 示例值: ["1c5ea995"]
 }
 
 // CreateApprovalReqConfig ...
@@ -117,7 +117,7 @@ type CreateApprovalReqNode struct {
 
 // CreateApprovalReqNodeApprover ...
 type CreateApprovalReqNodeApprover struct {
-	Type   string  `json:"type,omitempty"`    // 审批/抄送人类型, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 approver 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
+	Type   string  `json:"type,omitempty"`    // 审批/抄送人类型, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 type 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
 	UserID *string `json:"user_id,omitempty"` // 用户id, 根据user_id_type填写, 示例值: "f7cb567e"
 	Level  *string `json:"level,omitempty"`   // 审批级数, 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3, 示例值: "3"
 }
@@ -164,7 +164,8 @@ type CreateApprovalResp struct {
 
 // createApprovalResp ...
 type createApprovalResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateApprovalResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

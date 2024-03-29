@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/create
 func (r *TaskService) CreateTaskCollaborator(ctx context.Context, request *CreateTaskCollaboratorReq, options ...MethodOptionFunc) (*CreateTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskCollaborator != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskCollaborator mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskCollaborator mock enable")
 		return r.cli.mock.mockTaskCreateTaskCollaborator(ctx, request, options...)
 	}
 
@@ -80,7 +80,8 @@ type CreateTaskCollaboratorRespCollaborator struct {
 
 // createTaskCollaboratorResp ...
 type createTaskCollaboratorResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateTaskCollaboratorResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateTaskCollaboratorResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

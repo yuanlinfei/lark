@@ -27,9 +27,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN
 // new doc: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/code2session
+//
+// Deprecated
 func (r *MinaService) MinaCodeToSession(ctx context.Context, request *MinaCodeToSessionReq, options ...MethodOptionFunc) (*MinaCodeToSessionResp, *Response, error) {
 	if r.cli.mock.mockMinaMinaCodeToSession != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mina#MinaCodeToSession mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mina#MinaCodeToSession mock enable")
 		return r.cli.mock.mockMinaMinaCodeToSession(ctx, request, options...)
 	}
 
@@ -76,7 +78,8 @@ type MinaCodeToSessionResp struct {
 
 // minaCodeToSessionResp ...
 type minaCodeToSessionResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *MinaCodeToSessionResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *MinaCodeToSessionResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

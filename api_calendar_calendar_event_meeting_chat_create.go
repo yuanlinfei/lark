@@ -30,7 +30,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-meeting_chat/create
 func (r *CalendarService) CreateCalendarEventMeetingChat(ctx context.Context, request *CreateCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*CreateCalendarEventMeetingChatResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEventMeetingChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventMeetingChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventMeetingChat mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEventMeetingChat(ctx, request, options...)
 	}
 
@@ -74,7 +74,8 @@ type CreateCalendarEventMeetingChatResp struct {
 
 // createCalendarEventMeetingChatResp ...
 type createCalendarEventMeetingChatResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCalendarEventMeetingChatResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCalendarEventMeetingChatResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/unsubscribe
 func (r *CalendarService) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarUnsubscribeCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UnsubscribeCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#UnsubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarUnsubscribeCalendar(ctx, request, options...)
 	}
 
@@ -72,7 +72,8 @@ type UnsubscribeCalendarResp struct {
 
 // unsubscribeCalendarResp ...
 type unsubscribeCalendarResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UnsubscribeCalendarResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UnsubscribeCalendarResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/update
 func (r *OKRService) UpdateOKRProgressRecord(ctx context.Context, request *UpdateOKRProgressRecordReq, options ...MethodOptionFunc) (*UpdateOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRUpdateOKRProgressRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#UpdateOKRProgressRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#UpdateOKRProgressRecord mock enable")
 		return r.cli.mock.mockOKRUpdateOKRProgressRecord(ctx, request, options...)
 	}
 
@@ -269,7 +269,8 @@ type UpdateOKRProgressRecordRespContentBlockParagraphStyleList struct {
 
 // updateOKRProgressRecordResp ...
 type updateOKRProgressRecordResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateOKRProgressRecordResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateOKRProgressRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

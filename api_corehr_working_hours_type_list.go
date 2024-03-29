@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/list
 func (r *CoreHRService) GetCoreHRWorkingHoursTypeList(ctx context.Context, request *GetCoreHRWorkingHoursTypeListReq, options ...MethodOptionFunc) (*GetCoreHRWorkingHoursTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRWorkingHoursTypeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRWorkingHoursTypeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRWorkingHoursTypeList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRWorkingHoursTypeList(ctx, request, options...)
 	}
 
@@ -94,7 +94,8 @@ type GetCoreHRWorkingHoursTypeListRespItemName struct {
 
 // getCoreHRWorkingHoursTypeListResp ...
 type getCoreHRWorkingHoursTypeListResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRWorkingHoursTypeListResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRWorkingHoursTypeListResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/image/get
 func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] File#DownloadImage mock enable")
 		return r.cli.mock.mockFileDownloadImage(ctx, request, options...)
 	}
 
@@ -69,9 +69,10 @@ type DownloadImageReq struct {
 
 // downloadImageResp ...
 type downloadImageResp struct {
-	Code int64              `json:"code,omitempty"`
-	Msg  string             `json:"msg,omitempty"`
-	Data *DownloadImageResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"`
+	Msg   string             `json:"msg,omitempty"`
+	Data  *DownloadImageResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }
 
 func (r *downloadImageResp) SetReader(file io.Reader) {

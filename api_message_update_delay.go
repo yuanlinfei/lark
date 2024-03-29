@@ -40,7 +40,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delay-update-message-card
 func (r *MessageService) UpdateMessageDelay(ctx context.Context, request *UpdateMessageDelayReq, options ...MethodOptionFunc) (*UpdateMessageDelayResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessageDelay != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageDelay mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageDelay mock enable")
 		return r.cli.mock.mockMessageUpdateMessageDelay(ctx, request, options...)
 	}
 
@@ -100,7 +100,8 @@ type UpdateMessageDelayResp struct {
 
 // updateMessageDelayResp ...
 type updateMessageDelayResp struct {
-	Code int64                   `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 返回码描述
-	Data *UpdateMessageDelayResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 返回码描述
+	Data  *UpdateMessageDelayResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }
