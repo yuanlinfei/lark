@@ -341,10 +341,16 @@ type MessageContentCardElementDatePicker struct {
 	Placeholder     *MessageContentCardObjectText    `json:"placeholder,omitempty"`      // 占位符，无初始值时必填
 	Value           interface{}                      `json:"value,omitempty"`            // 用户选定后返回业务方的数据
 	Confirm         *MessageContentCardObjectConfirm `json:"confirm,omitempty"`          // 二次确认的弹框
+	Name            string                           `json:"name,omitempty"`             // 表单组件里的名称
 }
 
 // IsMessageContentCardElement ...
 func (r MessageContentCardElementDatePicker) IsMessageContentCardElement() {}
+
+func (r *MessageContentCardElementDatePicker) SetName(val string) *MessageContentCardElementDatePicker {
+	r.Name = val
+	return r
+}
 
 func (r *MessageContentCardElementDatePicker) SetInitialDate(val string) *MessageContentCardElementDatePicker {
 	r.InitialDate = val
