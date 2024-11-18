@@ -342,6 +342,8 @@ type MessageContentCardElementDatePicker struct {
 	Value           interface{}                      `json:"value,omitempty"`            // 用户选定后返回业务方的数据
 	Confirm         *MessageContentCardObjectConfirm `json:"confirm,omitempty"`          // 二次确认的弹框
 	Name            string                           `json:"name,omitempty"`             // 表单组件里的名称
+	Required        bool                             `json:"required,omitempty"`         // 是否必填
+
 }
 
 // IsMessageContentCardElement ...
@@ -349,6 +351,11 @@ func (r MessageContentCardElementDatePicker) IsMessageContentCardElement() {}
 
 func (r *MessageContentCardElementDatePicker) SetName(val string) *MessageContentCardElementDatePicker {
 	r.Name = val
+	return r
+}
+
+func (r *MessageContentCardElementDatePicker) SetRequired(val bool) *MessageContentCardElementDatePicker {
+	r.Required = val
 	return r
 }
 
@@ -470,10 +477,16 @@ type MessageContentCardElementSelectMenu struct {
 	Options       []*MessageContentCardObjectOption `json:"options,omitempty"`        // 待选选项
 	Value         map[string]interface{}            `json:"value,omitempty"`          // 用户选定后返回业务方的数据
 	Confirm       *MessageContentCardObjectConfirm  `json:"confirm,omitempty"`        // 二次确认的弹框
+	Required      bool                              `json:"required,omitempty"`       // 是否必填
 }
 
 // IsMessageContentCardElement ...
 func (r MessageContentCardElementSelectMenu) IsMessageContentCardElement() {}
+
+func (r *MessageContentCardElementSelectMenu) SetRequired(val bool) *MessageContentCardElementSelectMenu {
+	r.Required = val
+	return r
+}
 
 func (r *MessageContentCardElementSelectMenu) SetName(val string) *MessageContentCardElementSelectMenu {
 	r.Name = val
@@ -993,6 +1006,7 @@ type MessageContentCardObjectInput struct {
 	LabelPosition string                           `json:"label_position,omitempty"` // 默认为top。枚举值仅有 top | left，填充其他值则报错。 指定文本标签展示在输入框的哪个相对位置上。在移动端等窄屏幕场景下，文本标签将自适应固定展示在输入框上方。
 	Value         map[string]interface{}           `json:"value,omitempty"`          // 开发者可在交互事件中自定义的回传数据。支持回传纯字符或一个对象。
 	Confirm       *MessageContentCardObjectConfirm `json:"confirm,omitempty"`        // 指在提交前是否弹出二次确认弹窗提示。只有用户点击确认后，才提交输入的内容。属性配置同 confirm 元素。 注意：input  组件嵌入在 form 容器中时，不生效单一组件绑定的 confirm元素。仅在用户点击包含提交属性的按钮时触发二次确认弹窗。
+	Required      bool                             `json:"required,omitempty"`       // 是否必填
 }
 
 // IsMessageContentCardElement ...
@@ -1002,6 +1016,11 @@ func (r MessageContentCardObjectInput) IsMessageContentCardElement() {}
 
 func (r MessageContentCardObjectInput) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": "input"})
+}
+
+func (r *MessageContentCardObjectInput) SetRequired(val bool) *MessageContentCardObjectInput {
+	r.Required = val
+	return r
 }
 
 func (r *MessageContentCardObjectInput) SetName(val string) *MessageContentCardObjectInput {
